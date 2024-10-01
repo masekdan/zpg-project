@@ -19,7 +19,6 @@
 #include "VBO.h"
 #include "VAO.h"
 
-
 static void error_callback(int error, const char *description) { fputs(description, stderr); }
 
 static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
@@ -126,7 +125,7 @@ int main(void)
 	float ratio = width / (float)height;
 	glViewport(0, 0, width, height);
 
-	Shader shaderProgram("/data/School/semester_5/zpg/zpg-project/src/shaders/default.vert","/data/School/semester_5/zpg/zpg-project/src/shaders/default.frag");
+	Shader shaderProgram("../src/shaders/default.vert", "../src/shaders/default.frag");
 
 	VAO VAO1;
 	VAO1.Bind();
@@ -141,11 +140,9 @@ int main(void)
 	{
 		// clear color and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		//glUseProgram(shaderProgram);
 		shaderProgram.Activate();
-		//glBindVertexArray(VAO);
 		VAO1.Bind();
-		// draw triangles
+		//  draw triangles
 		glDrawArrays(GL_TRIANGLES, 0, 3); // mode,first,count
 		// update other events like input handling
 		glfwPollEvents();
@@ -156,4 +153,3 @@ int main(void)
 	glfwTerminate();
 	exit(EXIT_SUCCESS);
 }
-
