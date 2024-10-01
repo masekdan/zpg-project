@@ -36,7 +36,7 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile)
     glAttachShader(ID, vertexShader);
     glLinkProgram(ID);
 
-    /*GLint status;
+    GLint status;
     glGetProgramiv(ID, GL_LINK_STATUS, &status);
     if (status == GL_FALSE)
     {
@@ -46,7 +46,8 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile)
         glGetProgramInfoLog(ID, info, NULL, strInfoLog);
         fprintf(stderr, " Linker ␣ failure : ␣ % s \ n ", strInfoLog);
         delete[] strInfoLog;
-    }*/
+        exit(-2);
+    }
 }
 
 void Shader::Activate()
