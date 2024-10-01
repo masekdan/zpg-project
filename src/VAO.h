@@ -7,8 +7,10 @@
 class VAO
 {
 
-    public:
+    private:
         GLuint ID;
+    public:
+        
         VAO();
 
         void LinkVBO(VBO* VBO, GLuint layout);

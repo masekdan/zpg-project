@@ -13,18 +13,19 @@
 // Include the standard C++ headers
 #include <stdlib.h>
 #include <stdio.h>
+#include <vector>
 
 #include "Shader.h"
 #include "VBO.h"
 #include "VAO.h"
+#include "Model.h"
 
 class Application
 {
 private:
     GLFWwindow *window;
-    Shader *shaderProgram;
-    VBO* VBO1;
-    VAO* VAO1;
+    Shader* shaderProgram;
+    std::vector<Model*> models;
 public:
     Application();
     void initialization();

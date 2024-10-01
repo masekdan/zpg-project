@@ -43,6 +43,12 @@ float points[] = {
 	-0.5f, -0.5f, 0.0f,
 	-0.5f, 0.5f, 0.0f};
 
+float points2[] = {
+	0.7f, 0.8f, 0.0f,
+	0.7f, 0.11f, 0.0f,
+	0.10f, 0.8f, 0.0f,
+	0.10f, 0.11f, 0.0f};
+
 void Application::initialization()
 {
     window = glfwCreateWindow(800, 600, "ZPG", NULL, NULL);
@@ -82,14 +88,8 @@ void Application::createShaders()
 
 void Application::createModels()
 {
-    VAO1 = new VAO();
-	VAO1->Bind();
-
-	VBO1 = new VBO(points, sizeof(points));
-
-	VAO1->LinkVBO(VBO1, 0);
-	VAO1->Unbind();
-	VBO1->Unbind();
+    models.push_back(new Model(points,sizeof(points),shaderProgram));
+    models.push_back(new Model(points2,sizeof(points2),shaderProgram));
 }
 
 void Application::run()
@@ -98,11 +98,9 @@ void Application::run()
 	{
 		// clear color and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		shaderProgram->Activate();
-		VAO1->Bind();
-		//  draw triangles
-		glDrawArrays(GL_POLYGON, 0, 4); // mode,first,count
-		// update other events like input handling
+        shaderProgram->Activate();
+		models[0]->drawModel();
+        models[1]->drawModel();
 		glfwPollEvents();
 		// put the stuff we’ve been drawing onto the display
 		glfwSwapBuffers(window);

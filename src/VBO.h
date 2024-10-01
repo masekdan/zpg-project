@@ -5,8 +5,10 @@
 
 class VBO
 {
-    public:
+    private:
         GLuint ID;
+    public:
+        
         VBO(GLfloat* verticies, GLsizeiptr size);
 
         void Bind();
