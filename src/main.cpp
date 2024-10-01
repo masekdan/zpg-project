@@ -15,6 +15,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+#include "Shader.h"
+#include "VBO.h"
+#include "VAO.h"
+
 
 static void error_callback(int error, const char *description) { fputs(description, stderr); }
 
@@ -122,38 +126,25 @@ int main(void)
 	float ratio = width / (float)height;
 	glViewport(0, 0, width, height);
 
-	// vertex buffer object (VBO)
-	GLuint VBO = 0;
-	glGenBuffers(1, &VBO); // generate the VBO
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(points), points, GL_STATIC_DRAW);
+	Shader shaderProgram("/data/School/semester_5/zpg/zpg-project/src/shaders/default.vert","/data/School/semester_5/zpg/zpg-project/src/shaders/default.frag");
 
-	// Vertex Array Object (VAO)
-	GLuint VAO = 0;
-	glGenVertexArrays(1, &VAO);	  // generate the VAO
-	glBindVertexArray(VAO);		  // bind the VAO
-	glEnableVertexAttribArray(0); // enable vertex attributes
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	VAO VAO1;
+	VAO1.Bind();
 
-	// create and compile shaders
-	GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-	glShaderSource(vertexShader, 1, &vertex_shader, NULL);
-	glCompileShader(vertexShader);
-	GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fragmentShader, 1, &fragment_shader, NULL);
-	glCompileShader(fragmentShader);
-	GLuint shaderProgram = glCreateProgram();
-	glAttachShader(shaderProgram, fragmentShader);
-	glAttachShader(shaderProgram, vertexShader);
-	glLinkProgram(shaderProgram);
+	VBO VBO1(points,sizeof(points));
+
+	VAO1.LinkVBO(VBO1,0);
+	VAO1.Unbind();
+	VBO1.Unbind();
 
 	while (!glfwWindowShouldClose(window))
 	{
 		// clear color and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glUseProgram(shaderProgram);
-		glBindVertexArray(VAO);
+		//glUseProgram(shaderProgram);
+		shaderProgram.Activate();
+		//glBindVertexArray(VAO);
+		VAO1.Bind();
 		// draw triangles
 		glDrawArrays(GL_TRIANGLES, 0, 3); // mode,first,count
 		// update other events like input handling
