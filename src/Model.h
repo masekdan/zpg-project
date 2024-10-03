@@ -9,8 +9,8 @@ class Model
 {
 private:
     Shader *shader;
-    VBO *buffer;
-    VAO *array;
+    VBO *vertexBuffer;
+    VAO *vertexArray;
 public:
     Model(GLfloat* verticies, GLsizeiptr size, Shader* shader);
     void drawModel();

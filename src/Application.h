@@ -24,7 +24,7 @@ class Application
 {
 private:
     GLFWwindow *window;
-    Shader* shaderProgram;
+    std::vector<Shader*> shaders; 
     std::vector<Model*> models;
 public:
     Application();

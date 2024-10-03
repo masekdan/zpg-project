@@ -44,10 +44,10 @@ float points[] = {
 	-0.5f, 0.5f, 0.0f};
 
 float points2[] = {
-	0.7f, 0.8f, 0.0f,
-	0.7f, 0.11f, 0.0f,
+	0.10f, -0.11f, 0.0f,
 	0.10f, 0.8f, 0.0f,
-	0.10f, 0.11f, 0.0f};
+	0.7f, -0.11f, 0.0f,
+	0.7f, 0.8f, 0.0f};
 
 void Application::initialization()
 {
@@ -83,13 +83,14 @@ void Application::initialization()
 
 void Application::createShaders()
 {
-    shaderProgram = new Shader("../src/shaders/default.vert", "../src/shaders/default.frag");
+    shaders.push_back(new Shader("../src/shaders/default.vert", "../src/shaders/default.frag"));
+	shaders.push_back(new Shader("../src/shaders/square.vert", "../src/shaders/square.frag"));
 }
 
 void Application::createModels()
 {
-    models.push_back(new Model(points,sizeof(points),shaderProgram));
-    models.push_back(new Model(points2,sizeof(points2),shaderProgram));
+    models.push_back(new Model(points,sizeof(points),shaders[0]));
+    models.push_back(new Model(points2,sizeof(points2),shaders[1]));
 }
 
 void Application::run()
@@ -98,7 +99,6 @@ void Application::run()
 	{
 		// clear color and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        shaderProgram->Activate();
 		models[0]->drawModel();
         models[1]->drawModel();
 		glfwPollEvents();

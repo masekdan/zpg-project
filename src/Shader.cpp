@@ -42,8 +42,8 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile)
     {
         GLint info;
         glGetProgramiv(ID, GL_INFO_LOG_LENGTH, &info);
-        GLchar *strInfoLog = new GLchar[1024];
-        glGetProgramInfoLog(ID, info, NULL, strInfoLog);
+        GLchar *strInfoLog = new GLchar[info];
+        glGetProgramInfoLog(ID, info, &info, strInfoLog);
         fprintf(stderr, " Linker ␣ failure : ␣ % s \ n ", strInfoLog);
         delete[] strInfoLog;
         exit(-2);
