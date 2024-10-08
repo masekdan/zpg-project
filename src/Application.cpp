@@ -38,20 +38,19 @@ Application::Application()
 }
 
 float points[] = {
-	0.5f, 0.5f, 0.0f,
+	-0.5f, 0.5f, 0.0f,
 	0.5f, -0.5f, 0.0f,
-	-0.5f, -0.5f, 0.0f,
-	-0.5f, 0.5f, 0.0f};
+	-0.5f, -0.5f, 0.0f};
 
 float points2[] = {
-	0.10f, -0.11f, 0.0f,
-	0.10f, 0.8f, 0.0f,
-	0.7f, -0.11f, 0.0f,
-	0.7f, 0.8f, 0.0f};
+	0.9f, 0.9f, 0.0f,
+	0.9f, 0.7f, 0.0f,
+	0.7f, 0.7f, 0.0f,
+	0.7f, 0.9f, 0.0f};
 
 void Application::initialization()
 {
-    window = glfwCreateWindow(800, 600, "ZPG", NULL, NULL);
+    window = glfwCreateWindow(800, 600, "ZPG 2: Electric boogaloo", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
