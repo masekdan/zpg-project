@@ -11,8 +11,9 @@ private:
     Shader *shader;
     VBO *vertexBuffer;
     VAO *vertexArray;
+    GLsizeiptr size;
 public:
-    Model(GLfloat* verticies, GLsizeiptr size, Shader* shader);
+    Model(const GLfloat* verticies, GLsizeiptr size, Shader* shader);
     void drawModel();
 };
 

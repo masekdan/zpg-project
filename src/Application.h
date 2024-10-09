@@ -19,6 +19,8 @@
 #include "VBO.h"
 #include "VAO.h"
 #include "Model.h"
+#include "models/gift.h"
+#include "models/suzi_flat.h"
 
 class Application
 {

@@ -13,7 +13,7 @@ class VAO
         
         VAO();
 
-        void LinkVBO(VBO* VBO, GLuint layout);
+        void LinkVBO(VBO* VBO);
         void Bind();
         void Unbind();
         void Delete();

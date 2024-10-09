@@ -1,6 +1,6 @@
 #include "VBO.h"
 
-VBO::VBO(GLfloat* verticies, GLsizeiptr size)
+VBO::VBO(const GLfloat* verticies, GLsizeiptr size)
 {
     glGenBuffers(1, &ID); // generate the VBO
 	glBindBuffer(GL_ARRAY_BUFFER, ID);
