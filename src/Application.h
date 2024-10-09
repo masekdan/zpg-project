@@ -21,6 +21,7 @@
 #include "Model.h"
 #include "models/gift.h"
 #include "models/suzi_flat.h"
+#include "models/tree.h"
 
 class Application
 {

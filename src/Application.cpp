@@ -84,13 +84,14 @@ void Application::createShaders()
 {
 	shaders.push_back(new Shader("../src/shaders/default.vert", "../src/shaders/default.frag"));
 	shaders.push_back(new Shader("../src/shaders/square.vert", "../src/shaders/square.frag"));
+	shaders.push_back(new Shader("../src/shaders/tree.vert","../src/shaders/tree.frag"));
 }
 
 void Application::createModels()
 {
 	models.push_back(new Model(points, sizeof(points), shaders[0]));
 	models.push_back(new Model(points2, sizeof(points2), shaders[1]));
-	models.push_back(new Model(gift, sizeof(gift), shaders[0]));
+	models.push_back(new Model(tree, sizeof(tree), shaders[2]));
 }
 
 void Application::run()
