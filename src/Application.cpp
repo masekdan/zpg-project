@@ -38,15 +38,21 @@ Application::Application()
 }
 
 float points[] = {
-	-0.5f, 0.5f, 0.0f, 0, 0, 0,
-	0.5f, -0.5f, 0.0f, 0, 0, 0,
-	-0.5f, -0.5f, 0.0f, 0, 0, 0};
+	-0.5f, 0.5f, 0.0f, 1, 0, 0,
+	0.5f, -0.5f, 0.0f, 0, 1, 0,
+	-0.5f, -0.5f, 0.0f, 0, 0, 1};
 
 const float points2[] = {
-	0.9f, 0.9f, 0.0f, 0, 0, 0,
-	0.9f, 0.7f, 0.0f, 0, 0, 0,
-	0.7f, 0.7f, 0.0f, 0, 0, 0,
-	0.7f, 0.9f, 0.0f, 0, 0, 0};
+	0.9f, 0.9f, 0.0f, 0.58f, 0.12f, 0,
+	0.9f, 0.7f, 0.0f, 0, 0, 1,
+	0.7f, 0.7f, 0.0f, 0, 0, 1,
+	0.7f, 0.9f, 0.0f, 0, 0, 1};
+
+const float a[] = {
+     -.5f, -.5f, .5f,  1.0f, 0, 1.0f,
+     -.5f, .5f, .5f,  1.0f, 0, 1,
+       .5f, .5f, .5f,  0, 1.0f, 0,
+       .5f, -.5f, .5f,  0, 0, 1.0f };
 
 void Application::initialization()
 {
@@ -89,9 +95,9 @@ void Application::createShaders()
 
 void Application::createModels()
 {
-	models.push_back(new Model(points, sizeof(points), shaders[0]));
-	models.push_back(new Model(points2, sizeof(points2), shaders[1]));
-	models.push_back(new Model(tree, sizeof(tree), shaders[2]));
+	models.push_back(new Model(points, sizeof(points), shaders[2]));
+	models.push_back(new Model(points2, sizeof(points2), shaders[2]));
+	models.push_back(new Model(suziFlat, sizeof(suziFlat), shaders[2]));
 }
 
 void Application::run()
@@ -101,9 +107,9 @@ void Application::run()
 	{
 		// clear color and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		// models[0]->drawModel();
-		// models[1]->drawModel();
 		models[2]->drawModel();
+		// models[1]->drawModel();
+		//models[2]->drawModel();
 		glfwPollEvents();
 		// put the stuff we’ve been drawing onto the display
 		glfwSwapBuffers(window);
