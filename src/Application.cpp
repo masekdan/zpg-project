@@ -56,7 +56,7 @@ const float a[] = {
 
 void Application::initialization()
 {
-	window = glfwCreateWindow(800, 600, "ZPG 2: Electric boogaloo", NULL, NULL);
+	window = glfwCreateWindow(800, 600, "KCD 3: pre-alpha", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -97,17 +97,29 @@ void Application::createModels()
 {
 	models.push_back(new Model(points, sizeof(points), shaders[2]));
 	models.push_back(new Model(points2, sizeof(points2), shaders[2]));
-	models.push_back(new Model(suziSmooth, sizeof(suziSmooth), shaders[2]));
+	models.push_back(new Model(tree, sizeof(tree), shaders[2]));
 }
 
 void Application::run()
 {
+	float rotation = 0.0f;
+	double prevTime = glfwGetTime();
+
+
 	glEnable(GL_DEPTH_TEST);
 	while (!glfwWindowShouldClose(window))
 	{
 		// clear color and depth buffer
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		models[2]->drawModel();
+
+		double crntTime = glfwGetTime();
+		if (crntTime - prevTime >= 1/60)
+		{
+			rotation += 0.5f;
+			prevTime = crntTime;
+		}
+
+		models[2]->drawModel(rotation);
 		// models[1]->drawModel();
 		//models[2]->drawModel();
 		glfwPollEvents();

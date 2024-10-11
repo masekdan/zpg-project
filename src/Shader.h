@@ -21,6 +21,7 @@ public:
 
     void Activate();
     void Delete();
+    int GetLocation(char * name);
     
 };
 

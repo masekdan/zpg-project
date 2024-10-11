@@ -50,6 +50,11 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile)
     }
 }
 
+int Shader::GetLocation(char * name)
+{
+    return glGetUniformLocation(this->ID,name);
+}
+
 void Shader::Activate()
 {
     glUseProgram(ID);
