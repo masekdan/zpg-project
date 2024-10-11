@@ -19,5 +19,5 @@ void Model::drawModel()
 {
     this->shader->Activate();
     vertexArray->Bind();
-    glDrawArrays(GL_POLYGON, 0, this->size/2);
+    glDrawArrays(GL_TRIANGLES, 0, this->size / 6);
 }
