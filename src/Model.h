@@ -4,6 +4,7 @@
 #include "Shader.h"
 #include "VAO.h"
 #include "VBO.h"
+#include "Transformation.h"
 
 #include <glm/vec3.hpp>					// glm::vec3
 #include <glm/vec4.hpp>					// glm::vec4
@@ -17,6 +18,7 @@ private:
     Shader *shader;
     VBO *vertexBuffer;
     VAO *vertexArray;
+    Transformation *trans;
     GLsizeiptr size;
 public:
     Model(const GLfloat* verticies, GLsizeiptr size, Shader* shader);

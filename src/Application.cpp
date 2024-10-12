@@ -97,7 +97,7 @@ void Application::createModels()
 {
 	models.push_back(new Model(points, sizeof(points), shaders[2]));
 	models.push_back(new Model(points2, sizeof(points2), shaders[2]));
-	models.push_back(new Model(tree, sizeof(tree), shaders[2]));
+	models.push_back(new Model(suziSmooth, sizeof(suziSmooth), shaders[2]));
 }
 
 void Application::run()

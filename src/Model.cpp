@@ -19,11 +19,16 @@ void Model::drawModel(float angle)
 {
     this->shader->Activate();
 
-	glm::mat4 model = glm::mat4(1.0f);
 
-	model = glm::rotate(model,glm::radians(angle),glm::vec3(0.0f,1.0f,0.0f));
-	model = glm::translate(model,glm::vec3(0.0f,-0.8f,0.0f));
-	model = glm::scale(model,glm::vec3(0.20f));
+	trans = new Transformation();
+
+	trans->rotate(angle);
+
+	glm::mat4 model = trans->getModelMatrix();
+
+	//model = glm::rotate(model,glm::radians(angle),glm::vec3(0.0f,1.0f,0.0f));
+	//model = glm::translate(model,glm::vec3(0.0f,-0.8f,0.0f));
+	//model = glm::scale(model,glm::vec3(0.50f));
 
 	int modelLoc = this->shader->GetLocation("model");
 	glUniformMatrix4fv(modelLoc,1,GL_FALSE,glm::value_ptr(model));
