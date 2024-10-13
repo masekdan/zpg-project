@@ -95,9 +95,8 @@ void Application::createShaders()
 
 void Application::createModels()
 {
-	models.push_back(new Model(points, sizeof(points), shaders[2]));
-	models.push_back(new Model(points2, sizeof(points2), shaders[2]));
-	models.push_back(new Model(suziSmooth, sizeof(suziSmooth), shaders[2]));
+	drawableObjects.push_back(new DrawableObject(new Model(tree,sizeof(tree)),shaders[2],new Transformation(glm::vec3(0.5f,-0.5f,0.5f),glm::vec3(0.0f,0.5f,0.0f),0.5f)));
+	drawableObjects.push_back(new DrawableObject(new Model(tree,sizeof(tree)),shaders[2],new Transformation(glm::vec3(-0.5f,-0.5f,0.5f),glm::vec3(0.0f,0.5f,0.0f),0.2f)));
 }
 
 void Application::run()
@@ -119,7 +118,8 @@ void Application::run()
 			prevTime = crntTime;
 		}
 
-		models[2]->drawModel(rotation);
+		drawableObjects[0]->draw();
+		drawableObjects[1]->draw();
 		// models[1]->drawModel();
 		//models[2]->drawModel();
 		glfwPollEvents();

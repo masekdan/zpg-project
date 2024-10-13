@@ -19,6 +19,7 @@
 #include "VBO.h"
 #include "VAO.h"
 #include "Model.h"
+#include "DrawableObject.h"
 #include "models/gift.h"
 #include "models/suzi_flat.h"
 #include "models/tree.h"
@@ -30,7 +31,7 @@ class Application
 private:
     GLFWwindow *window;
     std::vector<Shader*> shaders; 
-    std::vector<Model*> models;
+    std::vector<DrawableObject*> drawableObjects;
 public:
     Application();
     void initialization();

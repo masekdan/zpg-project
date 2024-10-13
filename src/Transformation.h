@@ -11,12 +11,11 @@
 class Transformation
 {
 private:
-    glm::mat4 model;
+    glm::vec3 position;
+    glm::vec3 rotation;
+    float scale;
 public:
-    Transformation();
-    void rotate(float angle);
-    void scale(float scale);
-    void translate(float direction);
+    Transformation(glm::vec3 pos, glm::vec3 rot, float sc);
     glm::mat4 getModelMatrix();
 };
 

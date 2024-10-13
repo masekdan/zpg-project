@@ -1,9 +1,10 @@
-#ifndef MODEL_CLASS_H
-#define MODEL_CLASS_H
+#ifndef DRAWABLE_OBJECT_CLASS_H
+#define DRAWABLE_OBJECT_CLASS_H
 
 #include "Shader.h"
 #include "VAO.h"
 #include "VBO.h"
+#include "Model.h"
 #include "Transformation.h"
 
 #include <glm/vec3.hpp>					// glm::vec3
@@ -12,17 +13,16 @@
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp>	
 
-class Model
+class DrawableObject
 {
 private:
-    VBO *vertexBuffer;
-    VAO *vertexArray;
-    GLsizeiptr size;
+    Shader* shader;
+    Transformation* transformation;
+    Model* model;
 public:
-    Model(const GLfloat* verticies, GLsizeiptr size);
-    void drawModel();
+    DrawableObject(Model* model, Shader* shader, Transformation* transformation);
+    void draw();
 };
-
 
 
 #endif

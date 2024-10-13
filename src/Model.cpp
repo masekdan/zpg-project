@@ -1,6 +1,6 @@
 #include "Model.h"
 
-Model::Model(const GLfloat* verticies, GLsizeiptr size, Shader* shader)
+Model::Model(const GLfloat* verticies, GLsizeiptr size)
 {
 
     vertexArray = new VAO();
@@ -12,29 +12,10 @@ Model::Model(const GLfloat* verticies, GLsizeiptr size, Shader* shader)
 	vertexArray->Unbind();
 	vertexArray->Unbind();
 
-	this->shader = shader;
 }
 
-void Model::drawModel(float angle)
+void Model::drawModel()
 {
-    this->shader->Activate();
-
-
-	trans = new Transformation();
-
-	trans->rotate(angle);
-	trans->scale(0.5f);
-
-	glm::mat4 model = trans->getModelMatrix();
-
-	//model = glm::rotate(model,glm::radians(angle),glm::vec3(0.0f,1.0f,0.0f));
-	//model = glm::translate(model,glm::vec3(0.0f,-0.8f,0.0f));
-	//model = glm::scale(model,glm::vec3(0.50f));
-
-	int modelLoc = this->shader->GetLocation("model");
-	glUniformMatrix4fv(modelLoc,1,GL_FALSE,glm::value_ptr(model));
-
-
     vertexArray->Bind();
     glDrawArrays(GL_TRIANGLES, 0, this->size / 6);
 }
