@@ -20,6 +20,7 @@
 #include "VAO.h"
 #include "Model.h"
 #include "DrawableObject.h"
+#include "Scene.h"
 #include "models/gift.h"
 #include "models/suzi_flat.h"
 #include "models/tree.h"
@@ -32,6 +33,8 @@ private:
     GLFWwindow *window;
     std::vector<Shader*> shaders; 
     std::vector<DrawableObject*> drawableObjects;
+    Scene *scene1;
+    Scene *scene2;
 public:
     Application();
     void initialization();

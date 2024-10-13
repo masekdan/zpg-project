@@ -95,8 +95,15 @@ void Application::createShaders()
 
 void Application::createModels()
 {
-	drawableObjects.push_back(new DrawableObject(new Model(tree,sizeof(tree)),shaders[2],new Transformation(glm::vec3(0.5f,-0.5f,0.5f),glm::vec3(0.0f,0.5f,0.0f),0.5f)));
-	drawableObjects.push_back(new DrawableObject(new Model(tree,sizeof(tree)),shaders[2],new Transformation(glm::vec3(-0.5f,-0.5f,0.5f),glm::vec3(0.0f,0.5f,0.0f),0.2f)));
+	scene1 = new Scene();
+	scene2 = new Scene();
+	Model* treeModel = new Model(tree,sizeof(tree));
+	Model* bushModel = new Model(bushes,sizeof(bushes));
+	Model* giftModel = new Model(gift,sizeof(gift));
+	Model* suziModel = new Model(suziFlat,sizeof(suziFlat));
+
+	scene2->addObject(new DrawableObject(treeModel,shaders[2],new Transformation(glm::vec3(0.5f,-0.5f,0.5f),glm::vec3(0.0f,0.5f,0.0f),0.5f)));
+	scene2->addObject(new DrawableObject(bushModel,shaders[2],new Transformation(glm::vec3(-0.5f,-0.5f,0.5f),glm::vec3(0.0f,0.5f,0.0f),0.2f)));
 }
 
 void Application::run()
@@ -117,13 +124,8 @@ void Application::run()
 			rotation += 0.5f;
 			prevTime = crntTime;
 		}
-
-		drawableObjects[0]->draw();
-		drawableObjects[1]->draw();
-		// models[1]->drawModel();
-		//models[2]->drawModel();
+		scene2->drawScene();
 		glfwPollEvents();
-		// put the stuff we’ve been drawing onto the display
 		glfwSwapBuffers(window);
 	}
 
