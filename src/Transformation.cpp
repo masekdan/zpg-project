@@ -13,7 +13,7 @@ void Transformation::rotate(float angle)
     
 void Transformation::scale(float scale)
 {
-
+    this->model = glm::scale(this->model,glm::vec3(scale));
 }
 void Transformation::translate(float direction)
 {

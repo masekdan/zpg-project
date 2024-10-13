@@ -23,6 +23,7 @@ void Model::drawModel(float angle)
 	trans = new Transformation();
 
 	trans->rotate(angle);
+	trans->scale(0.5f);
 
 	glm::mat4 model = trans->getModelMatrix();
 
