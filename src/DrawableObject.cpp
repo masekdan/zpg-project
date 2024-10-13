@@ -20,3 +20,8 @@ void DrawableObject::draw()
 
     this->model->drawModel();
 }
+
+DrawableObject* DrawableObjectFactory::create(Model* model, Shader* shader, Transformation* transformation)
+{
+    return new DrawableObject(model,shader,transformation);
+}

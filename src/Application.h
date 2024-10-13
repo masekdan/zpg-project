@@ -26,6 +26,7 @@
 #include "models/tree.h"
 #include "models/suzi_smooth.h"
 #include "models/bushes.h"
+#include "models/sphere.h"
 
 class Application
 {

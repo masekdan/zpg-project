@@ -1,5 +1,7 @@
 #include "Application.h"
 
+using glm::vec3;
+
 static void error_callback(int error, const char *description) { fputs(description, stderr); }
 
 static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
@@ -101,9 +103,40 @@ void Application::createModels()
 	Model* bushModel = new Model(bushes,sizeof(bushes));
 	Model* giftModel = new Model(gift,sizeof(gift));
 	Model* suziModel = new Model(suziFlat,sizeof(suziFlat));
+	Model* square = new Model(points2,sizeof(points2));
+	Model* ball = new Model(sphere,sizeof(sphere));
 
-	scene2->addObject(new DrawableObject(treeModel,shaders[2],new Transformation(glm::vec3(0.5f,-0.5f,0.5f),glm::vec3(0.0f,0.5f,0.0f),0.5f)));
-	scene2->addObject(new DrawableObject(bushModel,shaders[2],new Transformation(glm::vec3(-0.5f,-0.5f,0.5f),glm::vec3(0.0f,0.5f,0.0f),0.2f)));
+	//tranformation pos, rot, scale
+
+	DrawableObjectFactory df;
+
+	scene1->addObject(df.create(square,shaders[0],new Transformation(vec3(0.0f,0.0f,0.0f),vec3(0.0f,0.0f,0.0f),1.0f)));
+	scene1->addObject(df.create(giftModel,shaders[2],new Transformation(vec3(-0.5f,0.2f,0.0f),vec3(0.0f,0.25f,0.0f),1.0f)));
+	scene1->addObject(df.create(ball,shaders[2],new Transformation(vec3(-0.4f,-0.2f,0.5f),vec3(0.0f,0.0f,0.0f),0.2f)));
+	scene1->addObject(df.create(suziModel,shaders[2],new Transformation(vec3(0.25f,0.2f,0.2f),vec3(0.0f,2.8f,0.0f),0.3f)));
+
+	//first layer of trees
+	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.8f,-0.7f,0.5f),vec3(0.0f,0.5f,0.0f),0.2f)));
+	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.4f,-0.7f,0.5f),vec3(0.0f,2.8f,0.0f),0.26f)));
+	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.0f,-0.7f,0.5f),vec3(0.0f,3.1f,0.0f),0.24f)));
+	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.4f,-0.7f,0.5f),vec3(0.0f,0.5f,0.0f),0.3f)));
+	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.8f,-0.7f,0.5f),vec3(0.0f,0.5f,0.0f),0.18f)));
+
+	//second layer of trees
+	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.9f,-0.65f,0.8f),vec3(0.0f,0.5f,0.0f),0.16f)));
+	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.5f,-0.65f,0.8f),vec3(0.0f,1.5f,0.0f),0.22f)));
+	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.1f,-0.65f,0.8f),vec3(0.0f,2.5f,0.0f),0.2f)));
+	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.3f,-0.65f,0.8f),vec3(0.0f,3.5f,0.0f),0.26f)));
+	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.7f,-0.65f,0.8f),vec3(0.0f,4.5f,0.0f),0.14f)));
+	scene2->addObject(df.create(bushModel,shaders[2],new Transformation(vec3(-0.5f,-0.75f,0.8f),vec3(0.0f,5.5f,0.0f),0.16f)));
+
+	//bushes
+	float pos = -0.9f;
+	for (int i = 0 ; i<15;i++)
+	{
+		scene2->addObject(df.create(bushModel,shaders[2],new Transformation(vec3(pos,-0.8f,-0.5f),vec3(0.7f,pos*i,0.0f),0.2f)));
+		pos += 0.15f;
+	}
 }
 
 void Application::run()
@@ -124,6 +157,7 @@ void Application::run()
 			rotation += 0.5f;
 			prevTime = crntTime;
 		}
+		//scene1->drawScene();
 		scene2->drawScene();
 		glfwPollEvents();
 		glfwSwapBuffers(window);

@@ -24,5 +24,11 @@ public:
     void draw();
 };
 
+class DrawableObjectFactory
+{
+    public:
+        DrawableObject* create(Model* model, Shader* shader, Transformation* transformation);
+};
+
 
 #endif
