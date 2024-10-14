@@ -1,5 +1,5 @@
-#ifndef APPLICATION_SCENE_H
-#define APPLICATION_SCENE_H
+#ifndef SCENE_CLASS_H
+#define SCENE_CLASS_H
 
 #include "DrawableObject.h"
 #include <vector>
@@ -12,6 +12,7 @@ public:
     Scene();
     void addObject(DrawableObject* obj);
     void drawScene();
+    void transform();
 };
 
 #endif

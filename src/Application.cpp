@@ -110,10 +110,14 @@ void Application::createModels()
 
 	DrawableObjectFactory df;
 
-	scene1->addObject(df.create(square,shaders[0],new Transformation(vec3(0.0f,0.0f,0.0f),vec3(0.0f,0.0f,0.0f),1.0f)));
+	TransformationComposite* tc = new TransformationComposite();
+	tc->add(new Transformation(vec3(0.25f,0.2f,0.2f),vec3(0.0f,2.8f,0.0f),0.3f));
+	tc->add(new Transformation(vec3(0.0f),vec3(0.0f),0.5f));
+
+	//scene1->addObject(df.create(square,shaders[0],tc));
 	scene1->addObject(df.create(giftModel,shaders[2],new Transformation(vec3(-0.5f,0.2f,0.0f),vec3(0.0f,0.25f,0.0f),1.0f)));
 	scene1->addObject(df.create(ball,shaders[2],new Transformation(vec3(-0.4f,-0.2f,0.5f),vec3(0.0f,0.0f,0.0f),0.2f)));
-	scene1->addObject(df.create(suziModel,shaders[2],new Transformation(vec3(0.25f,0.2f,0.2f),vec3(0.0f,2.8f,0.0f),0.3f)));
+	scene1->addObject(df.create(suziModel,shaders[2],tc));
 
 	//first layer of trees
 	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.8f,-0.7f,0.5f),vec3(0.0f,0.5f,0.0f),0.2f)));
@@ -157,8 +161,8 @@ void Application::run()
 			rotation += 0.5f;
 			prevTime = crntTime;
 		}
-		//scene1->drawScene();
-		scene2->drawScene();
+		scene1->drawScene();
+		//scene2->drawScene();
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}

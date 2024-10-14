@@ -5,7 +5,7 @@
 #include "VAO.h"
 #include "VBO.h"
 #include "Model.h"
-#include "Transformation.h"
+#include "TransformationComponent.h"
 
 #include <glm/vec3.hpp>					// glm::vec3
 #include <glm/vec4.hpp>					// glm::vec4
@@ -17,17 +17,17 @@ class DrawableObject
 {
 private:
     Shader* shader;
-    Transformation* transformation;
+    TransformationComponent* transformation;
     Model* model;
 public:
-    DrawableObject(Model* model, Shader* shader, Transformation* transformation);
+    DrawableObject(Model* model, Shader* shader, TransformationComponent* transformation);
     void draw();
 };
 
 class DrawableObjectFactory
 {
     public:
-        DrawableObject* create(Model* model, Shader* shader, Transformation* transformation);
+        DrawableObject* create(Model* model, Shader* shader, TransformationComponent* transformation);
 };
 
 

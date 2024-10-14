@@ -7,8 +7,10 @@
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp>
 
+#include "TransformationComponent.h"
 
-class Transformation
+
+class Transformation : public TransformationComponent
 {
 private:
     glm::vec3 position;
@@ -16,7 +18,7 @@ private:
     float scale;
 public:
     Transformation(glm::vec3 pos, glm::vec3 rot, float sc);
-    glm::mat4 getModelMatrix();
+    glm::mat4 getModelMatrix() override;
 };
 
 

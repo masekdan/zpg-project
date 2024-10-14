@@ -21,6 +21,9 @@
 #include "Model.h"
 #include "DrawableObject.h"
 #include "Scene.h"
+#include "TransformationComposite.h"
+
+
 #include "models/gift.h"
 #include "models/suzi_flat.h"
 #include "models/tree.h"
