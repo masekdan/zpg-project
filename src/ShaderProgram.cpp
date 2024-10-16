@@ -50,9 +50,15 @@ ShaderProgram::ShaderProgram(const char *vertexFile, const char *fragmentFile)
     }
 }
 
-int ShaderProgram::GetLocation(char * name)
+void ShaderProgram::SetUniform(char* name, glm::mat4 matrix)
 {
-    return glGetUniformLocation(this->ID,name);
+    int uniformLocation = glGetUniformLocation(this->ID,name);
+    if (uniformLocation < 0)
+    {
+        std::cerr << "Uniform not found" << std::endl;
+        exit(-1);
+    }
+    glUniformMatrix4fv(uniformLocation,1,GL_FALSE,glm::value_ptr(matrix));
 }
 
 void ShaderProgram::Activate()

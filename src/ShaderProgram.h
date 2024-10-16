@@ -8,6 +8,8 @@
 #include <cerrno>
 
 #include <GL/glew.h>
+#include <glm/mat4x4.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 std::string get_file_contents(const char* filename);
 
@@ -21,7 +23,7 @@ public:
 
     void Activate();
     void Delete();
-    int GetLocation(char * name);
+    void SetUniform(char * name,glm::mat4 matrix);
     
 };
 

@@ -17,8 +17,7 @@ void DrawableObject::draw()
     glm::mat4 V = glm::mat4(1.0f);
     glm::mat4 P = glm::mat4(1.0f);
 
-    int modelLoc = this->shader->GetLocation("model");
-	glUniformMatrix4fv(modelLoc,1,GL_FALSE,glm::value_ptr(M));
+    this->shader->SetUniform("model",M);
 
     this->model->drawModel();
 }
