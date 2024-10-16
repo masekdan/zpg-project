@@ -161,8 +161,8 @@ void Application::run()
 			rotation += 0.5f;
 			prevTime = crntTime;
 		}
-		scene1->drawScene();
-		//scene2->drawScene();
+		//scene1->drawScene();
+		scene2->drawScene();
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}
