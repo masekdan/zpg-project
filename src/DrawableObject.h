@@ -1,7 +1,7 @@
 #ifndef DRAWABLE_OBJECT_CLASS_H
 #define DRAWABLE_OBJECT_CLASS_H
 
-#include "Shader.h"
+#include "ShaderProgram.h"
 #include "VAO.h"
 #include "VBO.h"
 #include "Model.h"
@@ -16,18 +16,18 @@
 class DrawableObject
 {
 private:
-    Shader* shader;
+    ShaderProgram* shader;
     TransformationComponent* transformation;
     Model* model;
 public:
-    DrawableObject(Model* model, Shader* shader, TransformationComponent* transformation);
+    DrawableObject(Model* model, ShaderProgram* shader, TransformationComponent* transformation);
     void draw();
 };
 
 class DrawableObjectFactory
 {
     public:
-        DrawableObject* create(Model* model, Shader* shader, TransformationComponent* transformation);
+        DrawableObject* create(Model* model, ShaderProgram* shader, TransformationComponent* transformation);
 };
 
 

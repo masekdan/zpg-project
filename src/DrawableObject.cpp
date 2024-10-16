@@ -1,7 +1,7 @@
 #include "DrawableObject.h"
 
 
-DrawableObject::DrawableObject(Model* model, Shader* shader, TransformationComponent* transformation)
+DrawableObject::DrawableObject(Model* model, ShaderProgram* shader, TransformationComponent* transformation)
 {
     this->model = model;
     this->shader = shader;
@@ -24,7 +24,7 @@ void DrawableObject::draw()
 }
 
 
-DrawableObject* DrawableObjectFactory::create(Model* model, Shader* shader, TransformationComponent* transformation)
+DrawableObject* DrawableObjectFactory::create(Model* model, ShaderProgram* shader, TransformationComponent* transformation)
 {
     return new DrawableObject(model,shader,transformation);
 }

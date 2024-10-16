@@ -1,4 +1,4 @@
-#include "Shader.h"
+#include "ShaderProgram.h"
 
 std::string get_file_contents(const char *filename)
 {
@@ -16,7 +16,7 @@ std::string get_file_contents(const char *filename)
     throw(errno);
 }
 
-Shader::Shader(const char *vertexFile, const char *fragmentFile)
+ShaderProgram::ShaderProgram(const char *vertexFile, const char *fragmentFile)
 {
     std::string vertexCode = get_file_contents(vertexFile);
     std::string fragmentCode = get_file_contents(fragmentFile);
@@ -50,17 +50,17 @@ Shader::Shader(const char *vertexFile, const char *fragmentFile)
     }
 }
 
-int Shader::GetLocation(char * name)
+int ShaderProgram::GetLocation(char * name)
 {
     return glGetUniformLocation(this->ID,name);
 }
 
-void Shader::Activate()
+void ShaderProgram::Activate()
 {
     glUseProgram(ID);
 }
 
-void Shader::Delete()
+void ShaderProgram::Delete()
 {
     glDeleteProgram(ID);
 }

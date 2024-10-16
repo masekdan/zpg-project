@@ -1,5 +1,5 @@
-#ifndef SHADER_CLASS_H
-#define SHADER_CLASS_H
+#ifndef SHADER_PROGRAM_CLASS_H
+#define SHADER_PROGRAM_CLASS_H
 
 #include <string>
 #include <fstream>
@@ -11,13 +11,13 @@
 
 std::string get_file_contents(const char* filename);
 
-class Shader
+class ShaderProgram
 {
 private:
     GLuint ID;
 public:
     
-    Shader(const char* vertexFile, const char* fragmentFile);
+    ShaderProgram(const char* vertexFile, const char* fragmentFile);
 
     void Activate();
     void Delete();

@@ -1,5 +1,5 @@
-#ifndef TRANSFORMATION_CLASS_H
-#define TRANSFORMATION_CLASS_H
+#ifndef TRANSLATION_CLASS_H
+#define TRANSLATION_CLASS_H
 
 #include <glm/vec3.hpp>					// glm::vec3
 #include <glm/vec4.hpp>					// glm::vec4
@@ -10,14 +10,12 @@
 #include "TransformationComponent.h"
 
 
-class Transformation : public TransformationComponent
+class Translation : public TransformationComponent
 {
 private:
     glm::vec3 position;
-    glm::vec3 rotation;
-    float scale;
 public:
-    Transformation(glm::vec3 pos, glm::vec3 rot, float sc);
+    Translation(glm::vec3 pos);
     glm::mat4 getModelMatrix() override;
 };
 

@@ -90,9 +90,9 @@ void Application::initialization()
 
 void Application::createShaders()
 {
-	shaders.push_back(new Shader("../src/shaders/default.vert", "../src/shaders/default.frag"));
-	shaders.push_back(new Shader("../src/shaders/square.vert", "../src/shaders/square.frag"));
-	shaders.push_back(new Shader("../src/shaders/tree.vert","../src/shaders/tree.frag"));
+	shaders.push_back(new ShaderProgram("../src/shaders/default.vert", "../src/shaders/default.frag"));
+	shaders.push_back(new ShaderProgram("../src/shaders/square.vert", "../src/shaders/square.frag"));
+	shaders.push_back(new ShaderProgram("../src/shaders/tree.vert","../src/shaders/tree.frag"));
 }
 
 void Application::createModels()
@@ -111,34 +111,36 @@ void Application::createModels()
 	DrawableObjectFactory df;
 
 	TransformationComposite* tc = new TransformationComposite();
-	tc->add(new Transformation(vec3(0.25f,0.2f,0.2f),vec3(0.0f,2.8f,0.0f),0.3f));
-	tc->add(new Transformation(vec3(0.0f),vec3(0.0f),0.5f));
+
+	tc->add(new Translation(vec3(0.25f,0.2f,0.2f)));
+	tc->add(new Rotation(vec3(0.0f,2.8f,0.0f)));
+	tc->add(new Scale(vec3(0.3f)));
 
 	//scene1->addObject(df.create(square,shaders[0],tc));
-	scene1->addObject(df.create(giftModel,shaders[2],new Transformation(vec3(-0.5f,0.2f,0.0f),vec3(0.0f,0.25f,0.0f),1.0f)));
-	scene1->addObject(df.create(ball,shaders[2],new Transformation(vec3(-0.4f,-0.2f,0.5f),vec3(0.0f,0.0f,0.0f),0.2f)));
+	//scene1->addObject(df.create(giftModel,shaders[2],new Transformation(vec3(-0.5f,0.2f,0.0f),vec3(0.0f,0.25f,0.0f),1.0f)));
+	//scene1->addObject(df.create(ball,shaders[2],new Transformation(vec3(-0.4f,-0.2f,0.5f),vec3(0.0f,0.0f,0.0f),0.2f)));
 	scene1->addObject(df.create(suziModel,shaders[2],tc));
 
 	//first layer of trees
-	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.8f,-0.7f,0.5f),vec3(0.0f,0.5f,0.0f),0.2f)));
-	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.4f,-0.7f,0.5f),vec3(0.0f,2.8f,0.0f),0.26f)));
-	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.0f,-0.7f,0.5f),vec3(0.0f,3.1f,0.0f),0.24f)));
-	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.4f,-0.7f,0.5f),vec3(0.0f,0.5f,0.0f),0.3f)));
-	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.8f,-0.7f,0.5f),vec3(0.0f,0.5f,0.0f),0.18f)));
+	//scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.8f,-0.7f,0.5f),vec3(0.0f,0.5f,0.0f),0.2f)));
+	//scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.4f,-0.7f,0.5f),vec3(0.0f,2.8f,0.0f),0.26f)));
+	//scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.0f,-0.7f,0.5f),vec3(0.0f,3.1f,0.0f),0.24f)));
+	//scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.4f,-0.7f,0.5f),vec3(0.0f,0.5f,0.0f),0.3f)));
+	//scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.8f,-0.7f,0.5f),vec3(0.0f,0.5f,0.0f),0.18f)));
 
 	//second layer of trees
-	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.9f,-0.65f,0.8f),vec3(0.0f,0.5f,0.0f),0.16f)));
-	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.5f,-0.65f,0.8f),vec3(0.0f,1.5f,0.0f),0.22f)));
-	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.1f,-0.65f,0.8f),vec3(0.0f,2.5f,0.0f),0.2f)));
-	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.3f,-0.65f,0.8f),vec3(0.0f,3.5f,0.0f),0.26f)));
-	scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.7f,-0.65f,0.8f),vec3(0.0f,4.5f,0.0f),0.14f)));
-	scene2->addObject(df.create(bushModel,shaders[2],new Transformation(vec3(-0.5f,-0.75f,0.8f),vec3(0.0f,5.5f,0.0f),0.16f)));
+	//scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.9f,-0.65f,0.8f),vec3(0.0f,0.5f,0.0f),0.16f)));
+	//scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.5f,-0.65f,0.8f),vec3(0.0f,1.5f,0.0f),0.22f)));
+	//scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.1f,-0.65f,0.8f),vec3(0.0f,2.5f,0.0f),0.2f)));
+	//scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.3f,-0.65f,0.8f),vec3(0.0f,3.5f,0.0f),0.26f)));
+	//scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.7f,-0.65f,0.8f),vec3(0.0f,4.5f,0.0f),0.14f)));
+	//scene2->addObject(df.create(bushModel,shaders[2],new Transformation(vec3(-0.5f,-0.75f,0.8f),vec3(0.0f,5.5f,0.0f),0.16f)));
 
 	//bushes
 	float pos = -0.9f;
 	for (int i = 0 ; i<15;i++)
 	{
-		scene2->addObject(df.create(bushModel,shaders[2],new Transformation(vec3(pos,-0.8f,-0.5f),vec3(0.7f,pos*i,0.0f),0.2f)));
+		//scene2->addObject(df.create(bushModel,shaders[2],new Transformation(vec3(pos,-0.8f,-0.5f),vec3(0.7f,pos*i,0.0f),0.2f)));
 		pos += 0.15f;
 	}
 }
@@ -161,8 +163,8 @@ void Application::run()
 			rotation += 0.5f;
 			prevTime = crntTime;
 		}
-		//scene1->drawScene();
-		scene2->drawScene();
+		scene1->drawScene();
+		//scene2->drawScene();
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}

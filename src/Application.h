@@ -15,12 +15,16 @@
 #include <stdio.h>
 #include <vector>
 
-#include "Shader.h"
+#include "ShaderProgram.h"
 #include "VBO.h"
 #include "VAO.h"
 #include "Model.h"
 #include "DrawableObject.h"
 #include "Scene.h"
+
+#include "Rotation.h"
+#include "Scale.h"
+#include "Translation.h"
 #include "TransformationComposite.h"
 
 
@@ -35,7 +39,7 @@ class Application
 {
 private:
     GLFWwindow *window;
-    std::vector<Shader*> shaders; 
+    std::vector<ShaderProgram*> shaders; 
     std::vector<DrawableObject*> drawableObjects;
     Scene *scene1;
     Scene *scene2;
