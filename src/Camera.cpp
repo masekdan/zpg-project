@@ -19,11 +19,95 @@ void Camera::matrix(float FOV, float nearPlane, float farPlane)
     glm::mat4 projection = glm::mat4(1.0);
 
     view = glm::lookAt(this->eye,this->center,this->up);
-    projection = glm::perspective(glm::radians(FOV),4.0f/3.0f,nearPlane,farPlane);
+    projection = glm::perspective(glm::radians(FOV),16.0f/9.0f,nearPlane,farPlane);
 
     for (auto* s : this->shaders)
     {
         s->SetUniform("view",view);
         s->SetUniform("projection",projection);
+    }
+}
+
+void Camera::inputs(GLFWwindow* window)
+{
+    glm::vec3 forward = glm::normalize(center - eye);
+    glm::vec3 right = glm::normalize(glm::cross(forward,up));
+    glm::vec3 vertical = glm::normalize(up);
+
+    float speed = 0.1f;
+    float sens = 0.1f;
+
+    if (glfwGetKey(window,GLFW_KEY_W)==GLFW_PRESS)
+    {
+        this->eye += speed * forward;
+        this->center += speed * forward;
+    }
+    if (glfwGetKey(window,GLFW_KEY_S)==GLFW_PRESS)
+    {
+        this->eye -= speed * forward;
+        this->center -= speed * forward;
+    }
+    if (glfwGetKey(window,GLFW_KEY_D)==GLFW_PRESS)
+    {
+        this->eye += speed * right;
+        this->center += speed * right;
+    }
+    if (glfwGetKey(window,GLFW_KEY_A)==GLFW_PRESS)
+    {
+        this->eye -= speed * right;
+        this->center -= speed * right;
+    }
+    if (glfwGetKey(window,GLFW_KEY_SPACE)==GLFW_PRESS)
+    {
+        this->eye += speed * vertical;
+        this->center += speed * vertical;
+    }
+    if (glfwGetKey(window,GLFW_KEY_LEFT_SHIFT)==GLFW_PRESS)
+    {
+        this->eye -= speed * vertical;
+        this->center -= speed * vertical;
+    }
+
+    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS)
+    {
+        glfwSetInputMode(window,GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+
+        if (firstClick)
+        {
+            glfwSetCursorPos(window, (1360/2),(768/2));
+            firstClick = false;
+        }
+
+        double mouseX;
+        double mouseY;
+
+        glfwGetCursorPos(window, &mouseX, &mouseY);
+
+        float rotX = (float)(mouseX - 1360 / 2);
+        float rotY = (float)(mouseY - 768 /2);
+
+
+        yaw -= rotX * sens;
+        pitch += rotY * sens;
+
+        if (pitch > 89.0f)
+            pitch = 89.0f;
+        if (pitch < -89.0f)
+            pitch = -89.0f;
+
+        glm::vec3 direction;
+        direction.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+        direction.y = sin(glm::radians(pitch));
+        direction.z = sin(glm::radians(pitch)) * sin(glm::radians(yaw ));
+
+        center = glm::normalize(direction) + eye;
+
+        glfwSetCursorPos(window,1360/2,768/2);
+    }
+
+    else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
+    {
+        glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        firstClick = true;
     }
 }

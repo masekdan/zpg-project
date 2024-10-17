@@ -17,6 +17,7 @@ public:
     void addObject(DrawableObject* obj);
     void drawScene();
     void transform(size_t index, TransformationComponent* transformation);
+    Camera* getCamera();
 };
 
 #endif

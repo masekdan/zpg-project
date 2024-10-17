@@ -27,3 +27,8 @@ void Scene::transform(size_t index, TransformationComponent* transformation)
 {
     this->objects[index]->transform(transformation);
 }
+
+Camera* Scene::getCamera()
+{
+    return this->camera;
+}

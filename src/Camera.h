@@ -20,6 +20,11 @@ private:
     glm::vec3 eye;
     glm::vec3 center;
     glm::vec3 up;
+
+    bool firstClick = true;
+    float pitch = 0.0f;  //up-down
+    float yaw = -90.0f;  //left-right
+
 public:
     Camera(glm::vec3 eye, glm::vec3 center, glm::vec3 up);
     void registerShader(ShaderProgram* shader);

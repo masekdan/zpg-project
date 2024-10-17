@@ -4,31 +4,6 @@ using glm::vec3;
 
 static void error_callback(int error, const char *description) { fputs(description, stderr); }
 
-static void key_callback(GLFWwindow *window, int key, int scancode, int action, int mods)
-{
-	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, GL_TRUE);
-	printf("key_callback [%d,%d,%d,%d] \n", key, scancode, action, mods);
-}
-
-static void window_focus_callback(GLFWwindow *window, int focused) { printf("window_focus_callback \n"); }
-
-static void window_iconify_callback(GLFWwindow *window, int iconified) { printf("window_iconify_callback \n"); }
-
-static void window_size_callback(GLFWwindow *window, int width, int height)
-{
-	printf("resize %d, %d \n", width, height);
-	glViewport(0, 0, width, height);
-}
-
-static void cursor_callback(GLFWwindow *window, double x, double y) { printf("cursor_callback \n"); }
-
-static void button_callback(GLFWwindow *window, int button, int action, int mode)
-{
-	if (action == GLFW_PRESS)
-		printf("button_callback [%d,%d,%d]\n", button, action, mode);
-}
-
 Application::Application()
 {
 	glfwSetErrorCallback(error_callback);
@@ -39,26 +14,9 @@ Application::Application()
 	}
 }
 
-float points[] = {
-	-0.5f, 0.5f, 0.0f, 1, 0, 0,
-	0.5f, -0.5f, 0.0f, 0, 1, 0,
-	-0.5f, -0.5f, 0.0f, 0, 0, 1};
-
-const float points2[] = {
-	0.9f, 0.9f, 0.0f, 0.58f, 0.12f, 0,
-	0.9f, 0.7f, 0.0f, 0, 0, 1,
-	0.7f, 0.7f, 0.0f, 0, 0, 1,
-	0.7f, 0.9f, 0.0f, 0, 0, 1};
-
-const float a[] = {
-     -.5f, -.5f, .5f,  1.0f, 0, 1.0f,
-     -.5f, .5f, .5f,  1.0f, 0, 1,
-       .5f, .5f, .5f,  0, 1.0f, 0,
-       .5f, -.5f, .5f,  0, 0, 1.0f };
-
 void Application::initialization()
 {
-	window = glfwCreateWindow(800, 600, "KCD 3: pre-alpha", NULL, NULL);
+	window = glfwCreateWindow(1360, 768, "KCD 3: pre-alpha", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -103,11 +61,7 @@ void Application::createModels()
 	Model* bushModel = new Model(bushes,sizeof(bushes));
 	Model* giftModel = new Model(gift,sizeof(gift));
 	Model* suziModel = new Model(suziFlat,sizeof(suziFlat));
-	Model* square = new Model(points2,sizeof(points2));
 	Model* ball = new Model(sphere,sizeof(sphere));
-
-
-	//tranformation pos, rot, scale
 
 	DrawableObjectFactory df;
 
@@ -117,10 +71,7 @@ void Application::createModels()
 	tc->add(new Rotation(vec3(0.0f,2.8f,0.0f)));
 	tc->add(new Scale(vec3(0.8f)));
 
-	//scene1->addObject(df.create(square,shaders[0],tc));
-	//scene1->addObject(df.create(giftModel,shaders[2],new Transformation(vec3(-0.5f,0.2f,0.0f),vec3(0.0f,0.25f,0.0f),1.0f)));
-	//scene1->addObject(df.create(ball,shaders[2],new Transformation(vec3(-0.4f,-0.2f,0.5f),vec3(0.0f,0.0f,0.0f),0.2f)));
-	scene1->addObject(df.create(suziModel,shaders[2],tc));
+	//scene1->addObject(df.create(suziModel,shaders[2],tc));
 
 	//first layer of trees
 	//scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(-0.8f,-0.7f,0.5f),vec3(0.0f,0.5f,0.0f),0.2f)));
@@ -136,6 +87,14 @@ void Application::createModels()
 	//scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.3f,-0.65f,0.8f),vec3(0.0f,3.5f,0.0f),0.26f)));
 	//scene2->addObject(df.create(treeModel,shaders[2],new Transformation(vec3(0.7f,-0.65f,0.8f),vec3(0.0f,4.5f,0.0f),0.14f)));
 	//scene2->addObject(df.create(bushModel,shaders[2],new Transformation(vec3(-0.5f,-0.75f,0.8f),vec3(0.0f,5.5f,0.0f),0.16f)));
+
+	for (int i = 0; i<10 ;i++)
+	{
+		TransformationComposite* tc2 = new TransformationComposite();
+		tc2->add(new Translation(vec3(0.0f,1.0f,static_cast<float>(i*5))));
+		scene2->addObject(df.create(treeModel,shaders[0],tc2));
+	}
+	
 
 	//bushes
 	float pos = -0.9f;
@@ -156,25 +115,28 @@ void Application::run()
 	while (!glfwWindowShouldClose(window))
 	{
 		// clear color and depth buffer
-		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClearColor(0.1f, 0.1f, 0.9f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		double crntTime = glfwGetTime();
 		if (crntTime - prevTime >= 1/60)
 		{
-			rotation += 0.15f;
+			rotation += 0.05f;
 			prevTime = crntTime;
 		}
+		scene2->getCamera()->inputs(this->window);
 
-		TransformationComposite* tc2 = new TransformationComposite();
+		/*TransformationComposite* tc2 = new TransformationComposite();
 		Rotation* r = new Rotation(glm::vec3(0.0f,rotation,0.0f));
 		tc2->add(new Translation(vec3(0.25f,0.2f,0.2f)));
 		tc2->add(new Rotation(vec3(0.0f,2.8f,0.0f)));
 		tc2->add(new Scale(vec3(0.8f)));
 		tc2->add(r);
-		scene1->transform(0,tc2);
-		scene1->drawScene();
-		//scene2->drawScene();
+		scene1->transform(0,tc2);*/
+		//scene1->drawScene();
+		scene2->drawScene();
+
+
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}
