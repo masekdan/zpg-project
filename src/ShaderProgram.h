@@ -11,12 +11,15 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+class Camera;
+
 std::string get_file_contents(const char* filename);
 
 class ShaderProgram
 {
 private:
     GLuint ID;
+    Camera *camera;
 public:
     
     ShaderProgram(const char* vertexFile, const char* fragmentFile);

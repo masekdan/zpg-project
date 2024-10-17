@@ -21,6 +21,7 @@ private:
     Model* model;
 public:
     DrawableObject(Model* model, ShaderProgram* shader, TransformationComponent* transformation);
+    void transform(TransformationComponent* transformation);
     void draw();
 };
 

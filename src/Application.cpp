@@ -97,8 +97,8 @@ void Application::createShaders()
 
 void Application::createModels()
 {
-	scene1 = new Scene();
-	scene2 = new Scene();
+	scene1 = new Scene(this->shaders);
+	scene2 = new Scene(this->shaders);
 	Model* treeModel = new Model(tree,sizeof(tree));
 	Model* bushModel = new Model(bushes,sizeof(bushes));
 	Model* giftModel = new Model(gift,sizeof(gift));
@@ -106,15 +106,16 @@ void Application::createModels()
 	Model* square = new Model(points2,sizeof(points2));
 	Model* ball = new Model(sphere,sizeof(sphere));
 
+
 	//tranformation pos, rot, scale
 
 	DrawableObjectFactory df;
 
 	TransformationComposite* tc = new TransformationComposite();
 
-	tc->add(new Translation(vec3(0.25f,0.2f,0.2f)));
+	tc->add(new Translation(vec3(0.0f,1.0f,0.0f)));
 	tc->add(new Rotation(vec3(0.0f,2.8f,0.0f)));
-	tc->add(new Scale(vec3(0.3f)));
+	tc->add(new Scale(vec3(0.8f)));
 
 	//scene1->addObject(df.create(square,shaders[0],tc));
 	//scene1->addObject(df.create(giftModel,shaders[2],new Transformation(vec3(-0.5f,0.2f,0.0f),vec3(0.0f,0.25f,0.0f),1.0f)));
@@ -155,14 +156,23 @@ void Application::run()
 	while (!glfwWindowShouldClose(window))
 	{
 		// clear color and depth buffer
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		double crntTime = glfwGetTime();
 		if (crntTime - prevTime >= 1/60)
 		{
-			rotation += 0.5f;
+			rotation += 0.15f;
 			prevTime = crntTime;
 		}
+
+		TransformationComposite* tc2 = new TransformationComposite();
+		Rotation* r = new Rotation(glm::vec3(0.0f,rotation,0.0f));
+		tc2->add(new Translation(vec3(0.25f,0.2f,0.2f)));
+		tc2->add(new Rotation(vec3(0.0f,2.8f,0.0f)));
+		tc2->add(new Scale(vec3(0.8f)));
+		tc2->add(r);
+		scene1->transform(0,tc2);
 		scene1->drawScene();
 		//scene2->drawScene();
 		glfwPollEvents();

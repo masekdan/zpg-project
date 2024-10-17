@@ -22,6 +22,11 @@ void DrawableObject::draw()
     this->model->drawModel();
 }
 
+void DrawableObject::transform(TransformationComponent* transformation)
+{
+    this->transformation = transformation;
+}
+
 
 DrawableObject* DrawableObjectFactory::create(Model* model, ShaderProgram* shader, TransformationComponent* transformation)
 {
