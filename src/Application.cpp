@@ -79,8 +79,26 @@ void Application::createModels()
 		{
 			TransformationComposite *tc2 = new TransformationComposite();
 			tc2->add(new Translation(vec3(static_cast<float>(j * 7), 1.0f, static_cast<float>(i * 7))));
+			tc2->add(new Rotation(vec3(0.0f,j*i,0.0f)));
 			tc2->add(new Scale(vec3((float)rand()/RAND_MAX)));
+
 			scene2->addObject(df.create(treeModel, shaders[0], tc2));
+			TransformationComposite *tc3 = new TransformationComposite();
+			TransformationComposite *tc4 = new TransformationComposite();
+			TransformationComposite *tc5 = new TransformationComposite();
+			TransformationComposite *tc6 = new TransformationComposite();
+			tc3->add(tc2);
+			tc4->add(tc2);
+			tc5->add(tc2);
+			tc6->add(tc2);
+			tc3->add(new Translation(vec3(0.0f,0.0f,1.0f)));
+			tc4->add(new Translation(vec3(0.0f,0.0f,-1.0f)));
+			tc5->add(new Translation(vec3(1.0f,0.0f,0.0f)));
+			tc6->add(new Translation(vec3(-1.0f,0.0f,0.0f)));
+			scene2->addObject(df.create(bushModel,shaders[0],tc3));
+			scene2->addObject(df.create(bushModel,shaders[0],tc4));
+			scene2->addObject(df.create(bushModel,shaders[0],tc5));
+			scene2->addObject(df.create(bushModel,shaders[0],tc6));
 		}
 	}
 
