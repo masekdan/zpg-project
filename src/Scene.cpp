@@ -25,6 +25,11 @@ void Scene::drawScene()
 
 void Scene::transform(size_t index, TransformationComponent* transformation)
 {
+    if (index >= this->objects.size())
+    {
+        std::cerr << "Object not found" << std::endl;
+        exit(-1); 
+    }
     this->objects[index]->transform(transformation);
 }
 

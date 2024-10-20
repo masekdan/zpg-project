@@ -39,8 +39,7 @@ class Application
 {
 private:
     GLFWwindow *window;
-    std::vector<ShaderProgram*> shaders; 
-    std::vector<DrawableObject*> drawableObjects;
+    std::vector<ShaderProgram*> shaders;
     Scene *scene1;
     Scene *scene2;
 public:
