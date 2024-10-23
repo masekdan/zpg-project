@@ -16,7 +16,7 @@ Application::Application()
 
 void Application::initialization()
 {
-	window = glfwCreateWindow(1360, 768, "KCD 3: pre-alpha", NULL, NULL);
+	window = glfwCreateWindow(800, 600, "KCD 3: pre-alpha", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -51,6 +51,7 @@ void Application::createShaders()
 	shaders.push_back(new ShaderProgram("../src/shaders/default.vert", "../src/shaders/default.frag"));
 	shaders.push_back(new ShaderProgram("../src/shaders/square.vert", "../src/shaders/square.frag"));
 	shaders.push_back(new ShaderProgram("../src/shaders/tree.vert", "../src/shaders/tree.frag"));
+	//shaders.push_back(new ShaderProgram("../src/shaders/lambert.vert","../src/shaders/lambert.frag"));
 }
 
 void Application::createModels()
@@ -59,9 +60,9 @@ void Application::createModels()
 	scene2 = new Scene(this->shaders);
 	Model *treeModel = new Model(tree, sizeof(tree));
 	Model *bushModel = new Model(bushes, sizeof(bushes));
-	Model *giftModel = new Model(gift, sizeof(gift));
+	//Model *giftModel = new Model(gift, sizeof(gift));
 	Model *suziModel = new Model(suziFlat, sizeof(suziFlat));
-	Model *ball = new Model(sphere, sizeof(sphere));
+	//Model *ball = new Model(sphere, sizeof(sphere));
 
 	DrawableObjectFactory df;
 
@@ -71,7 +72,7 @@ void Application::createModels()
 	tc->add(new Rotation(vec3(0.0f, 2.8f, 0.0f)));
 	tc->add(new Scale(vec3(0.8f)));
 
-	// scene1->addObject(df.create(suziModel,shaders[2],tc));
+	scene1->addObject(df.create(suziModel,shaders[2],tc));
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -113,7 +114,7 @@ void Application::run()
 	while (!glfwWindowShouldClose(window))
 	{
 		// clear color and depth buffer
-		glClearColor(0.1f, 0.1f, 0.9f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		double crntTime = glfwGetTime();
@@ -122,9 +123,10 @@ void Application::run()
 			rotation += 0.05f;
 			prevTime = crntTime;
 		}
-		scene2->getCamera()->inputs(this->window);
 
-		scene2->drawScene();
+
+		scene1->getCamera()->inputs(this->window);
+		scene1->drawScene();
 
 		glfwPollEvents();
 		glfwSwapBuffers(window);

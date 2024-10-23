@@ -16,7 +16,7 @@ void Scene::addObject(DrawableObject* obj)
 
 void Scene::drawScene()
 {
-    this->camera->matrix(90.0f,0.1f,100.0f);
+    this->camera->matrix(45.0f,0.1f,100.0f);
     for (auto o : this->objects)
     {
         o->draw();

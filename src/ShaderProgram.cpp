@@ -56,7 +56,7 @@ void ShaderProgram::SetUniform(char* name, glm::mat4 matrix)
     int uniformLocation = glGetUniformLocation(this->ID,name);
     if (uniformLocation < 0)
     {
-        std::cerr << "Uniform not found" << std::endl;
+        std::cerr << "Uniform " << name << " not found" << std::endl;
         exit(-1);
     }
     glUniformMatrix4fv(uniformLocation,1,GL_FALSE,glm::value_ptr(matrix));

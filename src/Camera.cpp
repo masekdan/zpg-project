@@ -74,7 +74,7 @@ void Camera::inputs(GLFWwindow* window)
 
         if (firstClick)
         {
-            glfwSetCursorPos(window, (1360/2),(768/2));
+            glfwSetCursorPos(window, (800/2),(600/2));
             firstClick = false;
         }
 
@@ -83,17 +83,17 @@ void Camera::inputs(GLFWwindow* window)
 
         glfwGetCursorPos(window, &mouseX, &mouseY);
 
-        float rotX = (float)(mouseX - 1360 / 2);
-        float rotY = (float)(mouseY - 768 /2);
+        float rotX = (float)(mouseX - 800 / 2);
+        float rotY = (float)(mouseY - 600 /2);
 
 
         yaw -= rotX * sens;
         pitch += rotY * sens;
 
-        if (pitch > 89.0f)
-            pitch = 89.0f;
-        if (pitch < -89.0f)
-            pitch = -89.0f;
+        if (pitch > 44.0f)
+            pitch = 44.0f;
+        if (pitch < -44.0f)
+            pitch = -44.0f;
 
         glm::vec3 direction;
         direction.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
@@ -102,7 +102,7 @@ void Camera::inputs(GLFWwindow* window)
 
         center = glm::normalize(direction) + eye;
 
-        glfwSetCursorPos(window,1360/2,768/2);
+        glfwSetCursorPos(window,800/2,600/2);
     }
 
     else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
