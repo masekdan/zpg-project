@@ -51,7 +51,7 @@ void Application::createShaders()
 	shaders.push_back(new ShaderProgram("../src/shaders/default.vert", "../src/shaders/default.frag"));
 	shaders.push_back(new ShaderProgram("../src/shaders/square.vert", "../src/shaders/square.frag"));
 	shaders.push_back(new ShaderProgram("../src/shaders/tree.vert", "../src/shaders/tree.frag"));
-	//shaders.push_back(new ShaderProgram("../src/shaders/lambert.vert","../src/shaders/lambert.frag"));
+	shaders.push_back(new ShaderProgram("../src/shaders/lambert.vert","../src/shaders/lambert.frag"));
 }
 
 void Application::createModels()
@@ -62,17 +62,21 @@ void Application::createModels()
 	Model *bushModel = new Model(bushes, sizeof(bushes));
 	//Model *giftModel = new Model(gift, sizeof(gift));
 	Model *suziModel = new Model(suziFlat, sizeof(suziFlat));
-	//Model *ball = new Model(sphere, sizeof(sphere));
+	Model *ball = new Model(sphere, sizeof(sphere));
 
 	DrawableObjectFactory df;
 
 	TransformationComposite *tc = new TransformationComposite();
 
 	tc->add(new Translation(vec3(0.0f, 1.0f, 0.0f)));
-	tc->add(new Rotation(vec3(0.0f, 2.8f, 0.0f)));
-	tc->add(new Scale(vec3(0.8f)));
+	tc->add(new Rotation(vec3(0.0f, 0.0f, 0.0f)));
+	//tc->add(new Scale(vec3(0.8f)));
 
-	scene1->addObject(df.create(suziModel,shaders[2],tc));
+	scene1->addObject(df.create(ball,shaders[3],new Translation(vec3(0.0f, 2.0f, 0.0f))));
+	scene1->addObject(df.create(ball,shaders[3],new Translation(vec3(0.0f, -2.0f, 0.0f))));
+	scene1->addObject(df.create(ball,shaders[3],new Translation(vec3(2.0f, 0.0f, 0.0f))));
+	scene1->addObject(df.create(ball,shaders[3],new Translation(vec3(-2.0f, 0.0f, 0.0f))));
+	
 
 	for (int i = 0; i < 10; i++)
 	{

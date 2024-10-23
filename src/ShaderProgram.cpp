@@ -41,12 +41,9 @@ ShaderProgram::ShaderProgram(const char *vertexFile, const char *fragmentFile)
     glGetProgramiv(ID, GL_LINK_STATUS, &status);
     if (status == GL_FALSE)
     {
-        GLint info;
-        glGetProgramiv(ID, GL_INFO_LOG_LENGTH, &info);
-        GLchar *strInfoLog = new GLchar[info];
-        glGetProgramInfoLog(ID, info, &info, strInfoLog);
-        fprintf(stderr, " Linker ␣ failure : ␣ % s \ n ", strInfoLog);
-        delete[] strInfoLog;
+        GLchar strInfoLog[512];
+        glGetProgramInfoLog(ID, 512, nullptr, strInfoLog);
+        fprintf(stderr, " Linker ␣ failure :\n %s \n ", strInfoLog);
         exit(-2);
     }
 }
@@ -54,12 +51,23 @@ ShaderProgram::ShaderProgram(const char *vertexFile, const char *fragmentFile)
 void ShaderProgram::SetUniform(char* name, glm::mat4 matrix)
 {
     int uniformLocation = glGetUniformLocation(this->ID,name);
-    if (uniformLocation < 0)
+    if (uniformLocation == -1)
     {
-        std::cerr << "Uniform " << name << " not found" << std::endl;
+        std::cerr << "Uniform \"" << name << "\" not found" << std::endl;
         exit(-1);
     }
     glUniformMatrix4fv(uniformLocation,1,GL_FALSE,glm::value_ptr(matrix));
+}
+
+void ShaderProgram::SetUniform(char* name, glm::mat3 matrix)
+{
+    int uniformLocation = glGetUniformLocation(this->ID,name);
+    if (uniformLocation == -1)
+    {
+        std::cerr << "Uniform \"" << name << "\" not found" << std::endl;
+        exit(-1);
+    }
+    glUniformMatrix3fv(uniformLocation,1,GL_FALSE,glm::value_ptr(matrix));
 }
 
 void ShaderProgram::Activate()

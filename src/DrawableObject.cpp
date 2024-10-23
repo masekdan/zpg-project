@@ -21,7 +21,7 @@ void DrawableObject::draw()
 
 
     this->shader->SetUniform("model",M);
-    this->shader->SetUniform("normalMatrix",N);
+    //this->shader->SetUniform("normalMatrix",N);
 
     this->model->drawModel();
 }

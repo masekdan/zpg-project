@@ -27,6 +27,7 @@ public:
     void Activate();
     void Delete();
     void SetUniform(char * name,glm::mat4 matrix);
+    void SetUniform(char * name,glm::mat3 matrix);
     
 };
 

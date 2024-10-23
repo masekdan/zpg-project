@@ -19,7 +19,7 @@ void Camera::matrix(float FOV, float nearPlane, float farPlane)
     glm::mat4 projection = glm::mat4(1.0);
 
     view = glm::lookAt(this->eye,this->center,this->up);
-    projection = glm::perspective(glm::radians(FOV),16.0f/9.0f,nearPlane,farPlane);
+    projection = glm::perspective(glm::radians(FOV),4.0f/3.0f,nearPlane,farPlane);
 
     for (auto* s : this->shaders)
     {
@@ -83,24 +83,23 @@ void Camera::inputs(GLFWwindow* window)
 
         glfwGetCursorPos(window, &mouseX, &mouseY);
 
-        float rotX = (float)(mouseX - 800 / 2);
-        float rotY = (float)(mouseY - 600 /2);
+        float xoffset = (mouseX - 800 / 2 )*sens;
+        float yoffset = (600/2 - mouseY)*sens;
 
+        yaw += xoffset;
+        pitch += yoffset;
 
-        yaw -= rotX * sens;
-        pitch += rotY * sens;
-
-        if (pitch > 44.0f)
-            pitch = 44.0f;
-        if (pitch < -44.0f)
-            pitch = -44.0f;
+        if (pitch > 89.0f)
+            pitch = 89.0f;
+        if (pitch < -89.0f)
+            pitch = -89.0f;
 
         glm::vec3 direction;
-        direction.x = cos(glm::radians(pitch)) * cos(glm::radians(yaw));
+        direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
         direction.y = sin(glm::radians(pitch));
-        direction.z = sin(glm::radians(pitch)) * sin(glm::radians(yaw ));
+        direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 
-        center = glm::normalize(direction) + eye;
+        this->center = glm::normalize(direction) + eye;
 
         glfwSetCursorPos(window,800/2,600/2);
     }
