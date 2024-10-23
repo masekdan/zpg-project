@@ -17,6 +17,13 @@ std::string get_file_contents(const char *filename)
     throw(errno);
 }
 
+void ShaderProgram::update(const glm::mat4 view,const glm::mat4 projection)
+{
+    this->Activate();
+    this->SetUniform("projection",projection);
+    this->SetUniform("view",view);
+}
+
 ShaderProgram::ShaderProgram(const char *vertexFile, const char *fragmentFile)
 {
     std::string vertexCode = get_file_contents(vertexFile);

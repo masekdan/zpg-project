@@ -60,7 +60,7 @@ void Application::createModels()
 	scene2 = new Scene(this->shaders);
 	Model *treeModel = new Model(tree, sizeof(tree));
 	Model *bushModel = new Model(bushes, sizeof(bushes));
-	//Model *giftModel = new Model(gift, sizeof(gift));
+	Model *giftModel = new Model(gift, sizeof(gift));
 	Model *suziModel = new Model(suziFlat, sizeof(suziFlat));
 	Model *ball = new Model(sphere, sizeof(sphere));
 
@@ -87,7 +87,7 @@ void Application::createModels()
 			tc2->add(new Rotation(vec3(0.0f,j*i,0.0f)));
 			tc2->add(new Scale(vec3((float)rand()/RAND_MAX)));
 
-			scene2->addObject(df.create(treeModel, shaders[0], tc2));
+			scene2->addObject(df.create(treeModel, shaders[2], tc2));
 			TransformationComposite *tc3 = new TransformationComposite();
 			TransformationComposite *tc4 = new TransformationComposite();
 			TransformationComposite *tc5 = new TransformationComposite();
@@ -100,10 +100,10 @@ void Application::createModels()
 			tc4->add(new Translation(vec3(0.0f,0.0f,-1.0f)));
 			tc5->add(new Translation(vec3(1.0f,0.0f,0.0f)));
 			tc6->add(new Translation(vec3(-1.0f,0.0f,0.0f)));
-			scene2->addObject(df.create(bushModel,shaders[0],tc3));
-			scene2->addObject(df.create(bushModel,shaders[0],tc4));
-			scene2->addObject(df.create(bushModel,shaders[0],tc5));
-			scene2->addObject(df.create(bushModel,shaders[0],tc6));
+			scene2->addObject(df.create(bushModel,shaders[3],tc3));
+			scene2->addObject(df.create(bushModel,shaders[3],tc4));
+			scene2->addObject(df.create(bushModel,shaders[3],tc5));
+			scene2->addObject(df.create(bushModel,shaders[3],tc6));
 		}
 	}
 
@@ -129,8 +129,8 @@ void Application::run()
 		}
 
 
-		scene1->getCamera()->inputs(this->window);
-		scene1->drawScene();
+		scene2->getCamera()->inputs(this->window);
+		scene2->drawScene();
 
 		glfwPollEvents();
 		glfwSwapBuffers(window);

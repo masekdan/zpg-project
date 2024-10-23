@@ -1,9 +1,9 @@
 #include "Scene.h"
 
-Scene::Scene(std::vector<ShaderProgram*> shaders)
+Scene::Scene(std::vector<ShaderProgram*> &shaders)
 {
-    camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-    for (auto* s : shaders)
+    camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    for (auto s : shaders)
     {
         camera->registerShader(s);
     }

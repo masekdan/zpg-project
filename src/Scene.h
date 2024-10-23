@@ -13,7 +13,7 @@ private:
     std::vector<DrawableObject*> objects;
     Camera* camera;
 public:
-    Scene(std::vector<ShaderProgram*> shaders);
+    Scene(std::vector<ShaderProgram*> &shaders);
     void addObject(DrawableObject* obj);
     void drawScene();
     void transform(size_t index, TransformationComponent* transformation);

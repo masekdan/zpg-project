@@ -11,11 +11,13 @@
 #include <glm/mat4x4.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Observer.h"
+
 class Camera;
 
 std::string get_file_contents(const char* filename);
 
-class ShaderProgram
+class ShaderProgram : public Observer
 {
 private:
     GLuint ID;
@@ -26,6 +28,7 @@ public:
 
     void Activate();
     void Delete();
+    void update(const glm::mat4 view,const glm::mat4 projection) override;
     void SetUniform(char * name,glm::mat4 matrix);
     void SetUniform(char * name,glm::mat3 matrix);
     

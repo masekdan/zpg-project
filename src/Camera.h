@@ -11,24 +11,31 @@
 #include <glm/gtc/type_ptr.hpp>	
 #include <vector>
 
+#include "Observer.h"
+
 class ShaderProgram;
 
 class Camera
 {
 private:
-    std::vector<ShaderProgram*> shaders;
+    std::vector<Observer*> shaders;
     glm::vec3 eye;
     glm::vec3 center;
     glm::vec3 up;
 
+    glm::mat4 view;
+    glm::mat4 projection;
+
     bool firstClick = true;
-    float pitch = 0.0f;  //up-down
-    float yaw = -90.0f;  //left-right
+    float pitch = 0.0f;  //up-down alpha
+    float yaw = -90.0f;  //left-right fi
+
+    void notifyObservers();
 
 public:
     Camera(glm::vec3 eye, glm::vec3 center, glm::vec3 up);
-    void registerShader(ShaderProgram* shader);
-    void removeShader(ShaderProgram* shader);
+    void registerShader(Observer* shader);
+    void removeShader(Observer* shader);
     void matrix(float FOV, float nearPlane, float farPlate);
     void inputs(GLFWwindow* window);
     ~Camera();
