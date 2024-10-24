@@ -53,6 +53,7 @@ void Application::createShaders()
 	shaders.push_back(new ShaderProgram("../src/shaders/tree.vert", "../src/shaders/tree.frag"));
 	shaders.push_back(new ShaderProgram("../src/shaders/lambert.vert","../src/shaders/lambert.frag"));
 	shaders.push_back(new ShaderProgram("../src/shaders/phong.vert","../src/shaders/phong.frag"));
+	shaders.push_back(new ShaderProgram("../src/shaders/blinn.vert","../src/shaders/blinn.frag"));
 }
 
 void Application::createModels()
@@ -73,10 +74,10 @@ void Application::createModels()
 	tc->add(new Rotation(vec3(0.0f, 0.0f, 0.0f)));
 	//tc->add(new Scale(vec3(0.8f)));
 
-	scene1->addObject(df.create(ball,shaders[4],new Translation(vec3(0.0f, 2.0f, 0.0f))));
-	scene1->addObject(df.create(ball,shaders[4],new Translation(vec3(0.0f, -2.0f, 0.0f))));
-	scene1->addObject(df.create(ball,shaders[4],new Translation(vec3(2.0f, 0.0f, 0.0f))));
-	scene1->addObject(df.create(ball,shaders[4],new Translation(vec3(-2.0f, 0.0f, 0.0f))));
+	scene1->addObject(df.create(ball,shaders[5],new Translation(vec3(0.0f, 2.0f, 0.0f))));
+	scene1->addObject(df.create(ball,shaders[5],new Translation(vec3(0.0f, -2.0f, 0.0f))));
+	scene1->addObject(df.create(ball,shaders[5],new Translation(vec3(2.0f, 0.0f, 0.0f))));
+	scene1->addObject(df.create(ball,shaders[5],new Translation(vec3(-2.0f, 0.0f, 0.0f))));
 	
 
 	for (int i = 0; i < 10; i++)
