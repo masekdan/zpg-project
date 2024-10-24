@@ -5,6 +5,8 @@ in vec4 ex_worldPosition;
 in vec3 ex_worldNormal;
 out vec4 out_Color;
 
+uniform vec3 eye = vec3(0.0,0.0,3.0);
+
 void main(void){
     vec3 lightPosition= vec3(0.0,0.0,0.0);
     vec3 lightDir = lightPosition - vec3(ex_worldPosition);

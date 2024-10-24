@@ -8,7 +8,7 @@ class Observer
 private:
     
 public:
-    virtual void update(const glm::mat4 view,const glm::mat4 projection) = 0;
+    virtual void update(const glm::mat4 view,const glm::mat4 projection, const glm::vec3 eye) = 0;
 };
 
 

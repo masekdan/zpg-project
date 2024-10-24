@@ -4,6 +4,8 @@ in vec4 ex_worldPosition;
 in vec3 ex_worldNormal;
 out vec4 fragColor;
 
+uniform vec3 eye = vec3(0.0,0.0,3.0);
+
 
 void main (void)
 {
@@ -11,7 +13,7 @@ void main (void)
 
     vec3 lightPosition= vec3(0.0,0.0,0.0);
 
-    vec3 viewDir = normalize(vec3(0.0,0.0,-1.0) - vec3(ex_worldPosition));
+    vec3 viewDir = normalize(eye - vec3(ex_worldPosition));
 
     vec3 lightDir = lightPosition - vec3(ex_worldPosition);
     vec3 reflectDir = reflect ( -lightDir , norm );
@@ -23,7 +25,7 @@ void main (void)
     vec4 objectColor = vec4 (0.385 ,0.647 ,0.812 ,1.0);
 
     float diffuse = max(dot(norm,lightDir),0.0);
-    vec3 diff = diffuse * vec3(1.0,1.0,1.0);
+    vec4 diff = diffuse * vec4(1.0,1.0,1.0,1.0);
     
-    fragColor = ambient + (vec4(diff,1.0) * objectColor ) + (spec * vec4 (1.0 ,1.0 ,1.0 ,1.0));
+    fragColor = ambient + (diff * objectColor ) + (spec * vec4 (1.0 ,1.0 ,1.0 ,1.0));
 }

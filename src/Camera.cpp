@@ -15,7 +15,7 @@ void Camera::notifyObservers()
 {
     for (auto* s : this->shaders)
     {
-        s->update(this->view,this->projection);
+        s->update(this->view,this->projection,this->eye);
     }
     
 }

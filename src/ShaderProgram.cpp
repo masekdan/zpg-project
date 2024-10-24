@@ -17,11 +17,12 @@ std::string get_file_contents(const char *filename)
     throw(errno);
 }
 
-void ShaderProgram::update(const glm::mat4 view,const glm::mat4 projection)
+void ShaderProgram::update(const glm::mat4 view,const glm::mat4 projection, glm::vec3 eye)
 {
     this->Activate();
     this->SetUniform("projection",projection);
     this->SetUniform("view",view);
+    this->SetUniform("eye",eye);
 }
 
 ShaderProgram::ShaderProgram(const char *vertexFile, const char *fragmentFile)
@@ -58,23 +59,13 @@ ShaderProgram::ShaderProgram(const char *vertexFile, const char *fragmentFile)
 void ShaderProgram::SetUniform(char* name, glm::mat4 matrix)
 {
     int uniformLocation = glGetUniformLocation(this->ID,name);
-    if (uniformLocation == -1)
-    {
-        std::cerr << "Uniform \"" << name << "\" not found" << std::endl;
-        exit(-1);
-    }
     glUniformMatrix4fv(uniformLocation,1,GL_FALSE,glm::value_ptr(matrix));
 }
 
-void ShaderProgram::SetUniform(char* name, glm::mat3 matrix)
+void ShaderProgram::SetUniform(char* name, glm::vec3 matrix)
 {
     int uniformLocation = glGetUniformLocation(this->ID,name);
-    if (uniformLocation == -1)
-    {
-        std::cerr << "Uniform \"" << name << "\" not found" << std::endl;
-        exit(-1);
-    }
-    glUniformMatrix3fv(uniformLocation,1,GL_FALSE,glm::value_ptr(matrix));
+    glUniform3fv(uniformLocation,1,glm::value_ptr(matrix));
 }
 
 void ShaderProgram::Activate()
