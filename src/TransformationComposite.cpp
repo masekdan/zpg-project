@@ -1,5 +1,15 @@
 #include "TransformationComposite.h"
 
+TransformationComposite::TransformationComposite()
+{
+    
+}
+
+TransformationComposite::TransformationComposite(std::vector<TransformationComponent*> trans)
+{
+    this->transformations = trans;
+}
+
 void TransformationComposite::add(TransformationComponent* component)
 {
     this->transformations.push_back(component);

@@ -68,18 +68,11 @@ void Application::createModels()
 
 	DrawableObjectFactory df;
 
-	TransformationComposite *tc = new TransformationComposite();
-
-	tc->add(new Translation(vec3(0.0f, 1.0f, 0.0f)));
-	tc->add(new Rotation(vec3(0.0f, 0.0f, 0.0f)));
-	//tc->add(new Scale(vec3(0.8f)));
-
-	scene1->addObject(df.create(ball,shaders[5],new Translation(vec3(0.0f, 2.0f, 0.0f))));
-	scene1->addObject(df.create(ball,shaders[5],new Translation(vec3(0.0f, -2.0f, 0.0f))));
-	scene1->addObject(df.create(ball,shaders[5],new Translation(vec3(2.0f, 0.0f, 0.0f))));
-	scene1->addObject(df.create(ball,shaders[5],new Translation(vec3(-2.0f, 0.0f, 0.0f))));
+	scene1->addObject(df.create(ball,shaders[5],new TransformationComposite({new Translation(vec3(0.0f, 1.0f, 0.0f)),new Scale(vec3(0.5f))})));
+	scene1->addObject(df.create(ball,shaders[5],new TransformationComposite({new Translation(vec3(0.0f, -1.0f, 0.0f)),new Scale(vec3(0.5f))})));
+	scene1->addObject(df.create(ball,shaders[5],new TransformationComposite({new Translation(vec3(1.0f, 0.0f, 0.0f)),new Scale(vec3(0.5f))})));
+	scene1->addObject(df.create(ball,shaders[5],new TransformationComposite({new Translation(vec3(-1.0f, 0.0f, 0.0f)),new Scale(vec3(0.5f))})));
 	
-
 	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 10; j++)

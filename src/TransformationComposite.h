@@ -10,6 +10,8 @@ class TransformationComposite : public TransformationComponent
 private:
     std::vector<TransformationComponent*> transformations;
 public:
+    TransformationComposite();
+    TransformationComposite(std::vector<TransformationComponent*> trans);
     void add(TransformationComponent* component) override;
     glm::mat4 getModelMatrix() override;
 };
