@@ -16,7 +16,7 @@ Application::Application()
 
 void Application::initialization()
 {
-	window = glfwCreateWindow(800, 600, "KCD 3: pre-alpha", NULL, NULL);
+	window = glfwCreateWindow(1366, 768, "KCD 3: pre-alpha", NULL, NULL);
 	if (!window)
 	{
 		glfwTerminate();
@@ -58,8 +58,9 @@ void Application::createShaders()
 
 void Application::createModels()
 {
-	scene1 = new Scene(this->shaders);
-	scene2 = new Scene(this->shaders);
+	
+	scenes.push_back(new Scene(this->shaders));
+	scenes.push_back(new Scene(this->shaders));
 	Model *treeModel = new Model(tree, sizeof(tree));
 	Model *bushModel = new Model(bushes, sizeof(bushes));
 	Model *giftModel = new Model(gift, sizeof(gift));
@@ -68,10 +69,10 @@ void Application::createModels()
 
 	DrawableObjectFactory df;
 
-	scene1->addObject(df.create(ball,shaders[5],new TransformationComposite({new Translation(vec3(0.0f, 1.0f, 0.0f)),new Scale(vec3(0.5f))})));
-	scene1->addObject(df.create(ball,shaders[5],new TransformationComposite({new Translation(vec3(0.0f, -1.0f, 0.0f)),new Scale(vec3(0.5f))})));
-	scene1->addObject(df.create(ball,shaders[5],new TransformationComposite({new Translation(vec3(1.0f, 0.0f, 0.0f)),new Scale(vec3(0.5f))})));
-	scene1->addObject(df.create(ball,shaders[5],new TransformationComposite({new Translation(vec3(-1.0f, 0.0f, 0.0f)),new Scale(vec3(0.5f))})));
+	scenes[0]->addObject(df.create(ball,shaders[2],new TransformationComposite({new Translation(vec3(0.0f, 2.0f, 0.0f)),new Scale(vec3(0.7f))})));
+	scenes[0]->addObject(df.create(ball,shaders[3],new TransformationComposite({new Translation(vec3(0.0f, -2.0f, 0.0f)),new Scale(vec3(0.7f))})));
+	scenes[0]->addObject(df.create(ball,shaders[4],new TransformationComposite({new Translation(vec3(2.0f, 0.0f, 0.0f)),new Scale(vec3(0.7f))})));
+	scenes[0]->addObject(df.create(ball,shaders[5],new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)),new Scale(vec3(0.7f))})));
 	
 	for (int i = 0; i < 10; i++)
 	{
@@ -82,7 +83,7 @@ void Application::createModels()
 			tc2->add(new Rotation(vec3(0.0f,j*i,0.0f)));
 			tc2->add(new Scale(vec3((float)rand()/RAND_MAX)));
 
-			scene2->addObject(df.create(treeModel, shaders[2], tc2));
+			scenes[1]->addObject(df.create(treeModel, shaders[2], tc2));
 			TransformationComposite *tc3 = new TransformationComposite();
 			TransformationComposite *tc4 = new TransformationComposite();
 			TransformationComposite *tc5 = new TransformationComposite();
@@ -95,10 +96,10 @@ void Application::createModels()
 			tc4->add(new Translation(vec3(0.0f,0.0f,-1.0f)));
 			tc5->add(new Translation(vec3(1.0f,0.0f,0.0f)));
 			tc6->add(new Translation(vec3(-1.0f,0.0f,0.0f)));
-			scene2->addObject(df.create(bushModel,shaders[3],tc3));
-			scene2->addObject(df.create(bushModel,shaders[3],tc4));
-			scene2->addObject(df.create(bushModel,shaders[3],tc5));
-			scene2->addObject(df.create(bushModel,shaders[3],tc6));
+			scenes[1]->addObject(df.create(bushModel,shaders[3],tc3));
+			scenes[1]->addObject(df.create(bushModel,shaders[3],tc4));
+			scenes[1]->addObject(df.create(bushModel,shaders[3],tc5));
+			scenes[1]->addObject(df.create(bushModel,shaders[3],tc6));
 		}
 	}
 
@@ -108,6 +109,7 @@ void Application::run()
 {
 	float rotation = 0.0f;
 	double prevTime = glfwGetTime();
+	int swapScene = 0;
 
 	glEnable(GL_DEPTH_TEST);
 	while (!glfwWindowShouldClose(window))
@@ -123,9 +125,21 @@ void Application::run()
 			prevTime = crntTime;
 		}
 
+		if (glfwGetKey(window,GLFW_KEY_E)==GLFW_PRESS)
+		{
+			if (swapScene<this->scenes.size()-1)
+			{
+				swapScene++;
+			}
+			else
+			{
+				swapScene = 0;
+			}
+		}
 
-		scene1->getCamera()->inputs(this->window);
-		scene1->drawScene();
+
+		scenes[swapScene]->getCamera()->inputs(this->window);
+		scenes[swapScene]->drawScene();
 
 		glfwPollEvents();
 		glfwSwapBuffers(window);

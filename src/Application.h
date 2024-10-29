@@ -40,8 +40,7 @@ class Application
 private:
     GLFWwindow *window;
     std::vector<ShaderProgram*> shaders;
-    Scene *scene1;
-    Scene *scene2;
+    std::vector<Scene*> scenes;
 public:
     Application();
     void initialization();

@@ -29,7 +29,7 @@ void Camera::matrix(float FOV, float nearPlane, float farPlane)
 {
 
     this->view = glm::lookAt(this->eye,this->center,this->up);
-    this->projection = glm::perspective(glm::radians(FOV),4.0f/3.0f,nearPlane,farPlane);
+    this->projection = glm::perspective(glm::radians(FOV),16.0f/9.0f,nearPlane,farPlane);
 
     this->notifyObservers();
 }
