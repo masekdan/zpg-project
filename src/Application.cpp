@@ -51,14 +51,14 @@ void Application::createShaders()
 	shaders.push_back(new ShaderProgram("../src/shaders/default.vert", "../src/shaders/default.frag"));
 	shaders.push_back(new ShaderProgram("../src/shaders/square.vert", "../src/shaders/square.frag"));
 	shaders.push_back(new ShaderProgram("../src/shaders/tree.vert", "../src/shaders/tree.frag"));
-	shaders.push_back(new ShaderProgram("../src/shaders/lambert.vert","../src/shaders/lambert.frag"));
-	shaders.push_back(new ShaderProgram("../src/shaders/phong.vert","../src/shaders/phong.frag"));
-	shaders.push_back(new ShaderProgram("../src/shaders/blinn.vert","../src/shaders/blinn.frag"));
+	shaders.push_back(new ShaderProgram("../src/shaders/lambert.vert", "../src/shaders/lambert.frag"));
+	shaders.push_back(new ShaderProgram("../src/shaders/phong.vert", "../src/shaders/phong.frag"));
+	shaders.push_back(new ShaderProgram("../src/shaders/blinn.vert", "../src/shaders/blinn.frag"));
 }
 
 void Application::createModels()
 {
-	
+
 	scenes.push_back(new Scene(this->shaders));
 	scenes.push_back(new Scene(this->shaders));
 	Model *treeModel = new Model(tree, sizeof(tree));
@@ -69,19 +69,19 @@ void Application::createModels()
 
 	DrawableObjectFactory df;
 
-	scenes[0]->addObject(df.create(ball,shaders[2],new TransformationComposite({new Translation(vec3(0.0f, 2.0f, 0.0f)),new Scale(vec3(0.7f))})));
-	scenes[0]->addObject(df.create(ball,shaders[3],new TransformationComposite({new Translation(vec3(0.0f, -2.0f, 0.0f)),new Scale(vec3(0.7f))})));
-	scenes[0]->addObject(df.create(ball,shaders[4],new TransformationComposite({new Translation(vec3(2.0f, 0.0f, 0.0f)),new Scale(vec3(0.7f))})));
-	scenes[0]->addObject(df.create(ball,shaders[5],new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)),new Scale(vec3(0.7f))})));
-	
+	scenes[0]->addObject(df.create(ball, shaders[2], new TransformationComposite({new Translation(vec3(0.0f, 2.0f, 0.0f)), new Scale(vec3(0.7f))})));
+	scenes[0]->addObject(df.create(ball, shaders[3], new TransformationComposite({new Translation(vec3(0.0f, -2.0f, 0.0f)), new Scale(vec3(0.7f))})));
+	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))})));
+	scenes[0]->addObject(df.create(ball, shaders[5], new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))})));
+
 	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 10; j++)
 		{
 			TransformationComposite *tc2 = new TransformationComposite();
 			tc2->add(new Translation(vec3(static_cast<float>(j * 7), 1.0f, static_cast<float>(i * 7))));
-			tc2->add(new Rotation(vec3(0.0f,j*i,0.0f)));
-			tc2->add(new Scale(vec3((float)rand()/RAND_MAX)));
+			tc2->add(new Rotation(vec3(0.0f, j * i, 0.0f)));
+			tc2->add(new Scale(vec3((float)rand() / RAND_MAX)));
 
 			scenes[1]->addObject(df.create(treeModel, shaders[2], tc2));
 			TransformationComposite *tc3 = new TransformationComposite();
@@ -92,17 +92,16 @@ void Application::createModels()
 			tc4->add(tc2);
 			tc5->add(tc2);
 			tc6->add(tc2);
-			tc3->add(new Translation(vec3(0.0f,0.0f,1.0f)));
-			tc4->add(new Translation(vec3(0.0f,0.0f,-1.0f)));
-			tc5->add(new Translation(vec3(1.0f,0.0f,0.0f)));
-			tc6->add(new Translation(vec3(-1.0f,0.0f,0.0f)));
-			scenes[1]->addObject(df.create(bushModel,shaders[3],tc3));
-			scenes[1]->addObject(df.create(bushModel,shaders[3],tc4));
-			scenes[1]->addObject(df.create(bushModel,shaders[3],tc5));
-			scenes[1]->addObject(df.create(bushModel,shaders[3],tc6));
+			tc3->add(new Translation(vec3(0.0f, 0.0f, 1.0f)));
+			tc4->add(new Translation(vec3(0.0f, 0.0f, -1.0f)));
+			tc5->add(new Translation(vec3(1.0f, 0.0f, 0.0f)));
+			tc6->add(new Translation(vec3(-1.0f, 0.0f, 0.0f)));
+			scenes[1]->addObject(df.create(bushModel, shaders[3], tc3));
+			scenes[1]->addObject(df.create(bushModel, shaders[3], tc4));
+			scenes[1]->addObject(df.create(bushModel, shaders[3], tc5));
+			scenes[1]->addObject(df.create(bushModel, shaders[3], tc6));
 		}
 	}
-
 }
 
 void Application::run()
@@ -110,6 +109,7 @@ void Application::run()
 	float rotation = 0.0f;
 	double prevTime = glfwGetTime();
 	int swapScene = 0;
+	bool swapPressed = false;
 
 	glEnable(GL_DEPTH_TEST);
 	while (!glfwWindowShouldClose(window))
@@ -125,18 +125,26 @@ void Application::run()
 			prevTime = crntTime;
 		}
 
-		if (glfwGetKey(window,GLFW_KEY_E)==GLFW_PRESS)
+		
+		if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
 		{
-			if (swapScene<this->scenes.size()-1)
+			if (!swapPressed)
 			{
-				swapScene++;
-			}
-			else
-			{
-				swapScene = 0;
+				if (swapScene < this->scenes.size() - 1)
+				{
+					swapScene++;
+				}
+				else
+				{
+					swapScene = 0;
+				}
+				swapPressed = true;
 			}
 		}
-
+		else if (glfwGetKey(window, GLFW_KEY_E) == GLFW_RELEASE)
+		{
+			swapPressed = false;
+		}
 
 		scenes[swapScene]->getCamera()->inputs(this->window);
 		scenes[swapScene]->drawScene();

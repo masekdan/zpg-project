@@ -1,6 +1,8 @@
 #include "Camera.h"
 #include "ShaderProgram.h"
 
+Camera* Camera::instance = nullptr;
+
 Camera::Camera(glm::vec3 eye, glm::vec3 center, glm::vec3 up)
 {
     this->eye = eye;
@@ -9,6 +11,15 @@ Camera::Camera(glm::vec3 eye, glm::vec3 center, glm::vec3 up)
 
     this->view = glm::mat4(1.0);
     this->projection = glm::mat4(1.0);
+}
+
+Camera* Camera::getInstance(glm::vec3 eye, glm::vec3 center, glm::vec3 up)
+{
+    if (!instance)
+    {
+        instance = new Camera(eye, center, up);
+    }
+    return instance;
 }
 
 void Camera::notifyObservers()

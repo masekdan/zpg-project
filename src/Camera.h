@@ -31,9 +31,12 @@ private:
     float yaw = -90.0f;  //left-right fi
 
     void notifyObservers();
+    Camera(glm::vec3 eye, glm::vec3 center, glm::vec3 up);
+    static Camera* instance;
 
 public:
-    Camera(glm::vec3 eye, glm::vec3 center, glm::vec3 up);
+    
+    static Camera* getInstance(glm::vec3 eye, glm::vec3 center, glm::vec3 up);
     void registerShader(Observer* shader);
     void removeShader(Observer* shader);
     void matrix(float FOV, float nearPlane, float farPlate);
