@@ -73,6 +73,7 @@ void Application::createModels()
 	scenes[0]->addObject(df.create(ball, shaders[3], new TransformationComposite({new Translation(vec3(0.0f, -2.0f, 0.0f)), new Scale(vec3(0.7f))})));
 	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))})));
 	scenes[0]->addObject(df.create(ball, shaders[5], new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))})));
+	scenes[0]->addObject(df.create(suziModel,shaders[2],new TransformationComposite({new Translation(vec3(-10.0f,0.0f,0.0f)),new DynamicRotation(vec3(0.0,1.0,0.0),1)})));
 
 	for (int i = 0; i < 10; i++)
 	{

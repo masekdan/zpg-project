@@ -25,6 +25,7 @@
 #include "Rotation.h"
 #include "Scale.h"
 #include "Translation.h"
+#include "DynamicRotation.h"
 #include "TransformationComposite.h"
 
 
