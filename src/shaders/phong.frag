@@ -17,6 +17,7 @@ void main (void)
 
     vec3 lightDir = lightPosition - vec3(ex_worldPosition);
     vec3 reflectDir = reflect ( -lightDir , norm );
+
     float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
 
     vec4 ambient = vec4( 0.1, 0.1, 0.1, 1.0);

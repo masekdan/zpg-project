@@ -45,6 +45,16 @@ void Camera::matrix(float FOV, float nearPlane, float farPlane)
     this->notifyObservers();
 }
 
+glm::mat4 Camera::getProjection()
+{
+    return this->projection;
+}
+
+glm::mat4 Camera::getView()
+{
+    return this->view;
+}
+
 void Camera::inputs(GLFWwindow* window)
 {
     glm::vec3 forward = glm::normalize(center - eye);

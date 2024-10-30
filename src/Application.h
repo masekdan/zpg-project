@@ -42,6 +42,8 @@ private:
     GLFWwindow *window;
     std::vector<ShaderProgram*> shaders;
     std::vector<Scene*> scenes;
+    float width;
+    float height;
 public:
     Application();
     void initialization();

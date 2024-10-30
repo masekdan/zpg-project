@@ -29,6 +29,7 @@ public:
 
     void Activate();
     void Delete();
+    void SetCamera(Camera *cam);
     void update(const glm::mat4 view,const glm::mat4 projection, glm::vec3 eye) override;
     void SetUniform(char * name,glm::mat4 matrix);
     void SetUniform(char * name,glm::vec3 matrix);

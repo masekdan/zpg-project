@@ -41,6 +41,10 @@ public:
     void removeShader(Observer* shader);
     void matrix(float FOV, float nearPlane, float farPlate);
     void inputs(GLFWwindow* window);
+
+    glm::mat4 getProjection();
+    glm::mat4 getView();
+
     ~Camera();
 };
 

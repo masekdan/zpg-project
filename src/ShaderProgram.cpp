@@ -38,6 +38,12 @@ void ShaderProgram::SetUniform(char* name, glm::vec3 matrix)
     glUniform3fv(uniformLocation,1,glm::value_ptr(matrix));
 }
 
+
+void ShaderProgram::SetCamera(Camera* cam)
+{
+    this->camera = cam;
+}
+
 void ShaderProgram::Activate()
 {
     glUseProgram(ID);
