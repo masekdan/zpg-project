@@ -5,7 +5,7 @@ Scene::Scene(std::vector<ShaderProgram*> &shaders)
     camera = Camera::getInstance(glm::vec3(0.0f, 0.0f, 3.0f), glm::vec3(0.0f, 0.0f, -1.0f), glm::vec3(0.0f, 1.0f, 0.0f));
     for (auto s : shaders)
     {
-        camera->registerShader(s);
+        camera->registerObserver(s);
     }
 }
 

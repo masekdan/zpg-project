@@ -22,14 +22,6 @@ Camera* Camera::getInstance(glm::vec3 eye, glm::vec3 center, glm::vec3 up)
     return instance;
 }
 
-void Camera::notifyObservers()
-{
-    for (auto* s : this->shaders)
-    {
-        s->update(this->view,this->projection,this->eye);
-    }
-    
-}
 
 void Camera::registerShader(Observer* shader)
 {
@@ -53,6 +45,11 @@ glm::mat4 Camera::getProjection()
 glm::mat4 Camera::getView()
 {
     return this->view;
+}
+
+glm::vec3 Camera::getEye()
+{
+    return this->eye;
 }
 
 void Camera::inputs(GLFWwindow* window)

@@ -2,12 +2,12 @@
 #include "Camera.h"
 
 
-void ShaderProgram::update(const glm::mat4 view,const glm::mat4 projection, glm::vec3 eye)
+void ShaderProgram::update()
 {
     this->Activate();
-    this->SetUniform("projection",projection);
-    this->SetUniform("view",view);
-    this->SetUniform("eye",eye);
+    this->SetUniform("projection",this->camera->getProjection());
+    this->SetUniform("view",this->camera->getView());
+    this->SetUniform("eye",this->camera->getEye());
 }
 
 ShaderProgram::ShaderProgram(const char *vertexFile, const char *fragmentFile)
@@ -39,9 +39,9 @@ void ShaderProgram::SetUniform(char* name, glm::vec3 matrix)
 }
 
 
-void ShaderProgram::SetCamera(Camera* cam)
+void ShaderProgram::registerSubject(Subject* subject)
 {
-    this->camera = cam;
+    this->camera = static_cast<Camera*>(subject);
 }
 
 void ShaderProgram::Activate()

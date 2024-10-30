@@ -3,12 +3,16 @@
 
 #include <glm/mat4x4.hpp>
 
+#include "Subject.h"
+
+class Subject;
+
 class Observer
 {
 private:
-    
 public:
-    virtual void update(const glm::mat4 view,const glm::mat4 projection, const glm::vec3 eye) = 0;
+    virtual void update() { }
+    virtual void registerSubject(Subject* subject) { }
 };
 
 

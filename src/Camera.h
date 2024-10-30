@@ -12,10 +12,11 @@
 #include <vector>
 
 #include "Observer.h"
+#include "Subject.h"
 
 class ShaderProgram;
 
-class Camera
+class Camera : public Subject
 {
 private:
     std::vector<Observer*> shaders;
@@ -30,7 +31,6 @@ private:
     float pitch = 0.0f;  //up-down alpha
     float yaw = -90.0f;  //left-right fi
 
-    void notifyObservers();
     Camera(glm::vec3 eye, glm::vec3 center, glm::vec3 up);
     static Camera* instance;
 
@@ -44,6 +44,7 @@ public:
 
     glm::mat4 getProjection();
     glm::mat4 getView();
+    glm::vec3 getEye();
 
     ~Camera();
 };
