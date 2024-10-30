@@ -18,6 +18,7 @@ public:
     void drawScene();
     void transform(size_t index, TransformationComponent* transformation);
     Camera* getCamera();
+    ~Scene();
 };
 
 #endif

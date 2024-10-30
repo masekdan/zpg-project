@@ -25,6 +25,7 @@ private:
 public:
     
     ShaderProgram(const char* vertexFile, const char* fragmentFile);
+    ~ShaderProgram();
 
     void Activate();
     void Delete();

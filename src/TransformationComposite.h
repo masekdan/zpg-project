@@ -14,6 +14,7 @@ public:
     TransformationComposite(std::vector<TransformationComponent*> trans);
     void add(TransformationComponent* component) override;
     glm::mat4 getModelMatrix() override;
+    ~TransformationComposite();
 };
 
 

@@ -25,3 +25,11 @@ glm::mat4 TransformationComposite::getModelMatrix()
     }
     return model;
 }
+
+TransformationComposite::~TransformationComposite()
+{
+    for (TransformationComponent* trans : this->transformations)
+    {
+        delete trans; // :)
+    }
+}

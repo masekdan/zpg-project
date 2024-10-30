@@ -13,6 +13,7 @@ private:
     GLsizeiptr size;
 public:
     Model(const GLfloat* verticies, GLsizeiptr size);
+    ~Model();
     void drawModel();
 };
 

@@ -36,3 +36,8 @@ DrawableObject* DrawableObjectFactory::create(Model* model, ShaderProgram* shade
 {
     return new DrawableObject(model,shader,transformation);
 }
+
+DrawableObject::~DrawableObject()
+{
+    delete this->transformation;
+}

@@ -45,5 +45,11 @@ void ShaderProgram::Activate()
 
 void ShaderProgram::Delete()
 {
+    this->loader.deleteShader();
     glDeleteProgram(ID);
+}
+
+ShaderProgram::~ShaderProgram()
+{
+    this->Delete();
 }

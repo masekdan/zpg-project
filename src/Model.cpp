@@ -19,3 +19,9 @@ void Model::drawModel()
     vertexArray->Bind();
     glDrawArrays(GL_TRIANGLES, 0, this->size / 6);
 }
+
+Model::~Model()
+{
+	this->vertexArray->Delete();
+	this->vertexBuffer->Delete();
+}

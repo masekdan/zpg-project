@@ -37,3 +37,11 @@ Camera* Scene::getCamera()
 {
     return this->camera;
 }
+
+Scene::~Scene()
+{
+    for (DrawableObject* dos : this->objects)
+    {
+        delete dos;
+    }
+}

@@ -153,7 +153,6 @@ void Application::run()
 		glfwPollEvents();
 		glfwSwapBuffers(window);
 	}
-
 	glfwTerminate();
 	exit(EXIT_SUCCESS);
 }
