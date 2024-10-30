@@ -6,6 +6,7 @@
 #include "VBO.h"
 #include "Model.h"
 #include "TransformationComponent.h"
+#include "Light.h"
 
 #include <glm/vec3.hpp>					// glm::vec3
 #include <glm/vec4.hpp>					// glm::vec4
@@ -19,8 +20,9 @@ private:
     ShaderProgram* shader;
     TransformationComponent* transformation;
     Model* model;
+    Light* light;
 public:
-    DrawableObject(Model* model, ShaderProgram* shader, TransformationComponent* transformation);
+    DrawableObject(Model* model, ShaderProgram* shader, TransformationComponent* transformation, Light* light);
     ~DrawableObject();
     void transform(TransformationComponent* transformation);
     void draw();
@@ -29,7 +31,7 @@ public:
 class DrawableObjectFactory
 {
     public:
-        DrawableObject* create(Model* model, ShaderProgram* shader, TransformationComponent* transformation);
+        DrawableObject* create(Model* model, ShaderProgram* shader, TransformationComponent* transformation, Light* light);
 };
 
 

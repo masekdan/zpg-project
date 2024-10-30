@@ -1,11 +1,12 @@
 #include "DrawableObject.h"
 
 
-DrawableObject::DrawableObject(Model* model, ShaderProgram* shader, TransformationComponent* transformation)
+DrawableObject::DrawableObject(Model* model, ShaderProgram* shader, TransformationComponent* transformation, Light* light)
 {
     this->model = model;
     this->shader = shader;
     this->transformation = transformation;
+    this->light = light;
 }
 
 
@@ -21,7 +22,7 @@ void DrawableObject::draw()
 
 
     this->shader->SetUniform("model",M);
-    //this->shader->SetUniform("normalMatrix",N);
+    this->shader->SetUniform("lightPosition",this->light->getPosition());
 
     this->model->drawModel();
 }
@@ -32,9 +33,9 @@ void DrawableObject::transform(TransformationComponent* transformation)
 }
 
 
-DrawableObject* DrawableObjectFactory::create(Model* model, ShaderProgram* shader, TransformationComponent* transformation)
+DrawableObject* DrawableObjectFactory::create(Model* model, ShaderProgram* shader, TransformationComponent* transformation,Light* light)
 {
-    return new DrawableObject(model,shader,transformation);
+    return new DrawableObject(model,shader,transformation,light);
 }
 
 DrawableObject::~DrawableObject()

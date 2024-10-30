@@ -9,6 +9,7 @@ private:
     glm::vec3 position;
 public:
     Light(glm::vec3 pos);
+    glm::vec3 getPosition();
     ~Light();
 };
 

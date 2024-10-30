@@ -5,13 +5,14 @@ in vec3 ex_worldNormal;
 out vec4 fragColor;
 
 uniform vec3 eye = vec3(0.0,0.0,3.0);
+uniform vec3 lightPosition;
 
 
 void main (void)
 {
     vec3 norm = normalize( ex_worldNormal );
 
-    vec3 lightPosition= vec3(0.0,0.0,0.0);
+    //vec3 lightPosition= vec3(0.0,0.0,0.0);
 
     vec3 viewDir = normalize(eye - vec3(ex_worldPosition));
 

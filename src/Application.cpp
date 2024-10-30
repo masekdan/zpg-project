@@ -69,13 +69,15 @@ void Application::createModels()
 
 	DrawableObjectFactory df;
 
-	scenes[0]->addObject(df.create(ball, shaders[2], new TransformationComposite({new Translation(vec3(0.0f, 2.0f, 0.0f)), new Scale(vec3(0.7f))})));
-	scenes[0]->addObject(df.create(ball, shaders[3], new TransformationComposite({new Translation(vec3(0.0f, -2.0f, 0.0f)), new Scale(vec3(0.7f))})));
-	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))})));
-	scenes[0]->addObject(df.create(ball, shaders[5], new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))})));
-	scenes[0]->addObject(df.create(suziModel,shaders[2],new TransformationComposite({new Translation(vec3(-10.0f,0.0f,0.0f)),new DynamicRotation(vec3(0.0,1.0,0.0),1)})));
+	Light* l1 = new Light(glm::vec3(0.0f,0.0f,0.0f));
 
-	for (int i = 0; i < 10; i++)
+	scenes[0]->addObject(df.create(ball, shaders[2], new TransformationComposite({new Translation(vec3(0.0f, 2.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
+	scenes[0]->addObject(df.create(ball, shaders[3], new TransformationComposite({new Translation(vec3(0.0f, -2.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
+	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
+	scenes[0]->addObject(df.create(ball, shaders[5], new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
+	scenes[0]->addObject(df.create(suziModel,shaders[3],new TransformationComposite({new Translation(vec3(-10.0f,-1.2f,-5.6f)),new DynamicRotation(vec3(0.0,1.0,0.0),1)}),l1));
+
+	/*for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 10; j++)
 		{
@@ -102,7 +104,7 @@ void Application::createModels()
 			scenes[1]->addObject(df.create(bushModel, shaders[3], tc5));
 			scenes[1]->addObject(df.create(bushModel, shaders[3], tc6));
 		}
-	}
+	}*/
 }
 
 void Application::run()

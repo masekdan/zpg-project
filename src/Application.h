@@ -27,7 +27,12 @@
 #include "Translation.h"
 #include "DynamicRotation.h"
 #include "TransformationComposite.h"
+#include "Light.h"
 
+
+
+
+// model inclusion
 
 #include "models/gift.h"
 #include "models/suzi_flat.h"
