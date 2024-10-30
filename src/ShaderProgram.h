@@ -12,16 +12,16 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "Observer.h"
+#include "ShaderLoader.h"
 
 class Camera;
-
-std::string get_file_contents(const char* filename);
 
 class ShaderProgram : public Observer
 {
 private:
     GLuint ID;
     Camera *camera;
+    ShaderLoader loader;
 public:
     
     ShaderProgram(const char* vertexFile, const char* fragmentFile);
