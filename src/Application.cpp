@@ -121,14 +121,6 @@ void Application::run()
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		double crntTime = glfwGetTime();
-		if (crntTime - prevTime >= 1 / 60)
-		{
-			rotation += 0.05f;
-			prevTime = crntTime;
-		}
-
-		
 		if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
 		{
 			if (!swapPressed)

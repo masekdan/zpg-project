@@ -42,6 +42,15 @@ public:
     void matrix(float FOV, float nearPlane, float farPlate);
     void inputs(GLFWwindow* window);
 
+    void moveLeft();
+    void moveRight();
+    void moveForward();
+    void moveBack();
+
+    void mouseLook();
+
+    void resizeView();
+
     glm::mat4 getProjection();
     glm::mat4 getView();
     glm::vec3 getEye();

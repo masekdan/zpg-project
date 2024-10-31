@@ -28,6 +28,7 @@
 #include "DynamicRotation.h"
 #include "TransformationComposite.h"
 #include "Light.h"
+#include "Controller.h"
 
 
 

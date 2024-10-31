@@ -22,7 +22,6 @@ Camera* Camera::getInstance(glm::vec3 eye, glm::vec3 center, glm::vec3 up)
     return instance;
 }
 
-
 void Camera::registerShader(Observer* shader)
 {
     this->shaders.push_back(shader);
@@ -51,6 +50,8 @@ glm::vec3 Camera::getEye()
 {
     return this->eye;
 }
+
+
 
 void Camera::inputs(GLFWwindow* window)
 {

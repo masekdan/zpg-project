@@ -1,8 +1,6 @@
 #ifndef OBSERVER_CLASS_H
 #define OBSERVER_CLASS_H
 
-#include <glm/mat4x4.hpp>
-
 #include "Subject.h"
 
 class Subject;
