@@ -77,16 +77,18 @@ void Application::createModels()
 	scenes[0]->addObject(df.create(ball, shaders[5], new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
 	scenes[0]->addObject(df.create(suziModel,shaders[3],new TransformationComposite({new Translation(vec3(-10.0f,-1.2f,-5.6f)),new DynamicRotation(vec3(0.0,1.0,0.0),1)}),l1));
 
-	/*for (int i = 0; i < 10; i++)
+	Light * forest_light = new Light(glm::vec3(25.0f,20.0f,25.0f));
+
+	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 10; j++)
 		{
 			TransformationComposite *tc2 = new TransformationComposite();
-			tc2->add(new Translation(vec3(static_cast<float>(j * 7), 1.0f, static_cast<float>(i * 7))));
+			tc2->add(new Translation(vec3(static_cast<float>(j * -5), 1.0f, static_cast<float>(i * -5))));
 			tc2->add(new Rotation(vec3(0.0f, j * i, 0.0f)));
 			tc2->add(new Scale(vec3((float)rand() / RAND_MAX)));
 
-			scenes[1]->addObject(df.create(treeModel, shaders[2], tc2));
+			scenes[1]->addObject(df.create(treeModel, shaders[3], tc2,forest_light));
 			TransformationComposite *tc3 = new TransformationComposite();
 			TransformationComposite *tc4 = new TransformationComposite();
 			TransformationComposite *tc5 = new TransformationComposite();
@@ -99,12 +101,12 @@ void Application::createModels()
 			tc4->add(new Translation(vec3(0.0f, 0.0f, -1.0f)));
 			tc5->add(new Translation(vec3(1.0f, 0.0f, 0.0f)));
 			tc6->add(new Translation(vec3(-1.0f, 0.0f, 0.0f)));
-			scenes[1]->addObject(df.create(bushModel, shaders[3], tc3));
-			scenes[1]->addObject(df.create(bushModel, shaders[3], tc4));
-			scenes[1]->addObject(df.create(bushModel, shaders[3], tc5));
-			scenes[1]->addObject(df.create(bushModel, shaders[3], tc6));
+			scenes[1]->addObject(df.create(bushModel, shaders[3], tc3,forest_light));
+			scenes[1]->addObject(df.create(bushModel, shaders[3], tc4,forest_light));
+			scenes[1]->addObject(df.create(bushModel, shaders[3], tc5,forest_light));
+			scenes[1]->addObject(df.create(bushModel, shaders[3], tc6,forest_light));
 		}
-	}*/
+	}
 }
 
 void Application::run()
