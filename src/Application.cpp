@@ -61,34 +61,37 @@ void Application::createModels()
 
 	scenes.push_back(new Scene(this->shaders));
 	scenes.push_back(new Scene(this->shaders));
+	scenes.push_back(new Scene(this->shaders));
+	scenes.push_back(new Scene(this->shaders));
 	Model *treeModel = new Model(tree, sizeof(tree));
 	Model *bushModel = new Model(bushes, sizeof(bushes));
 	Model *giftModel = new Model(gift, sizeof(gift));
 	Model *suziModel = new Model(suziFlat, sizeof(suziFlat));
+	Model *suziSmoothModel = new Model(suziSmooth, sizeof(suziSmooth));
 	Model *ball = new Model(sphere, sizeof(sphere));
+	Model *plainModel = new Model(plain,sizeof(plain));
 
 	DrawableObjectFactory df;
 
 	Light* l1 = new Light(glm::vec3(0.0f,0.0f,0.0f));
 
-	scenes[0]->addObject(df.create(ball, shaders[2], new TransformationComposite({new Translation(vec3(0.0f, 2.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
-	scenes[0]->addObject(df.create(ball, shaders[3], new TransformationComposite({new Translation(vec3(0.0f, -2.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
-	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
+	scenes[0]->addObject(df.create(ball, shaders[5], new TransformationComposite({new Translation(vec3(0.0f, 2.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
+	scenes[0]->addObject(df.create(ball, shaders[5], new TransformationComposite({new Translation(vec3(0.0f, -2.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
+	scenes[0]->addObject(df.create(ball, shaders[5], new TransformationComposite({new Translation(vec3(2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
 	scenes[0]->addObject(df.create(ball, shaders[5], new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
-	scenes[0]->addObject(df.create(suziModel,shaders[3],new TransformationComposite({new Translation(vec3(-10.0f,-1.2f,-5.6f)),new DynamicRotation(vec3(0.0,1.0,0.0),1)}),l1));
-
+	
 	Light * forest_light = new Light(glm::vec3(25.0f,20.0f,25.0f));
-
+	scenes[1]->addObject(df.create(plainModel,shaders[0],new Scale(glm::vec3(50.0f)),l1));
 	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 10; j++)
 		{
 			TransformationComposite *tc2 = new TransformationComposite();
-			tc2->add(new Translation(vec3(static_cast<float>(j * -5), 1.0f, static_cast<float>(i * -5))));
+			tc2->add(new Translation(vec3(static_cast<float>(j * -5), 0.0f, static_cast<float>(i * -5))));
 			tc2->add(new Rotation(vec3(0.0f, j * i, 0.0f)));
 			tc2->add(new Scale(vec3((float)rand() / RAND_MAX)));
 
-			scenes[1]->addObject(df.create(treeModel, shaders[3], tc2,forest_light));
+			scenes[1]->addObject(df.create(treeModel, shaders[5], tc2,forest_light));
 			TransformationComposite *tc3 = new TransformationComposite();
 			TransformationComposite *tc4 = new TransformationComposite();
 			TransformationComposite *tc5 = new TransformationComposite();
@@ -107,6 +110,14 @@ void Application::createModels()
 			scenes[1]->addObject(df.create(bushModel, shaders[3], tc6,forest_light));
 		}
 	}
+
+	scenes[2]->addObject(df.create(suziModel,shaders[3],new TransformationComposite({new Translation(vec3(-10.0f,-1.2f,-5.6f)),new DynamicRotation(vec3(0.0,1.0,0.0),1)}),l1));
+
+	scenes[3]->addObject(df.create(giftModel,shaders[3],new TransformationComposite({new Translation(vec3(-10.0f,-1.2f,-5.6f)),new DynamicRotation(vec3(0.0,1.0,0.0),1)}),l1));
+	scenes[3]->addObject(df.create(suziSmoothModel,shaders[4],new TransformationComposite({new Translation(vec3(-7.0f,-1.2f,-5.6f)),new DynamicRotation(vec3(0.0,1.0,0.0),1)}),l1));
+	scenes[3]->addObject(df.create(suziSmoothModel,shaders[5],new TransformationComposite({new Translation(vec3(-4.0f,-1.2f,-5.6f)),new DynamicRotation(vec3(0.0,1.0,0.0),1)}),l1));
+	scenes[3]->addObject(df.create(suziSmoothModel,shaders[3],new TransformationComposite({new Translation(vec3(-1.0f,-1.2f,-5.6f)),new DynamicRotation(vec3(0.0,1.0,0.0),1)}),l1));
+	scenes[3]->addObject(df.create(suziSmoothModel,shaders[2],new TransformationComposite({new Translation(vec3(2.0f,-1.2f,-5.6f)),new DynamicRotation(vec3(0.0,1.0,0.0),1)}),l1));
 }
 
 void Application::run()

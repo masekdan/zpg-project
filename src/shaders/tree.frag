@@ -8,5 +8,5 @@ uniform vec3 lightPosition;
 
 void main()
 {
-    FragColor = vec4(color,1.0);
+    FragColor = vec4(0.385 ,0.647 ,0.812 ,1.0);
 }
