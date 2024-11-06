@@ -1,19 +1,18 @@
 #include "ShaderProgram.h"
 #include "Camera.h"
 
-
 void ShaderProgram::update()
 {
-    this->Activate();
-    this->SetUniform("projection",this->camera->getProjection());
-    this->SetUniform("view",this->camera->getView());
-    this->SetUniform("eye",this->camera->getEye());
+    //this->Activate();
+    this->SetUniform("projection", this->camera->getProjection());
+    this->SetUniform("view", this->camera->getView());
+    this->SetUniform("eye", this->camera->getEye());
 }
 
 ShaderProgram::ShaderProgram(const char *vertexFile, const char *fragmentFile)
 {
-    
-    ID = this->loader.loadShader(vertexFile,fragmentFile);
+
+    ID = this->loader.loadShader(vertexFile, fragmentFile);
 
     GLint status;
     glGetProgramiv(ID, GL_LINK_STATUS, &status);
@@ -26,27 +25,45 @@ ShaderProgram::ShaderProgram(const char *vertexFile, const char *fragmentFile)
     }
 }
 
-void ShaderProgram::SetUniform(char* name, glm::mat4 matrix)
+void ShaderProgram::SetUniform(char *name, glm::mat4 matrix)
 {
-    int uniformLocation = glGetUniformLocation(this->ID,name);
-    glUniformMatrix4fv(uniformLocation,1,GL_FALSE,glm::value_ptr(matrix));
+    int uniformLocation = glGetUniformLocation(this->ID, name);
+    if (uniformLocation < 0)
+    {
+        std::cout << "This uniform \"" << name << "\"." << std::endl;
+    }
+    else
+    {
+        glUniformMatrix4fv(uniformLocation, 1, GL_FALSE, glm::value_ptr(matrix));
+    }
 }
 
-void ShaderProgram::SetUniform(char* name, glm::vec3 matrix)
+void ShaderProgram::SetUniform(char *name, glm::vec3 matrix)
 {
-    int uniformLocation = glGetUniformLocation(this->ID,name);
-    glUniform3fv(uniformLocation,1,glm::value_ptr(matrix));
+    int uniformLocation = glGetUniformLocation(this->ID, name);
+    if (uniformLocation < 0)
+    {
+        std::cout << "This uniform \"" << name << "\"." << std::endl;
+    }
+    else
+    {
+        glUniform3fv(uniformLocation, 1, glm::value_ptr(matrix));
+    }
 }
 
-
-void ShaderProgram::registerSubject(Subject* subject)
+void ShaderProgram::registerSubject(Subject *subject)
 {
-    this->camera = static_cast<Camera*>(subject);
+    this->camera = static_cast<Camera *>(subject);
 }
 
 void ShaderProgram::Activate()
 {
     glUseProgram(ID);
+}
+
+void ShaderProgram::Deactivate()
+{
+    glUseProgram(0);
 }
 
 void ShaderProgram::Delete()

@@ -24,7 +24,9 @@ void DrawableObject::draw()
     this->shader->SetUniform("model",M);
     this->shader->SetUniform("lightPosition",this->light->getPosition());
 
+    
     this->model->drawModel();
+    //this->shader->Deactivate();
 }
 
 void DrawableObject::transform(TransformationComponent* transformation)

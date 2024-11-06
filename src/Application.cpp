@@ -75,10 +75,10 @@ void Application::createModels()
 
 	Light* l1 = new Light(glm::vec3(0.0f,0.0f,0.0f));
 
-	scenes[0]->addObject(df.create(ball, shaders[5], new TransformationComposite({new Translation(vec3(0.0f, 2.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
-	scenes[0]->addObject(df.create(ball, shaders[5], new TransformationComposite({new Translation(vec3(0.0f, -2.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
-	scenes[0]->addObject(df.create(ball, shaders[5], new TransformationComposite({new Translation(vec3(2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
-	scenes[0]->addObject(df.create(ball, shaders[5], new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
+	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(0.0f, 2.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
+	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(0.0f, -2.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
+	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
+	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}),l1));
 	
 	Light * forest_light = new Light(glm::vec3(25.0f,20.0f,25.0f));
 	scenes[1]->addObject(df.create(plainModel,shaders[0],new Scale(glm::vec3(50.0f)),l1));

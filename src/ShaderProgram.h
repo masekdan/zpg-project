@@ -28,6 +28,7 @@ public:
     ~ShaderProgram();
 
     void Activate();
+    void Deactivate();
     void Delete();
     void registerSubject(Subject* subject) override;
     void update() override;

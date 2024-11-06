@@ -29,7 +29,7 @@ void main (void)
     // vec4 specular = specularStrength * spec * lightColor ;;
     vec4 objectColor = vec4 (0.385 ,0.647 ,0.812 ,1.0);
 
-    float diffuse = max(dot(norm,lightDir),0.0);
+    float diffuse = max(dot(norm,normalize(lightDir)),0.0);
     vec4 diff = diffuse * vec4(1.0,1.0,1.0,1.0);
     
     fragColor = ambient + (diff * objectColor ) + (spec * vec4 (1.0 ,1.0 ,1.0 ,1.0));
