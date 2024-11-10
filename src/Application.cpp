@@ -81,7 +81,7 @@ void Application::createModels()
 	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}), l1));
 	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}), l1));
 
-	Light *forest_light = new Light(glm::vec3(25.0f, 20.0f, 25.0f));
+	Light *forest_light = new Light(glm::vec3(-35.0f, 10.0f, -25.0f));
 	scenes[1]->addObject(df.create(plainModel, shaders[0],new TransformationComposite({new Translation(vec3(-22.5f,0,-22.5f)),new Scale(glm::vec3(25.0f))}), l1));
 	scenes[1]->addObject(df.create(treeModel,shaders[4],new TransformationComposite({new Translation(vec3(-45,0,-25)),new DynamicRotation(vec3(0,1,0),1)}),forest_light));
 	for (int i = 0; i < 10; i++)
@@ -93,7 +93,7 @@ void Application::createModels()
 			tc2->add(new Rotation(vec3(0.0f, j * i, 0.0f)));
 			tc2->add(new Scale(vec3((float)rand() / RAND_MAX)));
 
-			scenes[1]->addObject(df.create(treeModel, shaders[5], tc2, forest_light));
+			scenes[1]->addObject(df.create(treeModel, shaders[4], tc2, forest_light));
 			TransformationComposite *tc3 = new TransformationComposite();
 			TransformationComposite *tc4 = new TransformationComposite();
 			TransformationComposite *tc5 = new TransformationComposite();

@@ -10,12 +10,20 @@ uniform vec3 lightPosition;
 
 void main (void)
 {
+    float constant = 1.0;
+    float linear = 0.018;
+    float quadratic = 0.0128;
+
     vec3 norm = normalize( ex_worldNormal );
 
     vec3 viewDir = normalize(eye - vec3(ex_worldPosition));
 
     vec3 lightDir = lightPosition - vec3(ex_worldPosition);
+    float distance = length(lightDir);
+
     vec3 reflectDir = reflect ( -lightDir , norm );
+
+    float attenuation = 1.0 / (constant + linear * distance + quadratic * (distance * distance));
 
     float spec = pow(max(dot(viewDir, normalize(reflectDir)), 0.0), 32);
     if (dot(norm,lightDir) < 0)
@@ -30,5 +38,5 @@ void main (void)
     float diffuse = max(dot(norm,normalize(lightDir)),0.0);
     vec4 diff = diffuse * vec4(1.0,1.0,1.0,1.0);
     
-    fragColor = ambient + (diff * objectColor ) + (spec * vec4 (1.0 ,1.0 ,1.0 ,1.0));
+    fragColor = ambient + (diff * objectColor * attenuation ) + (spec *  attenuation *vec4 (1.0 ,1.0 ,1.0 ,1.0));
 }
