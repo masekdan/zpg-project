@@ -32,10 +32,14 @@ private:
     float yaw = -90.0f;  //left-right fi
 
     Camera(glm::vec3 eye, glm::vec3 center, glm::vec3 up);
-    static Camera* instance;
+    
+    
+    int width;
+    int height;
 
 public:
     
+    static Camera* instance;
     static Camera* getInstance(glm::vec3 eye, glm::vec3 center, glm::vec3 up);
     void registerShader(Observer* shader);
     void removeShader(Observer* shader);
@@ -49,7 +53,7 @@ public:
 
     void mouseLook();
 
-    void resizeView();
+    void resizeWindow(GLFWwindow* window, int width, int height);
 
     glm::mat4 getProjection();
     glm::mat4 getView();

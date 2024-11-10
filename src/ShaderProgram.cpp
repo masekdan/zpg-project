@@ -3,7 +3,7 @@
 
 void ShaderProgram::update()
 {
-    //this->Activate();
+    this->Activate();
     this->SetUniform("projection", this->camera->getProjection());
     this->SetUniform("view", this->camera->getView());
     this->SetUniform("eye", this->camera->getEye());
@@ -28,9 +28,9 @@ ShaderProgram::ShaderProgram(const char *vertexFile, const char *fragmentFile)
 void ShaderProgram::SetUniform(char *name, glm::mat4 matrix)
 {
     int uniformLocation = glGetUniformLocation(this->ID, name);
-    if (uniformLocation < 0)
+    if (uniformLocation == -1)
     {
-        std::cout << "This uniform \"" << name << "\"." << std::endl;
+        //std::cout << "This uniform \"" << name << "\" does not exist." << std::endl;
     }
     else
     {
@@ -41,9 +41,9 @@ void ShaderProgram::SetUniform(char *name, glm::mat4 matrix)
 void ShaderProgram::SetUniform(char *name, glm::vec3 matrix)
 {
     int uniformLocation = glGetUniformLocation(this->ID, name);
-    if (uniformLocation < 0)
+    if (uniformLocation == -1)
     {
-        std::cout << "This uniform \"" << name << "\"." << std::endl;
+        //std::cout << "This uniform \"" << name << "\" does not exist." << std::endl;
     }
     else
     {

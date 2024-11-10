@@ -18,8 +18,6 @@ void DrawableObject::draw()
     glm::mat4 V = glm::mat4(1.0f);
     glm::mat4 P = glm::mat4(1.0f);
 
-    //glm::mat3 N = glm::transpose(glm::inverse(glm::mat3(M)));
-
 
     this->shader->SetUniform("model",M);
     this->shader->SetUniform("lightPosition",this->light->getPosition());

@@ -12,7 +12,6 @@ void main (void)
 {
     vec3 norm = normalize( ex_worldNormal );
 
-    //vec3 lightPosition= vec3(0.0,0.0,0.0);
     vec3 viewDir = normalize(eye - vec3(ex_worldPosition));
 
     vec3 lightDir = lightPosition - vec3(ex_worldPosition);
@@ -26,7 +25,6 @@ void main (void)
 
     vec4 ambient = vec4( 0.1, 0.1, 0.1, 1.0);
 
-    // vec4 specular = specularStrength * spec * lightColor ;;
     vec4 objectColor = vec4 (0.385 ,0.647 ,0.812 ,1.0);
 
     float diffuse = max(dot(norm,normalize(lightDir)),0.0);

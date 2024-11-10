@@ -9,6 +9,7 @@ class DynamicRotation : public TransformationComponent
 private:
     glm::vec3 rotation;
     float speed;
+    float angle;
     float rotate(float angle);
 public:
     DynamicRotation(glm::vec3 rot, float speed);

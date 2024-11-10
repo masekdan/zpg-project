@@ -1,8 +1,8 @@
 #include "Camera.h"
 #include "ShaderProgram.h"
 
-Camera* Camera::instance = nullptr;
 
+Camera* Camera::instance = nullptr;
 Camera::Camera(glm::vec3 eye, glm::vec3 center, glm::vec3 up)
 {
     this->eye = eye;
@@ -11,6 +11,9 @@ Camera::Camera(glm::vec3 eye, glm::vec3 center, glm::vec3 up)
 
     this->view = glm::mat4(1.0);
     this->projection = glm::mat4(1.0);
+
+    this->width = 800;
+    this->height = 600;
 }
 
 Camera* Camera::getInstance(glm::vec3 eye, glm::vec3 center, glm::vec3 up)
@@ -31,7 +34,14 @@ void Camera::matrix(float FOV, float nearPlane, float farPlane)
 {
 
     this->view = glm::lookAt(this->eye,this->center,this->up);
-    this->projection = glm::perspective(glm::radians(FOV),16.0f/9.0f,nearPlane,farPlane);
+
+    float aratio;
+    if (this->height!=0)
+    {
+        aratio = this->width/this->height;
+    }
+
+    this->projection = glm::perspective(glm::radians(FOV),aratio,nearPlane,farPlane);
 
     this->notifyObservers();
 }
@@ -51,7 +61,13 @@ glm::vec3 Camera::getEye()
     return this->eye;
 }
 
-
+void Camera::resizeWindow(GLFWwindow* window, int width, int height)
+{
+    this->width = width;
+    this->height = height;
+    glViewport(0,0,width,height);
+    std::cout << "Window resized" << std::endl;
+}
 
 void Camera::inputs(GLFWwindow* window)
 {
@@ -99,7 +115,7 @@ void Camera::inputs(GLFWwindow* window)
 
         if (firstClick)
         {
-            glfwSetCursorPos(window, (800/2),(600/2));
+            glfwSetCursorPos(window, (this->width/2),(this->height/2));
             firstClick = false;
         }
 
@@ -108,8 +124,8 @@ void Camera::inputs(GLFWwindow* window)
 
         glfwGetCursorPos(window, &mouseX, &mouseY);
 
-        float xoffset = (mouseX - 800 / 2 )*sens;
-        float yoffset = (600/2 - mouseY)*sens;
+        float xoffset = (mouseX - this->width / 2 )*sens;
+        float yoffset = (this->height/2 - mouseY)*sens;
 
         yaw += xoffset;
         pitch += yoffset;
@@ -126,7 +142,7 @@ void Camera::inputs(GLFWwindow* window)
 
         this->center = glm::normalize(direction) + eye;
 
-        glfwSetCursorPos(window,800/2,600/2);
+        glfwSetCursorPos(window,this->width/2,this->height/2);
     }
 
     else if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_RELEASE)
@@ -134,4 +150,8 @@ void Camera::inputs(GLFWwindow* window)
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         firstClick = true;
     }
+
+    glfwSetFramebufferSizeCallback(window, [](GLFWwindow *window, int width, int height) {
+    Camera::instance->resizeWindow(window,width,height);
+});
 }
