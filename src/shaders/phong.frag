@@ -22,9 +22,12 @@ uniform Light lights[MAX];
 
 void main (void)
 {
-    float constant = 1.0;
-    float linear = 0.018;
-    float quadratic = 0.0128;
+    vec4 ambient = vec4( 0.1, 0.1, 0.1, 1.0);
+    vec4 objectColor = vec4 (0.385 ,0.647 ,0.812 ,1.0);
+
+    float constant = lights[0].attenuation.x;
+    float linear = lights[0].attenuation.y;
+    float quadratic = lights[0].attenuation.z;
 
     vec3 norm = normalize( ex_worldNormal );
 
@@ -42,10 +45,6 @@ void main (void)
     {
         spec = 0.0;
     }
-
-    vec4 ambient = vec4( 0.1, 0.1, 0.1, 1.0);
-
-    vec4 objectColor = vec4 (0.385 ,0.647 ,0.812 ,1.0);
 
     float diffuse = max(dot(norm,normalize(lightDir)),0.0);
     vec4 diff = diffuse * vec4(1.0,1.0,1.0,1.0);

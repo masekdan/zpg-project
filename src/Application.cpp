@@ -74,7 +74,7 @@ void Application::createModels()
 
 	DrawableObjectFactory df;
 
-	Light *l1 = new Light(vec3(0.0f, 0.0f, 0.0f), vec3(1.0f,0.018f,0.0128f));
+	Light *l1 = new Light(vec3(0.0f, 0.0f, 0.0f), vec3(1.0f,0.1f,0.01f));
 
 	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(0.0f, 2.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1}));
 	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(0.0f, -2.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1}));
@@ -93,7 +93,7 @@ void Application::createModels()
 			tc2->add(new Rotation(vec3(0.0f, j * i, 0.0f)));
 			tc2->add(new Scale(vec3((float)rand() / RAND_MAX)));
 
-			scenes[1]->addObject(df.create(treeModel, shaders[4], tc2, {forest_light}));
+			scenes[1]->addObject(df.create(treeModel, shaders[4], tc2, {l1,forest_light}));
 			TransformationComposite *tc3 = new TransformationComposite();
 			TransformationComposite *tc4 = new TransformationComposite();
 			TransformationComposite *tc5 = new TransformationComposite();

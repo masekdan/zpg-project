@@ -7,6 +7,8 @@ void ShaderProgram::update()
     this->SetUniform("projection", this->camera->getProjection());
     this->SetUniform("view", this->camera->getView());
     this->SetUniform("eye", this->camera->getEye());
+    //this->Deactivate();
+    glUseProgram(0);
 }
 
 ShaderProgram::ShaderProgram(const char *vertexFile, const char *fragmentFile)
@@ -58,13 +60,16 @@ void ShaderProgram::SetLights(std::vector<Light*> lights)
     glUniform1i(lightSizeLocation,size);
     for (int i = 0; i<size;i++)
     {
-        std::string loc = "lights[0";
-        loc += "].position";
+        std::string loc;
+        std::stringstream ss;
+        ss << "lights[" << i << "].position";
+        loc = ss.str();
         std::cout << loc << std::endl;
         int lightPosLocation = glGetUniformLocation(this->ID,loc.c_str());
         glUniform3fv(lightPosLocation,1,glm::value_ptr(lights[i]->getPosition()));
-        loc = "lights[0";
-        loc += "].attenuation";
+        ss = std::stringstream();
+        ss << "lights[" << i <<  "].attenuation";
+        loc = ss.str();
         std::cout << loc << std::endl;
         int lightAttLocation = glGetUniformLocation(this->ID,loc.c_str());
         glUniform3fv(lightAttLocation,1,glm::value_ptr(lights[i]->getAttenuation()));

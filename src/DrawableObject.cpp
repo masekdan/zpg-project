@@ -12,20 +12,21 @@ DrawableObject::DrawableObject(Model* model, ShaderProgram* shader, Transformati
 
 void DrawableObject::draw()
 {
-    this->shader->Activate();
-
+    
     glm::mat4 M = transformation->getModelMatrix();
     glm::mat4 V = glm::mat4(1.0f);
     glm::mat4 P = glm::mat4(1.0f);
 
 
+    this->shader->Activate();
     this->shader->SetUniform("model",M);
     //this->shader->SetUniform("lightPosition",this->light->getPosition());
     this->shader->SetLights(this->lights);
 
     
     this->model->drawModel();
-    this->shader->Deactivate();
+    glUseProgram(0);
+    //this->shader->Deactivate();
 }
 
 void DrawableObject::transform(TransformationComponent* transformation)

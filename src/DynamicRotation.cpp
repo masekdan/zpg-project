@@ -10,6 +10,11 @@ DynamicRotation::DynamicRotation(glm::vec3 rot, float speed)
 
 float DynamicRotation::rotate(float angle)
 {
+
+    if (angle == 360 || angle == 360)
+    {
+        angle = 0;
+    }
     return angle + this->speed;
 }
 
