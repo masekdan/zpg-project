@@ -51,6 +51,26 @@ void ShaderProgram::SetUniform(char *name, glm::vec3 matrix)
     }
 }
 
+void ShaderProgram::SetLights(std::vector<Light*> lights)
+{
+    int size = lights.size();
+    int lightSizeLocation = glGetUniformLocation(this->ID,"lightCount");
+    glUniform1i(lightSizeLocation,size);
+    for (int i = 0; i<size;i++)
+    {
+        std::string loc = "lights[0";
+        loc += "].position";
+        std::cout << loc << std::endl;
+        int lightPosLocation = glGetUniformLocation(this->ID,loc.c_str());
+        glUniform3fv(lightPosLocation,1,glm::value_ptr(lights[i]->getPosition()));
+        loc = "lights[0";
+        loc += "].attenuation";
+        std::cout << loc << std::endl;
+        int lightAttLocation = glGetUniformLocation(this->ID,loc.c_str());
+        glUniform3fv(lightAttLocation,1,glm::value_ptr(lights[i]->getAttenuation()));
+    }
+}
+
 void ShaderProgram::registerSubject(Subject *subject)
 {
     this->camera = static_cast<Camera *>(subject);

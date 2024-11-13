@@ -6,6 +6,7 @@
 #include <sstream>
 #include <iostream>
 #include <cerrno>
+#include <vector>
 
 #include <GL/glew.h>
 #include <glm/mat4x4.hpp>
@@ -13,6 +14,7 @@
 
 #include "Observer.h"
 #include "ShaderLoader.h"
+#include "Light.h"
 
 class Camera;
 
@@ -34,6 +36,7 @@ public:
     void update() override;
     void SetUniform(char * name,glm::mat4 matrix);
     void SetUniform(char * name,glm::vec3 matrix);
+    void SetLights(std::vector<Light*> lights);
     
 };
 

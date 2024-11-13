@@ -1,11 +1,23 @@
 # version 330 core
 
+#define MAX 5
+
+
 in vec4 ex_worldPosition;
 in vec3 ex_worldNormal;
 out vec4 fragColor;
 
 uniform vec3 eye = vec3(0.0,0.0,3.0);
 uniform vec3 lightPosition;
+
+uniform int lightCount;
+
+struct Light {
+    vec3 position;
+    vec3 attenuation;
+};
+
+uniform Light lights[MAX];
 
 
 void main (void)
@@ -18,7 +30,7 @@ void main (void)
 
     vec3 viewDir = normalize(eye - vec3(ex_worldPosition));
 
-    vec3 lightDir = lightPosition - vec3(ex_worldPosition);
+    vec3 lightDir = lights[0].position - vec3(ex_worldPosition);
     float distance = length(lightDir);
 
     vec3 reflectDir = reflect ( -lightDir , norm );

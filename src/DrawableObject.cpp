@@ -1,12 +1,12 @@
 #include "DrawableObject.h"
 
 
-DrawableObject::DrawableObject(Model* model, ShaderProgram* shader, TransformationComponent* transformation, Light* light)
+DrawableObject::DrawableObject(Model* model, ShaderProgram* shader, TransformationComponent* transformation, std::vector<Light*> lights)
 {
     this->model = model;
     this->shader = shader;
     this->transformation = transformation;
-    this->light = light;
+    this->lights = lights;
 }
 
 
@@ -20,11 +20,12 @@ void DrawableObject::draw()
 
 
     this->shader->SetUniform("model",M);
-    this->shader->SetUniform("lightPosition",this->light->getPosition());
+    //this->shader->SetUniform("lightPosition",this->light->getPosition());
+    this->shader->SetLights(this->lights);
 
     
     this->model->drawModel();
-    //this->shader->Deactivate();
+    this->shader->Deactivate();
 }
 
 void DrawableObject::transform(TransformationComponent* transformation)
@@ -33,9 +34,9 @@ void DrawableObject::transform(TransformationComponent* transformation)
 }
 
 
-DrawableObject* DrawableObjectFactory::create(Model* model, ShaderProgram* shader, TransformationComponent* transformation,Light* light)
+DrawableObject* DrawableObjectFactory::create(Model* model, ShaderProgram* shader, TransformationComponent* transformation,std::vector<Light*> lights)
 {
-    return new DrawableObject(model,shader,transformation,light);
+    return new DrawableObject(model,shader,transformation,lights);
 }
 
 DrawableObject::~DrawableObject()

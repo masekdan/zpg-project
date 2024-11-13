@@ -13,6 +13,7 @@
 #include <glm/mat4x4.hpp>				// glm::mat4
 #include <glm/gtc/matrix_transform.hpp> // glm::translate, glm::rotate, glm::scale, glm::perspective
 #include <glm/gtc/type_ptr.hpp>	
+#include <vector>
 
 class DrawableObject
 {
@@ -21,8 +22,9 @@ private:
     TransformationComponent* transformation;
     Model* model;
     Light* light;
+    std::vector<Light*> lights;
 public:
-    DrawableObject(Model* model, ShaderProgram* shader, TransformationComponent* transformation, Light* light);
+    DrawableObject(Model* model, ShaderProgram* shader, TransformationComponent* transformation, std::vector<Light*> lights);
     ~DrawableObject();
     void transform(TransformationComponent* transformation);
     void draw();
@@ -31,7 +33,7 @@ public:
 class DrawableObjectFactory
 {
     public:
-        DrawableObject* create(Model* model, ShaderProgram* shader, TransformationComponent* transformation, Light* light);
+        DrawableObject* create(Model* model, ShaderProgram* shader, TransformationComponent* transformation, std::vector<Light*> lights);
 };
 
 
