@@ -64,13 +64,11 @@ void ShaderProgram::SetLights(std::vector<Light*> lights)
         std::stringstream ss;
         ss << "lights[" << i << "].position";
         loc = ss.str();
-        std::cout << loc << std::endl;
         int lightPosLocation = glGetUniformLocation(this->ID,loc.c_str());
         glUniform3fv(lightPosLocation,1,glm::value_ptr(lights[i]->getPosition()));
         ss = std::stringstream();
         ss << "lights[" << i <<  "].attenuation";
         loc = ss.str();
-        std::cout << loc << std::endl;
         int lightAttLocation = glGetUniformLocation(this->ID,loc.c_str());
         glUniform3fv(lightAttLocation,1,glm::value_ptr(lights[i]->getAttenuation()));
     }

@@ -66,7 +66,6 @@ void Camera::resizeWindow(GLFWwindow* window, int width, int height)
     this->width = width;
     this->height = height;
     glViewport(0,0,width,height);
-    std::cout << "Window resized" << std::endl;
 }
 
 void Camera::inputs(GLFWwindow* window)
