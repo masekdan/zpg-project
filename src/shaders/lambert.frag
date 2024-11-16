@@ -18,12 +18,20 @@ struct Light {
     vec3 attenuation;
 };
 
+struct Material {
+    vec3 ra;
+    vec3 rd;
+    vec3 rs;
+};
+
+uniform Material material;
+
 uniform Light lights[MAX];
 
 
 void main(void){
 
-    vec4 ambient = vec4( 0.1, 0.1, 0.1, 1.0);
+    vec4 ambient = vec4( 0.1, 0.1, 0.1, 1.0) * vec4(material.ra,1.0);
     vec4 objectColor = vec4 (0.385 ,0.647 ,0.812 ,1.0);
 
     vec4 sumDiff = vec4 (0.0,0.0,0.0,0.0);
@@ -41,7 +49,7 @@ void main(void){
 
         
         float dot_product = max(dot(normalize(lightDir), normalize(ex_worldNormal)), 0.0);
-        vec4 diffuse = dot_product * objectColor;
+        vec4 diffuse = dot_product * vec4(material.rd,1.0);
 
         sumDiff += diffuse * attenuation;
     }

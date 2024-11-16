@@ -74,6 +74,20 @@ void ShaderProgram::SetLights(std::vector<Light*> lights)
     }
 }
 
+void ShaderProgram::SetMaterial(Material* material)
+{
+    
+    int raLoc = glGetUniformLocation(this->ID,"material.ra");
+    int rdLoc = glGetUniformLocation(this->ID,"material.rd");
+    int rsLoc = glGetUniformLocation(this->ID,"material.rs");
+
+    glUniform3fv(raLoc,1,glm::value_ptr(material->getRa()));
+    
+    glUniform3fv(rdLoc,1,glm::value_ptr(material->getRd()));
+    
+    glUniform3fv(rsLoc,1,glm::value_ptr(material->getRs()));
+}
+
 void ShaderProgram::registerSubject(Subject *subject)
 {
     this->camera = static_cast<Camera *>(subject);

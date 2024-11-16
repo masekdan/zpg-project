@@ -74,20 +74,22 @@ void Application::createModels()
 
 	DrawableObjectFactory df;
 
+	Material* treeMat = new Material(vec3(1.0,1.0,1.0),vec3(0.685 ,0.647 ,0.812),vec3(1.0,1.0,1.0));
+
 	Light *l1 = new Light(vec3(0.0f, 0.0f, 0.0f), vec3(1.0f,0.1f,0.01f));
 
-	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(0.0f, 2.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1}));
-	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(0.0f, -2.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1}));
-	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1}));
-	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1}));
+	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(0.0f, 2.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1},treeMat));
+	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(0.0f, -2.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1},treeMat));
+	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1},treeMat));
+	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1},treeMat));
 
 	Light *forest_light = new Light(vec3(-35.0f, 10.0f, -25.0f),vec3(1.0f,0.018f,0.0128f));
 	std::vector<Light*> f_lights;
 	f_lights.push_back(forest_light);
 	f_lights.push_back(new Light(vec3(-15.0f, 10.0f, -45.0f),vec3(1.0f,0.018f,0.0128f)));
 	f_lights.push_back(l1);
-	scenes[1]->addObject(df.create(plainModel, shaders[3],new TransformationComposite({new Translation(vec3(-22.5f,0,-22.5f)),new Scale(glm::vec3(25.0f))}), f_lights));
-	scenes[1]->addObject(df.create(treeModel,shaders[4],new TransformationComposite({new Translation(vec3(-45,0,-25)),new DynamicRotation(vec3(0,1,0),1)}),f_lights));
+	scenes[1]->addObject(df.create(plainModel, shaders[3],new TransformationComposite({new Translation(vec3(-22.5f,0,-22.5f)),new Scale(glm::vec3(25.0f))}), f_lights,treeMat));
+	scenes[1]->addObject(df.create(treeModel,shaders[4],new TransformationComposite({new Translation(vec3(-45,0,-25)),new DynamicRotation(vec3(0,1,0),1)}),f_lights,treeMat));
 	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 10; j++)
@@ -97,7 +99,7 @@ void Application::createModels()
 			tc2->add(new Rotation(vec3(0.0f, j * i, 0.0f)));
 			tc2->add(new Scale(vec3((float)rand() / RAND_MAX)));
 
-			scenes[1]->addObject(df.create(treeModel, shaders[4], tc2, f_lights));
+			scenes[1]->addObject(df.create(treeModel, shaders[4], tc2, f_lights,treeMat));
 			TransformationComposite *tc3 = new TransformationComposite();
 			TransformationComposite *tc4 = new TransformationComposite();
 			TransformationComposite *tc5 = new TransformationComposite();
@@ -110,21 +112,21 @@ void Application::createModels()
 			tc4->add(new Translation(vec3(0.0f, 0.0f, -1.0f)));
 			tc5->add(new Translation(vec3(1.0f, 0.0f, 0.0f)));
 			tc6->add(new Translation(vec3(-1.0f, 0.0f, 0.0f)));
-			scenes[1]->addObject(df.create(bushModel, shaders[3], tc3, f_lights));
-			scenes[1]->addObject(df.create(bushModel, shaders[3], tc4, f_lights));
-			scenes[1]->addObject(df.create(bushModel, shaders[3], tc5, f_lights));
-			scenes[1]->addObject(df.create(bushModel, shaders[3], tc6, f_lights));
+			scenes[1]->addObject(df.create(bushModel, shaders[3], tc3, f_lights,treeMat));
+			scenes[1]->addObject(df.create(bushModel, shaders[3], tc4, f_lights,treeMat));
+			scenes[1]->addObject(df.create(bushModel, shaders[3], tc5, f_lights,treeMat));
+			scenes[1]->addObject(df.create(bushModel, shaders[3], tc6, f_lights,treeMat));
 		}
 	}
 
-	scenes[2]->addObject(df.create(suziModel, shaders[4], new TransformationComposite({new Translation(vec3(-10.0f, -1.2f, -5.6f)), new DynamicRotation(vec3(0.0, 1.0, 0.0), 1)}), {l1}));
+	scenes[2]->addObject(df.create(suziModel, shaders[4], new TransformationComposite({new Translation(vec3(-10.0f, -1.2f, -5.6f)), new DynamicRotation(vec3(0.0, 1.0, 0.0), 1)}), {l1},treeMat));
 
-	scenes[3]->addObject(df.create(giftModel, shaders[3], new TransformationComposite({new Translation(vec3(-10.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}), {l1}));
-	scenes[3]->addObject(df.create(suziSmoothModel, shaders[4], new TransformationComposite({new Translation(vec3(-7.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}), {l1}));
-	scenes[3]->addObject(df.create(suziSmoothModel, shaders[5], new TransformationComposite({new Translation(vec3(-4.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}), {l1}));
+	scenes[3]->addObject(df.create(giftModel, shaders[3], new TransformationComposite({new Translation(vec3(-10.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}), {l1},treeMat));
+	scenes[3]->addObject(df.create(suziSmoothModel, shaders[4], new TransformationComposite({new Translation(vec3(-7.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}), {l1},treeMat));
+	scenes[3]->addObject(df.create(suziSmoothModel, shaders[5], new TransformationComposite({new Translation(vec3(-4.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}), {l1},treeMat));
 	scenes[3]->addObject(df.create(suziSmoothModel, shaders[3],
-								   new TransformationComposite({new Translation(vec3(-1.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}), {l1}));
-	scenes[3]->addObject(df.create(suziSmoothModel, shaders[2], new TransformationComposite({new Translation(vec3(2.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}), {l1}));
+								   new TransformationComposite({new Translation(vec3(-1.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}), {l1},treeMat));
+	scenes[3]->addObject(df.create(suziSmoothModel, shaders[2], new TransformationComposite({new Translation(vec3(2.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}), {l1},treeMat));
 }
 
 void Application::run()

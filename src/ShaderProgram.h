@@ -15,6 +15,7 @@
 #include "Observer.h"
 #include "ShaderLoader.h"
 #include "Light.h"
+#include "Material.h"
 
 class Camera;
 
@@ -37,6 +38,7 @@ public:
     void SetUniform(char * name,glm::mat4 matrix);
     void SetUniform(char * name,glm::vec3 matrix);
     void SetLights(std::vector<Light*> lights);
+    void SetMaterial(Material* material);
     
 };
 
