@@ -7,7 +7,7 @@ void ShaderProgram::update()
     this->SetUniform("projection", this->camera->getProjection());
     this->SetUniform("view", this->camera->getView());
     this->SetUniform("eye", this->camera->getEye());
-    //this->Deactivate();
+    // this->Deactivate();
     glUseProgram(0);
 }
 
@@ -32,7 +32,7 @@ void ShaderProgram::SetUniform(char *name, glm::mat4 matrix)
     int uniformLocation = glGetUniformLocation(this->ID, name);
     if (uniformLocation == -1)
     {
-        //std::cout << "This uniform \"" << name << "\" does not exist." << std::endl;
+        // std::cout << "This uniform \"" << name << "\" does not exist." << std::endl;
     }
     else
     {
@@ -45,7 +45,7 @@ void ShaderProgram::SetUniform(char *name, glm::vec3 matrix)
     int uniformLocation = glGetUniformLocation(this->ID, name);
     if (uniformLocation == -1)
     {
-        //std::cout << "This uniform \"" << name << "\" does not exist." << std::endl;
+        // std::cout << "This uniform \"" << name << "\" does not exist." << std::endl;
     }
     else
     {
@@ -53,39 +53,63 @@ void ShaderProgram::SetUniform(char *name, glm::vec3 matrix)
     }
 }
 
-void ShaderProgram::SetLights(std::vector<Light*> lights)
+void ShaderProgram::SetLights(std::vector<Light *> lights)
 {
     int size = lights.size();
-    int lightSizeLocation = glGetUniformLocation(this->ID,"lightCount");
-    glUniform1i(lightSizeLocation,size);
-    for (int i = 0; i<size;i++)
+    int lightSizeLocation = glGetUniformLocation(this->ID, "lightCount");
+    glUniform1i(lightSizeLocation, size);
+    for (int i = 0; i < size; i++)
     {
-        std::string loc;
-        std::stringstream ss;
-        ss << "lights[" << i << "].position";
-        loc = ss.str();
-        int lightPosLocation = glGetUniformLocation(this->ID,loc.c_str());
-        glUniform3fv(lightPosLocation,1,glm::value_ptr(lights[i]->getPosition()));
-        ss = std::stringstream();
-        ss << "lights[" << i <<  "].attenuation";
-        loc = ss.str();
-        int lightAttLocation = glGetUniformLocation(this->ID,loc.c_str());
-        glUniform3fv(lightAttLocation,1,glm::value_ptr(lights[i]->getAttenuation()));
+        if (lights[i]->getType() == 1)
+        {
+            PointLight* pl = static_cast<PointLight*>(lights[i]);
+            std::string loc;
+            std::stringstream ss;
+            ss << "lights[" << i << "].position";
+            loc = ss.str();
+            int lightPosLocation = glGetUniformLocation(this->ID, loc.c_str());
+            glUniform3fv(lightPosLocation, 1, glm::value_ptr(pl->getPosition()));
+            ss = std::stringstream();
+            ss << "lights[" << i << "].attenuation";
+            loc = ss.str();
+            int lightAttLocation = glGetUniformLocation(this->ID, loc.c_str());
+            glUniform3fv(lightAttLocation, 1, glm::value_ptr(pl->getAttenuation()));
+            ss = std::stringstream();
+            ss << "lights[" << i << "].type";
+            loc = ss.str();
+            int lightTypeLoc = glGetUniformLocation(this->ID, loc.c_str());
+            glUniform1i(lightTypeLoc, pl->getType());
+        }
+        else if (lights[i]->getType() == 2)
+        {
+            DirectionLight* dl = static_cast<DirectionLight*>(lights[i]);
+            std::string loc;
+            std::stringstream ss;
+            ss << "lights[" << i << "].direction";
+            loc = ss.str();
+            int lightDirLoc = glGetUniformLocation(this->ID,loc.c_str());
+            glUniform3fv(lightDirLoc,1,glm::value_ptr(dl->getDirection()));
+            ss = std::stringstream();
+            ss << "lights[" << i << "].type";
+            loc = ss.str();
+            int lightTypeLoc = glGetUniformLocation(this->ID, loc.c_str());
+            glUniform1i(lightTypeLoc, dl->getType());
+        }
     }
 }
 
-void ShaderProgram::SetMaterial(Material* material)
+void ShaderProgram::SetMaterial(Material *material)
 {
-    
-    int raLoc = glGetUniformLocation(this->ID,"material.ra");
-    int rdLoc = glGetUniformLocation(this->ID,"material.rd");
-    int rsLoc = glGetUniformLocation(this->ID,"material.rs");
 
-    glUniform3fv(raLoc,1,glm::value_ptr(material->getRa()));
-    
-    glUniform3fv(rdLoc,1,glm::value_ptr(material->getRd()));
-    
-    glUniform3fv(rsLoc,1,glm::value_ptr(material->getRs()));
+    int raLoc = glGetUniformLocation(this->ID, "material.ra");
+    int rdLoc = glGetUniformLocation(this->ID, "material.rd");
+    int rsLoc = glGetUniformLocation(this->ID, "material.rs");
+
+    glUniform3fv(raLoc, 1, glm::value_ptr(material->getRa()));
+
+    glUniform3fv(rdLoc, 1, glm::value_ptr(material->getRd()));
+
+    glUniform3fv(rsLoc, 1, glm::value_ptr(material->getRs()));
 }
 
 void ShaderProgram::registerSubject(Subject *subject)

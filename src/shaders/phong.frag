@@ -13,7 +13,9 @@ uniform vec3 lightPosition;
 uniform int lightCount;
 
 struct Light {
+    int type;
     vec3 position;
+    vec3 direction;
     vec3 attenuation;
 };
 
@@ -41,27 +43,49 @@ void main (void)
 
     for (int i = 0; i<lightCount;i++)
     {
-        float constant = lights[i].attenuation.x;
-        float linear = lights[i].attenuation.y;
-        float quadratic = lights[i].attenuation.z;
-
-        vec3 lightDir = lights[i].position - vec3(ex_worldPosition);
-        float distance = length(lightDir);
-
-        vec3 reflectDir = reflect ( -lightDir , norm );
-
-        float attenuation = 1.0 / (constant + linear * distance + quadratic * (distance * distance));
-
-        float spec = pow(max(dot(viewDir, normalize(reflectDir)), 0.0), 32);
-        if (dot(norm,lightDir) < 0)
+        if (lights[i].type==1)
         {
-            spec = 0.0;
-        }
+            float constant = lights[i].attenuation.x;
+            float linear = lights[i].attenuation.y;
+            float quadratic = lights[i].attenuation.z;
 
-        float diffuse = max(dot(norm,normalize(lightDir)),0.0);
-        vec4 diff = diffuse * vec4(1.0,1.0,1.0,1.0);
-        sumDiff += diff * objectColor * attenuation;
-        sumSpec += spec * attenuation * vec4 (material.rs,1.0);  
+            vec3 lightDir = lights[i].position - vec3(ex_worldPosition);
+            float distance = length(lightDir);
+
+            vec3 reflectDir = reflect ( -lightDir , norm );
+
+            float attenuation = 1.0 / (constant + linear * distance + quadratic * (distance * distance));
+
+            float spec = pow(max(dot(viewDir, normalize(reflectDir)), 0.0), 32);
+            if (dot(norm,lightDir) < 0)
+            {
+                spec = 0.0;
+            }
+
+            float diffuse = max(dot(norm,normalize(lightDir)),0.0);
+            vec4 diff = diffuse * vec4(1.0,1.0,1.0,1.0);
+            sumDiff += diff * objectColor * attenuation;
+            sumSpec += spec * attenuation * vec4 (material.rs,1.0); 
+        }
+        else if (lights[i].type==2)
+        {
+            vec3 lightDir = normalize(-lights[i].direction);
+
+            vec3 reflectDir = reflect ( -lightDir , norm );
+            
+
+            float diffuse = max(dot(norm,normalize(lightDir)),0.0);
+            vec4 diff = diffuse * vec4(1.0,1.0,1.0,1.0);
+
+            float spec = pow(max(dot(viewDir, normalize(reflectDir)), 0.0), 32);
+            if (dot(norm,lightDir) < 0)
+            {
+                spec = 0.0;
+            }
+
+            sumDiff += diff * objectColor  ;
+            sumSpec += spec *  vec4 (material.rs,1.0); 
+        }
     }
     
     //fragColor = ambient + (diff * objectColor * attenuation ) + (spec *  attenuation *vec4 (1.0 ,1.0 ,1.0 ,1.0));

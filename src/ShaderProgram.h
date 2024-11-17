@@ -14,8 +14,11 @@
 
 #include "Observer.h"
 #include "ShaderLoader.h"
-#include "Light.h"
 #include "Material.h"
+
+#include "Light.h"
+#include "PointLight.h"
+#include "DirectionLight.h"
 
 class Camera;
 

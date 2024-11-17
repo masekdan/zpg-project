@@ -27,7 +27,13 @@
 #include "Translation.h"
 #include "DynamicRotation.h"
 #include "TransformationComposite.h"
+
 #include "Light.h"
+#include "PointLight.h"
+#include "DirectionLight.h"
+
+
+
 #include "Material.h"
 #include "Controller.h"
 

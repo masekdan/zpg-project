@@ -76,17 +76,18 @@ void Application::createModels()
 
 	Material* treeMat = new Material(vec3(1.0,1.0,1.0),vec3(0.685 ,0.647 ,0.812),vec3(1.0,1.0,1.0));
 
-	Light *l1 = new Light(vec3(0.0f, 0.0f, 0.0f), vec3(1.0f,0.1f,0.01f));
+	Light *l1 = new PointLight(vec3(0.0f, 0.0f, 0.0f), vec3(1.0f,0.1f,0.01f));
 
 	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(0.0f, 2.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1},treeMat));
 	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(0.0f, -2.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1},treeMat));
 	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1},treeMat));
 	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1},treeMat));
 
-	Light *forest_light = new Light(vec3(-35.0f, 10.0f, -25.0f),vec3(1.0f,0.018f,0.0128f));
+	Light *forest_light = new PointLight(vec3(-35.0f, 10.0f, -25.0f),vec3(1.0f,0.018f,0.0128f));
 	std::vector<Light*> f_lights;
 	f_lights.push_back(forest_light);
-	f_lights.push_back(new Light(vec3(-15.0f, 10.0f, -45.0f),vec3(1.0f,0.018f,0.0128f)));
+	f_lights.push_back(new PointLight(vec3(-15.0f, 10.0f, -45.0f),vec3(1.0f,0.018f,0.0128f)));
+	//f_lights.push_back(new DirectionLight(vec3(1.0,1.0,1.0)));
 	f_lights.push_back(l1);
 	scenes[1]->addObject(df.create(plainModel, shaders[3],new TransformationComposite({new Translation(vec3(-22.5f,0,-22.5f)),new Scale(glm::vec3(25.0f))}), f_lights,treeMat));
 	scenes[1]->addObject(df.create(treeModel,shaders[4],new TransformationComposite({new Translation(vec3(-45,0,-25)),new DynamicRotation(vec3(0,1,0),1)}),f_lights,treeMat));
