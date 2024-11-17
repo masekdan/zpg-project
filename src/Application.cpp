@@ -74,7 +74,9 @@ void Application::createModels()
 
 	DrawableObjectFactory df;
 
-	Material* treeMat = new Material(vec3(1.0,1.0,1.0),vec3(0.685 ,0.647 ,0.812),vec3(1.0,1.0,1.0));
+	Material* treeMat = new Material(vec3(1.0,1.0,1.0),vec3(0.039 ,0.38 ,0.078),vec3(1.0,1.0,1.0));
+	Material* ground = new Material(vec3(1.0,1.0,1.0),vec3(0.231 ,0.141 ,0.075),vec3(0.1,0.1,0.1));
+	Material* bushMat = new Material(vec3(1.0,1.0,1.0),vec3(0.38 ,0.039 ,0.11),vec3(1.0,1.0,1.0));
 
 	Light *l1 = new PointLight(vec3(0.0f, 0.0f, 0.0f), vec3(1.0f,0.1f,0.01f));
 
@@ -87,9 +89,16 @@ void Application::createModels()
 	std::vector<Light*> f_lights;
 	f_lights.push_back(forest_light);
 	f_lights.push_back(new PointLight(vec3(-15.0f, 10.0f, -45.0f),vec3(1.0f,0.018f,0.0128f)));
-	//f_lights.push_back(new DirectionLight(vec3(1.0,1.0,1.0)));
+	//f_lights.push_back(new DirectionLight(vec3(0.0,-1.0,0.0)));
+
+	Flashlight* flash = new Flashlight(vec3(-20.5f,5.0f,-14.0f),vec3(-1,0,0),20,vec3(1.0f,0.1f,0.01f));
+	scenes[0]->getCamera()->registerObserver(flash);
+	flash->registerSubject(scenes[0]->getCamera());
+
+	f_lights.push_back(flash);
+
 	f_lights.push_back(l1);
-	scenes[1]->addObject(df.create(plainModel, shaders[3],new TransformationComposite({new Translation(vec3(-22.5f,0,-22.5f)),new Scale(glm::vec3(25.0f))}), f_lights,treeMat));
+	scenes[1]->addObject(df.create(plainModel, shaders[4],new TransformationComposite({new Translation(vec3(-22.5f,0,-22.5f)),new Scale(glm::vec3(25.0f))}), f_lights,ground));
 	scenes[1]->addObject(df.create(treeModel,shaders[4],new TransformationComposite({new Translation(vec3(-45,0,-25)),new DynamicRotation(vec3(0,1,0),1)}),f_lights,treeMat));
 	for (int i = 0; i < 10; i++)
 	{
@@ -113,10 +122,10 @@ void Application::createModels()
 			tc4->add(new Translation(vec3(0.0f, 0.0f, -1.0f)));
 			tc5->add(new Translation(vec3(1.0f, 0.0f, 0.0f)));
 			tc6->add(new Translation(vec3(-1.0f, 0.0f, 0.0f)));
-			scenes[1]->addObject(df.create(bushModel, shaders[3], tc3, f_lights,treeMat));
-			scenes[1]->addObject(df.create(bushModel, shaders[3], tc4, f_lights,treeMat));
-			scenes[1]->addObject(df.create(bushModel, shaders[3], tc5, f_lights,treeMat));
-			scenes[1]->addObject(df.create(bushModel, shaders[3], tc6, f_lights,treeMat));
+			scenes[1]->addObject(df.create(bushModel, shaders[4], tc3, f_lights,bushMat));
+			scenes[1]->addObject(df.create(bushModel, shaders[4], tc4, f_lights,bushMat));
+			scenes[1]->addObject(df.create(bushModel, shaders[4], tc5, f_lights,bushMat));
+			scenes[1]->addObject(df.create(bushModel, shaders[4], tc6, f_lights,bushMat));
 		}
 	}
 

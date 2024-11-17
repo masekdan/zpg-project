@@ -17,6 +17,7 @@ struct Light {
     vec3 position;
     vec3 direction;
     vec3 attenuation;
+    float alpha;
 };
 
 struct Material {
@@ -86,8 +87,32 @@ void main (void)
             sumDiff += diff * objectColor  ;
             sumSpec += spec *  vec4 (material.rs,1.0); 
         }
+        else if (lights[i].type==3)
+        {
+            vec3 lightDir = normalize(lights[i].position - vec3(ex_worldPosition));
+            float theta = dot(lightDir, normalize(-lights[i].direction)); // dot(l,f)
+
+            if (theta>lights[i].alpha)
+            {
+                float constant = lights[i].attenuation.x;
+                float linear = lights[i].attenuation.y;
+                float quadratic = lights[i].attenuation.z;
+
+                float distance = length(lights[i].position - vec3(ex_worldPosition));
+                float attenuation = 1.0 / (constant + linear * distance + quadratic * (distance * distance));
+
+                float diffuse = max(dot(norm, lightDir), 0.0);
+                vec4 diff = diffuse * vec4(1.0, 1.0, 1.0, 1.0);
+
+                vec3 reflectDir = reflect(-lightDir, norm);
+                float spec = pow(max(dot(viewDir, reflectDir), 0.0), 32);
+                if (dot(norm, lightDir) < 0.0) {
+                    spec = 0.0;
+                }
+                sumDiff += diff * objectColor * attenuation;
+                sumSpec += spec * attenuation * vec4 (material.rs,1.0);
+            }
+        }
     }
-    
-    //fragColor = ambient + (diff * objectColor * attenuation ) + (spec *  attenuation *vec4 (1.0 ,1.0 ,1.0 ,1.0));
     fragColor = ambient + sumDiff + sumSpec;
 }

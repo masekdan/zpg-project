@@ -31,6 +31,8 @@
 #include "Light.h"
 #include "PointLight.h"
 #include "DirectionLight.h"
+#include "SpotLight.h"
+#include "Flashlight.h"
 
 
 

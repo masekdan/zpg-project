@@ -14,7 +14,9 @@ uniform vec3 lightPosition;
 uniform int lightCount;
 
 struct Light {
+    int type;
     vec3 position;
+    vec3 direction;
     vec3 attenuation;
 };
 
@@ -38,6 +40,8 @@ void main(void){
 
     for (int i = 0;i<lightCount;i++)
     {
+        if (lights[i].type==1)
+        {
         float constant = lights[i].attenuation.x;
         float linear = lights[i].attenuation.y;
         float quadratic = lights[i].attenuation.z;
@@ -52,6 +56,16 @@ void main(void){
         vec4 diffuse = dot_product * vec4(material.rd,1.0);
 
         sumDiff += diffuse * attenuation;
+        }
+
+        else if (lights[i].type==2)
+        {
+            vec3 lightDir = normalize(-lights[i].direction);
+            float dot_product = max(dot(normalize(lightDir), normalize(ex_worldNormal)), 0.0);
+            vec4 diffuse = dot_product * vec4(material.rd,1.0);
+
+            sumDiff += diffuse;
+        }
     }
 
     out_Color = ambient + sumDiff;

@@ -58,6 +58,7 @@ public:
     glm::mat4 getProjection();
     glm::mat4 getView();
     glm::vec3 getEye();
+    glm::vec3 getDirection();
 
     ~Camera();
 };

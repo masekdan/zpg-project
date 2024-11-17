@@ -40,7 +40,7 @@ void Camera::matrix(float FOV, float nearPlane, float farPlane)
     {
         aratio = this->width/this->height;
     }
-
+    std::cout << this->eye.x << " " << this->eye.y << " " << this->eye.z << std::endl;
     this->projection = glm::perspective(glm::radians(FOV),aratio,nearPlane,farPlane);
 
     this->notifyObservers();
@@ -59,6 +59,11 @@ glm::mat4 Camera::getView()
 glm::vec3 Camera::getEye()
 {
     return this->eye;
+}
+
+glm::vec3 Camera::getDirection()
+{
+    return glm::normalize(this->center - this->eye);
 }
 
 void Camera::resizeWindow(GLFWwindow* window, int width, int height)
