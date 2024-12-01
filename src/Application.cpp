@@ -55,6 +55,7 @@ void Application::createShaders()
 	shaders.push_back(new ShaderProgram("../src/shaders/lambert.vert", "../src/shaders/lambert.frag"));
 	shaders.push_back(new ShaderProgram("../src/shaders/phong.vert", "../src/shaders/phong.frag"));
 	shaders.push_back(new ShaderProgram("../src/shaders/blinn.vert", "../src/shaders/blinn.frag"));
+	shaders.push_back(new ShaderProgram("../src/shaders/plain.vert", "../src/shaders/plain.frag"));
 }
 
 void Application::createModels()
@@ -64,13 +65,15 @@ void Application::createModels()
 	scenes.push_back(new Scene(this->shaders));
 	scenes.push_back(new Scene(this->shaders));
 	scenes.push_back(new Scene(this->shaders));
-	Model *treeModel = new Model(tree, sizeof(tree));
-	Model *bushModel = new Model(bushes, sizeof(bushes));
-	Model *giftModel = new Model(gift, sizeof(gift));
-	Model *suziModel = new Model(suziFlat, sizeof(suziFlat));
-	Model *suziSmoothModel = new Model(suziSmooth, sizeof(suziSmooth));
-	Model *ball = new Model(sphere, sizeof(sphere));
-	Model *plainModel = new Model(plain, sizeof(plain));
+	Model *treeModel = new Model(tree, sizeof(tree),false);
+	Model *bushModel = new Model(bushes, sizeof(bushes),false);
+	Model *giftModel = new Model(gift, sizeof(gift),false);
+	Model *suziModel = new Model(suziFlat, sizeof(suziFlat),false);
+	Model *suziSmoothModel = new Model(suziSmooth, sizeof(suziSmooth),false);
+	Model *ball = new Model(sphere, sizeof(sphere),false);
+	Model *plainModel = new Model(plain, sizeof(plain),true);
+
+	plainModel->setTexture("../src/textures/wooden_fence.png");
 
 	DrawableObjectFactory df;
 
@@ -98,7 +101,7 @@ void Application::createModels()
 	f_lights.push_back(flash);
 
 	f_lights.push_back(l1);
-	scenes[1]->addObject(df.create(plainModel, shaders[4],new TransformationComposite({new Translation(vec3(-22.5f,0,-22.5f)),new Scale(glm::vec3(25.0f))}), f_lights,ground));
+	scenes[1]->addObject(df.create(plainModel, shaders[6],new TransformationComposite({new Translation(vec3(-22.5f,0,-22.5f)),new Scale(glm::vec3(25.0f))}), f_lights,ground));
 	scenes[1]->addObject(df.create(treeModel,shaders[4],new TransformationComposite({new Translation(vec3(-45,0,-25)),new DynamicRotation(vec3(0,1,0),1)}),f_lights,treeMat));
 	for (int i = 0; i < 10; i++)
 	{

@@ -24,8 +24,12 @@ void DrawableObject::draw()
     this->shader->SetMaterial(this->material);
     this->shader->SetLights(this->lights);
 
-    
+    if (this->model->hasTextureMet())
+    {
+        shader->SetUniform("ourTexture", 0);
+    }
     this->model->drawModel();
+    
     glUseProgram(0);
     //this->shader->Deactivate();
 }

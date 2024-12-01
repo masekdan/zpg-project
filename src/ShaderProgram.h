@@ -41,6 +41,7 @@ public:
     void update() override;
     void SetUniform(char * name,glm::mat4 matrix);
     void SetUniform(char * name,glm::vec3 matrix);
+    void SetUniform(char* name, int var);
     void SetLights(std::vector<Light*> lights);
     void SetMaterial(Material* material);
     

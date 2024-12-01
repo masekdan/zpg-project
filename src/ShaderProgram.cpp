@@ -40,6 +40,19 @@ void ShaderProgram::SetUniform(char *name, glm::mat4 matrix)
     }
 }
 
+void ShaderProgram::SetUniform(char* name, int var)
+{
+    int uniformLocation = glGetUniformLocation(this->ID, name);
+    if (uniformLocation == -1)
+    {
+        // std::cout << "This uniform \"" << name << "\" does not exist." << std::endl;
+    }
+    else
+    {
+        glUniform1i(uniformLocation,var);
+    }
+}
+
 void ShaderProgram::SetUniform(char *name, glm::vec3 matrix)
 {
     int uniformLocation = glGetUniformLocation(this->ID, name);

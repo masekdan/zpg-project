@@ -13,7 +13,7 @@ class VAO
         
         VAO();
 
-        void LinkVBO(VBO* VBO);
+        void LinkVBO(VBO* VBO,bool hasTexture);
         void Bind();
         void Unbind();
         void Delete();

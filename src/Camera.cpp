@@ -40,7 +40,7 @@ void Camera::matrix(float FOV, float nearPlane, float farPlane)
     {
         aratio = this->width/this->height;
     }
-    std::cout << this->eye.x << " " << this->eye.y << " " << this->eye.z << std::endl;
+    //std::cout << this->eye.x << " " << this->eye.y << " " << this->eye.z << std::endl;
     this->projection = glm::perspective(glm::radians(FOV),aratio,nearPlane,farPlane);
 
     this->notifyObservers();

@@ -14,6 +14,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <vector>
+#include <SOIL/SOIL.h>
+
+#include <assimp/Importer.hpp>// C++ importerinterface
+#include <assimp/scene.h>// aiSceneoutputdata structure
+#include <assimp/postprocess.h>// Post processingflags
 
 #include "ShaderProgram.h"
 #include "VBO.h"
@@ -38,9 +43,6 @@
 
 #include "Material.h"
 #include "Controller.h"
-
-
-
 
 // model inclusion
 
