@@ -72,7 +72,6 @@ void Application::createModels()
 	};
 
 
-
 	scenes.push_back(new Scene(this->shaders));
 	scenes.push_back(new Scene(this->shaders));
 	scenes.push_back(new Scene(this->shaders));
@@ -113,7 +112,9 @@ void Application::createModels()
 	f_lights.push_back(flash);
 
 	f_lights.push_back(l1);
+
 	scenes[1]->setSkybox(faces,shaders[7]);
+
 	scenes[1]->addObject(df.create(plainModel, shaders[6],new TransformationComposite({new Translation(vec3(-22.5f,0,-22.5f)),new Scale(glm::vec3(25.0f))}), f_lights,ground));
 	scenes[1]->addObject(df.create(treeModel,shaders[4],new TransformationComposite({new Translation(vec3(-45,0,-25)),new DynamicRotation(vec3(0,1,0),1)}),f_lights,treeMat));
 	for (int i = 0; i < 10; i++)
