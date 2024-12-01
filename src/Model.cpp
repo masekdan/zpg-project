@@ -36,6 +36,7 @@ void Model::drawModel()
 {
 	if (hasTexture) {
         glActiveTexture(GL_TEXTURE0);
+		glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S , GL_REPEAT );
         glBindTexture(GL_TEXTURE_2D, this->img);
     }
 

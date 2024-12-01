@@ -7,6 +7,7 @@ Scene::Scene(std::vector<ShaderProgram*> &shaders)
     {
         camera->registerObserver(s);
     }
+    this->skybox = nullptr;
 }
 
 void Scene::addObject(DrawableObject* obj)
@@ -14,8 +15,19 @@ void Scene::addObject(DrawableObject* obj)
     this->objects.push_back(obj);
 }
 
+void Scene::setSkybox(std::vector<std::string> faces,ShaderProgram* shader)
+{
+    this->skybox = new Skybox(faces,shader);
+}
+
 void Scene::drawScene()
 {
+    if (skybox!=nullptr)
+    {
+        glDepthFunc(GL_EQUAL);
+        this->skybox->draw(this->camera->getProjection(),this->camera->getView());
+        glDepthFunc(GL_LESS);
+    }
     this->camera->matrix(90.0f,0.1f,100.0f);
     for (auto o : this->objects)
     {
