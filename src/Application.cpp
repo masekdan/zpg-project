@@ -63,12 +63,12 @@ void Application::createModels()
 {
 
 	std::vector<std::string> faces = {
-		"../src/textures/skybox/negx.png",
-		"../src/textures/skybox/negy.png",
-		"../src/textures/skybox/negz.png",
-		"../src/textures/skybox/posx.png",
-		"../src/textures/skybox/posy.png",
-		"../src/textures/skybox/posz.png"
+		"../src/textures/skybox/posx.jpg",
+		"../src/textures/skybox/negx.jpg",
+		"../src/textures/skybox/posy.jpg",
+		"../src/textures/skybox/negy.jpg",
+		"../src/textures/skybox/posz.jpg",
+		"../src/textures/skybox/negz.jpg"
 	};
 
 

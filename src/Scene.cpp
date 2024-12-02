@@ -24,9 +24,7 @@ void Scene::drawScene()
 {
     if (skybox!=nullptr)
     {
-        glDepthFunc(GL_EQUAL);
         this->skybox->draw(this->camera->getProjection(),this->camera->getView());
-        glDepthFunc(GL_LESS);
     }
     this->camera->matrix(90.0f,0.1f,100.0f);
     for (auto o : this->objects)
