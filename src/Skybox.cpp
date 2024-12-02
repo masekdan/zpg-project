@@ -24,8 +24,6 @@ Skybox::Skybox(std::vector<std::string> faces, ShaderProgram* shader)
     {
         std::cout << x << std::endl;
     }
-    //glBindTexture(GL_TEXTURE_CUBE_MAP,this->cubemapTexture);
-    //glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 
 }
 

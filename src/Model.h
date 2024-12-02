@@ -7,6 +7,10 @@
 
 #include <SOIL/SOIL.h>
 
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+
 class Model
 {
 private:

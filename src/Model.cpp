@@ -16,6 +16,15 @@ Model::Model(const GLfloat* verticies, GLsizeiptr size, bool hasTexture)
 
 }
 
+Model::Model(char* path)
+{
+	Assimp::Importer importer;
+
+	unsigned int importOptions = aiProcess_Triangulate;
+
+	const aiScene* scene = importer.ReadFile(path,importOptions);
+}
+
 bool Model::hasTextureMet()
 {
 	return this->hasTexture;
