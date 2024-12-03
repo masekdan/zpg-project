@@ -18,7 +18,6 @@ struct Vertex
     float Position[3];
     float Normal[3];
     float Texture[2];
-    float Tangent[3];
 };
 
 Model::Model(char* path)
@@ -26,15 +25,15 @@ Model::Model(char* path)
 	Assimp::Importer importer;
 
 	unsigned int importOptions = aiProcess_Triangulate //Converts polygons to triangles
-        | aiProcess_OptimizeMeshes             // Reduces the number of submeshes
-        | aiProcess_JoinIdenticalVertices       // Removes duplicate vertices
-        | aiProcess_CalcTangentSpace;
+        | aiProcess_OptimizeMeshes;           // Reduces the number of submeshes
+        //| aiProcess_JoinIdenticalVertices;      // Removes duplicate vertices
+        //| aiProcess_CalcTangentSpace;
 
 	const aiScene* scene = importer.ReadFile(path,importOptions);
 
 	if (scene)
 	{
-		for (int i = 0; i<scene->mNumMaterials;i++)
+		/*for (int i = 0; i<scene->mNumMaterials;i++)
 		{
 			const aiMaterial* mat = scene->mMaterials[i];
 			aiScene name;
@@ -43,7 +42,7 @@ Model::Model(char* path)
 			glm::vec4 diffuse = glm::vec4(0.8f, 0.8f, 0.8f, 1.0f);
 			if (AI_SUCCESS == aiGetMaterialColor(mat, AI_MATKEY_COLOR_DIFFUSE, &d))
                 diffuse = glm::vec4(d.r, d.g, d.b, d.a);
-		}
+		}*/
 
 		for (int i = 0;i <scene->mNumMeshes;i++)
 		{
@@ -79,6 +78,7 @@ Model::Model(char* path)
 			this->vertexArray->LinkVBO(this->vertexBuffer,true);
 			vertexArray->Unbind();
 			std::cout << "Model loaded" << std::endl;
+
 		}
 	}
 }

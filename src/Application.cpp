@@ -88,7 +88,7 @@ void Application::createModels()
 	Model *plainModel = new Model(plain, sizeof(plain),true);
 
 	plainModel->setTexture("../src/textures/grass.png");
-	cube->setTexture("../src/textures/grass.png");
+	cube->setTexture("../src/textures/wooden_fence.png");
 	house->setTexture("../src/textures/house.png");
 
 	DrawableObjectFactory df;
