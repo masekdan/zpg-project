@@ -84,12 +84,16 @@ void Application::createModels()
 	Model *ball = new Model(sphere, sizeof(sphere),false);
 	Model *cube = new Model("../src/ext_models/cube.obj");
 	Model *house = new Model("../src/ext_models/house.obj");
+	Model *login = new Model("../src/ext_models/login.obj");
+	Model *zombie = new Model("../src/ext_models/zombie.obj");
 
 	Model *plainModel = new Model(plain, sizeof(plain),true);
 
 	plainModel->setTexture("../src/textures/grass.png");
 	cube->setTexture("../src/textures/wooden_fence.png");
 	house->setTexture("../src/textures/house.png");
+	login->setTexture("../src/textures/wooden_fence.png");
+	zombie->setTexture("../src/textures/zombie.png");
 
 	DrawableObjectFactory df;
 
@@ -105,6 +109,7 @@ void Application::createModels()
 	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1},treeMat));
 	scenes[0]->addObject(df.create(cube,shaders[6],new Translation(vec3(1,1,1)),{l1},treeMat));
 	scenes[0]->addObject(df.create(house,shaders[6],new Translation(vec3(10,3,10)),{l1},treeMat));
+	scenes[0]->addObject(df.create(zombie,shaders[6],new Translation(vec3(8,-3,5)),{l1},treeMat));
 
 	Light *forest_light = new PointLight(vec3(-35.0f, 10.0f, -25.0f),vec3(1.0f,0.018f,0.0128f));
 	std::vector<Light*> f_lights;
@@ -153,7 +158,7 @@ void Application::createModels()
 		}
 	}
 
-	scenes[2]->addObject(df.create(suziModel, shaders[4], new TransformationComposite({new Translation(vec3(-10.0f, -1.2f, -5.6f)), new DynamicRotation(vec3(0.0, 1.0, 0.0), 1)}), {l1},treeMat));
+	scenes[2]->addObject(df.create(login, shaders[4], new TransformationComposite({new Translation(vec3(-10.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}), {l1},treeMat));
 
 	scenes[3]->addObject(df.create(giftModel, shaders[3], new TransformationComposite({new Translation(vec3(-10.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}), {l1},treeMat));
 	scenes[3]->addObject(df.create(suziSmoothModel, shaders[4], new TransformationComposite({new Translation(vec3(-7.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}), {l1},treeMat));
