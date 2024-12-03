@@ -11,10 +11,15 @@ Model::Model(const GLfloat* verticies, GLsizeiptr size, bool hasTexture)
 	vertexArray->LinkVBO(vertexBuffer,this->hasTexture);
 	vertexArray->Unbind();
 	vertexArray->Unbind();
-
-	
-
 }
+
+struct Vertex
+{
+    float Position[3];
+    float Normal[3];
+    float Texture[2];
+    float Tangent[3];
+};
 
 Model::Model(char* path)
 {
@@ -23,6 +28,56 @@ Model::Model(char* path)
 	unsigned int importOptions = aiProcess_Triangulate;
 
 	const aiScene* scene = importer.ReadFile(path,importOptions);
+
+	if (scene)
+	{
+		for (int i = 0; i<scene->mNumMaterials;i++)
+		{
+			const aiMaterial* mat = scene->mMaterials[i];
+			aiScene name;
+			mat->Get(AI_MATKEY_NAME,name);
+			aiColor4D d;
+			glm::vec4 diffuse = glm::vec4(0.8f, 0.8f, 0.8f, 1.0f);
+			if (AI_SUCCESS == aiGetMaterialColor(mat, AI_MATKEY_COLOR_DIFFUSE, &d))
+                diffuse = glm::vec4(d.r, d.g, d.b, d.a);
+		}
+
+		for (int i = 0;i <scene->mNumMeshes;i++)
+		{
+			aiMesh* mesh = scene->mMeshes[i];
+			Vertex* pVertices = new Vertex[mesh->mNumVertices];
+			std::memset(pVertices,0,sizeof(Vertex)* mesh->mNumVertices);
+			for (int j = 0; j<mesh->mNumVertices;j++)
+			{
+				if (mesh->HasPositions()) {
+                    pVertices[j].Position[0] = mesh->mVertices[i].x;
+                    pVertices[j].Position[1] = mesh->mVertices[i].y;
+                    pVertices[j].Position[2] = mesh->mVertices[i].z;
+                }
+
+                if (mesh->HasNormals()) {
+                    pVertices[j].Normal[0] = mesh->mNormals[i].x;
+                    pVertices[j].Normal[1] = mesh->mNormals[i].y;
+                    pVertices[j].Normal[2] = mesh->mNormals[i].z;
+                }
+
+                if (mesh->HasTextureCoords(0)) {
+                    pVertices[j].Texture[0] = mesh->mTextureCoords[0][i].x;
+                    pVertices[j].Texture[1] = mesh->mTextureCoords[0][i].y;
+                }
+			}
+
+
+			this->vertexArray = new VAO();
+			vertexArray->Bind();
+			this->size = sizeof(Vertex) * mesh->mNumVertices;
+			this->vertexBuffer = new VBO((GLfloat*)pVertices,this->size);
+
+			this->vertexArray->LinkVBO(this->vertexBuffer,true);
+			vertexArray->Unbind();
+			std::cout << "Model loaded" << std::endl;
+		}
+	}
 }
 
 bool Model::hasTextureMet()

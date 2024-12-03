@@ -82,9 +82,11 @@ void Application::createModels()
 	Model *suziModel = new Model(suziFlat, sizeof(suziFlat),false);
 	Model *suziSmoothModel = new Model(suziSmooth, sizeof(suziSmooth),false);
 	Model *ball = new Model(sphere, sizeof(sphere),false);
+	Model *cube = new Model("../src/ext_models/cube.obj");
 
 	Model *plainModel = new Model(plain, sizeof(plain),true);
 	plainModel->setTexture("../src/textures/grass.png");
+	cube->setTexture("../src/textures/grass.png");
 
 	DrawableObjectFactory df;
 
@@ -98,6 +100,7 @@ void Application::createModels()
 	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(0.0f, -2.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1},treeMat));
 	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1},treeMat));
 	scenes[0]->addObject(df.create(ball, shaders[4], new TransformationComposite({new Translation(vec3(-2.0f, 0.0f, 0.0f)), new Scale(vec3(0.7f))}), {l1},treeMat));
+	scenes[0]->addObject(df.create(cube,shaders[6],new Translation(vec3(1,1,1)),{l1},treeMat));
 
 	Light *forest_light = new PointLight(vec3(-35.0f, 10.0f, -25.0f),vec3(1.0f,0.018f,0.0128f));
 	std::vector<Light*> f_lights;
