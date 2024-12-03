@@ -19,6 +19,8 @@ private:
     GLsizeiptr size;
     bool hasTexture;
     GLuint img;
+    bool indices;
+    GLuint indicesCount;
 public:
     Model(const GLfloat* verticies, GLsizeiptr size, bool hasTexture);
     Model(char* path);

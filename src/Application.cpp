@@ -87,6 +87,8 @@ void Application::createModels()
 	Model *login = new Model("../src/ext_models/login.obj");
 	Model *zombie = new Model("../src/ext_models/zombie.obj");
 
+	Model *mountain = new Model("../src/ext_models/mount.blend1.obj");
+
 	Model *plainModel = new Model(plain, sizeof(plain),true);
 
 	plainModel->setTexture("../src/textures/grass.png");
@@ -94,6 +96,7 @@ void Application::createModels()
 	house->setTexture("../src/textures/house.png");
 	login->setTexture("../src/textures/wooden_fence.png");
 	zombie->setTexture("../src/textures/zombie.png");
+	mountain->setTexture("../src/textures/mount.jpg");
 
 	DrawableObjectFactory df;
 
@@ -157,6 +160,7 @@ void Application::createModels()
 			scenes[1]->addObject(df.create(bushModel, shaders[4], tc6, f_lights,bushMat));
 		}
 	}
+	scenes[1]->addObject(df.create(mountain, shaders[6], new Translation(vec3(20,0,1)), f_lights,bushMat));
 
 	scenes[2]->addObject(df.create(login, shaders[4], new TransformationComposite({new Translation(vec3(-10.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}), {l1},treeMat));
 
