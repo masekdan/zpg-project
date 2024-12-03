@@ -25,7 +25,10 @@ Model::Model(char* path)
 {
 	Assimp::Importer importer;
 
-	unsigned int importOptions = aiProcess_Triangulate;
+	unsigned int importOptions = aiProcess_Triangulate //Converts polygons to triangles
+        | aiProcess_OptimizeMeshes             // Reduces the number of submeshes
+        | aiProcess_JoinIdenticalVertices       // Removes duplicate vertices
+        | aiProcess_CalcTangentSpace;
 
 	const aiScene* scene = importer.ReadFile(path,importOptions);
 
@@ -50,20 +53,20 @@ Model::Model(char* path)
 			for (int j = 0; j<mesh->mNumVertices;j++)
 			{
 				if (mesh->HasPositions()) {
-                    pVertices[j].Position[0] = mesh->mVertices[i].x;
-                    pVertices[j].Position[1] = mesh->mVertices[i].y;
-                    pVertices[j].Position[2] = mesh->mVertices[i].z;
+                    pVertices[j].Position[0] = mesh->mVertices[j].x;
+                    pVertices[j].Position[1] = mesh->mVertices[j].y;
+                    pVertices[j].Position[2] = mesh->mVertices[j].z;
                 }
 
                 if (mesh->HasNormals()) {
-                    pVertices[j].Normal[0] = mesh->mNormals[i].x;
-                    pVertices[j].Normal[1] = mesh->mNormals[i].y;
-                    pVertices[j].Normal[2] = mesh->mNormals[i].z;
+                    pVertices[j].Normal[0] = mesh->mNormals[j].x;
+                    pVertices[j].Normal[1] = mesh->mNormals[j].y;
+                    pVertices[j].Normal[2] = mesh->mNormals[j].z;
                 }
 
                 if (mesh->HasTextureCoords(0)) {
-                    pVertices[j].Texture[0] = mesh->mTextureCoords[0][i].x;
-                    pVertices[j].Texture[1] = mesh->mTextureCoords[0][i].y;
+                    pVertices[j].Texture[0] = mesh->mTextureCoords[0][j].x;
+                    pVertices[j].Texture[1] = mesh->mTextureCoords[0][j].y;
                 }
 			}
 
