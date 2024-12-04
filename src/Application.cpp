@@ -86,6 +86,7 @@ void Application::createModels()
 	Model *house = new Model("../src/ext_models/house.obj");
 	Model *login = new Model("../src/ext_models/login.obj");
 	Model *zombie = new Model("../src/ext_models/zombie.obj");
+	//Model *mars = new Model("../src/ext_models/sphere.obj");
 
 	Model *mountain = new Model("../src/ext_models/mount.blend1.obj");
 
@@ -97,6 +98,7 @@ void Application::createModels()
 	login->setTexture("../src/textures/wooden_fence.png");
 	zombie->setTexture("../src/textures/zombie.png");
 	mountain->setTexture("../src/textures/mount.jpg");
+	//mars->setTexture("../src/textures/grass.png");
 
 	DrawableObjectFactory df;
 
@@ -113,6 +115,7 @@ void Application::createModels()
 	scenes[0]->addObject(df.create(cube,shaders[6],new Translation(vec3(1,1,1)),{l1},treeMat));
 	scenes[0]->addObject(df.create(house,shaders[6],new Translation(vec3(10,3,10)),{l1},treeMat));
 	scenes[0]->addObject(df.create(zombie,shaders[6],new Translation(vec3(8,-3,5)),{l1},treeMat));
+	//scenes[0]->addObject(df.create(mars,shaders[6],new Translation(vec3(-8,-3,5)),{l1},treeMat));
 
 	Light *forest_light = new PointLight(vec3(-35.0f, 10.0f, -25.0f),vec3(1.0f,0.018f,0.0128f));
 	std::vector<Light*> f_lights;
