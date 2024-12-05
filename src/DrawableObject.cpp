@@ -27,6 +27,7 @@ void DrawableObject::draw()
     {
         shader->SetUniform("ourTexture", 0);
     }
+    this->shader->SetUniform("hasTexture",this->model->hasTextureMet());
     this->model->drawModel();
     
     glUseProgram(0);

@@ -63,12 +63,12 @@ void Application::createModels()
 {
 
 	std::vector<std::string> faces = {
-		"../src/textures/mcpano/posx.png",
-		"../src/textures/mcpano/negx.png",
-		"../src/textures/mcpano/posy.png",
-		"../src/textures/mcpano/negy.png",
-		"../src/textures/mcpano/posz.png",
-		"../src/textures/mcpano/negz.png"
+		"../src/textures/skybox/posx.jpg",
+		"../src/textures/skybox/negx.jpg",
+		"../src/textures/skybox/posy.jpg",
+		"../src/textures/skybox/negy.jpg",
+		"../src/textures/skybox/posz.jpg",
+		"../src/textures/skybox/negz.jpg"
 	};
 
 	Light *l1 = new PointLight(vec3(0.0f, 0.0f, 0.0f), vec3(1.0f,0.1f,0.01f));
@@ -137,7 +137,7 @@ void Application::createModels()
 
 	scenes[1]->setSkybox(faces,shaders[7]);
 
-	scenes[1]->addObject(df.create(plainModel, shaders[6],new TransformationComposite({new Translation(vec3(-22.5f,0,-22.5f)),new Scale(glm::vec3(25.0f))}), ground));
+	scenes[1]->addObject(df.create(plainModel, shaders[4],new TransformationComposite({new Translation(vec3(-22.5f,0,-22.5f)),new Scale(glm::vec3(25.0f))}), ground));
 	scenes[1]->addObject(df.create(treeModel,shaders[4],new TransformationComposite({new Translation(vec3(-45,0,-25)),new DynamicRotation(vec3(0,1,0),1)}),treeMat));
 	for (int i = 0; i < 10; i++)
 	{
@@ -169,7 +169,13 @@ void Application::createModels()
 	}
 	scenes[1]->addObject(df.create(mountain, shaders[6], new Translation(vec3(20,0,1)),bushMat));
 
-	scenes[2]->addObject(df.create(login, shaders[4], new TransformationComposite({new Translation(vec3(-10.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}),treeMat));
+	glm::mat4x3 B = glm::mat4x3(glm::vec3(-10, 0, 0),
+        glm::vec3(0, 10, 0),
+        glm::vec3(0, -10, 0),
+        glm::vec3(10, 0, 0));
+
+
+	scenes[2]->addObject(df.create(login, shaders[4], new TransformationComposite({new CurveTranslation(B,0.5f,0.01f)}),treeMat));
 
 	scenes[3]->addObject(df.create(giftModel, shaders[3], new TransformationComposite({new Translation(vec3(-10.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}), treeMat));
 	scenes[3]->addObject(df.create(suziSmoothModel, shaders[4], new TransformationComposite({new Translation(vec3(-7.0f, -1.2f, -5.6f)), new Rotation(vec3(0.0, 1.0, 0.0))}),treeMat));

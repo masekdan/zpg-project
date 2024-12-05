@@ -6,11 +6,15 @@
 in vec4 ex_worldPosition;
 in vec3 ex_worldNormal;
 out vec4 fragColor;
+in vec2 TexCoord;
 
+
+uniform sampler2D ourTexture;
 uniform vec3 eye = vec3(0.0,0.0,3.0);
 uniform vec3 lightPosition;
 
 uniform int lightCount;
+uniform int hasTexture;
 
 struct Light {
     int type;
@@ -114,5 +118,13 @@ void main (void)
             }
         }
     }
-    fragColor = ambient + sumDiff + sumSpec;
+    if (hasTexture==1)
+    {
+        fragColor = texture(ourTexture, TexCoord) * (ambient + sumDiff + sumSpec);
+    }
+    else
+    {
+        fragColor = ambient + sumDiff + sumSpec;
+    }
+    
 }

@@ -31,6 +31,7 @@
 #include "Scale.h"
 #include "Translation.h"
 #include "DynamicRotation.h"
+#include "CurveTranslation.h"
 #include "TransformationComposite.h"
 
 #include "Light.h"
