@@ -1,12 +1,11 @@
 #include "DrawableObject.h"
 
 
-DrawableObject::DrawableObject(Model* model, ShaderProgram* shader, TransformationComponent* transformation, std::vector<Light*> lights, Material* material)
+DrawableObject::DrawableObject(Model* model, ShaderProgram* shader, TransformationComponent* transformation, Material* material)
 {
     this->model = model;
     this->shader = shader;
     this->transformation = transformation;
-    this->lights = lights;
     this->material = material;
 }
 
@@ -34,15 +33,20 @@ void DrawableObject::draw()
     //this->shader->Deactivate();
 }
 
+void DrawableObject::setLights(std::vector<Light*> lights)
+{
+    this->lights = lights;
+}
+
 void DrawableObject::transform(TransformationComponent* transformation)
 {
     this->transformation = transformation;
 }
 
 
-DrawableObject* DrawableObjectFactory::create(Model* model, ShaderProgram* shader, TransformationComponent* transformation,std::vector<Light*> lights,Material* material)
+DrawableObject* DrawableObjectFactory::create(Model* model, ShaderProgram* shader, TransformationComponent* transformation,Material* material)
 {
-    return new DrawableObject(model,shader,transformation,lights,material);
+    return new DrawableObject(model,shader,transformation,material);
 }
 
 DrawableObject::~DrawableObject()

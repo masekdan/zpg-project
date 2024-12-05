@@ -25,8 +25,9 @@ private:
     std::vector<Light*> lights;
     Material* material;
 public:
-    DrawableObject(Model* model, ShaderProgram* shader, TransformationComponent* transformation, std::vector<Light*> lights, Material* material);
+    DrawableObject(Model* model, ShaderProgram* shader, TransformationComponent* transformation,Material* material);
     ~DrawableObject();
+    void setLights(std::vector<Light*> lights);
     void transform(TransformationComponent* transformation);
     void draw();
 };
@@ -34,7 +35,7 @@ public:
 class DrawableObjectFactory
 {
     public:
-        DrawableObject* create(Model* model, ShaderProgram* shader, TransformationComponent* transformation, std::vector<Light*> lights, Material* material);
+        DrawableObject* create(Model* model, ShaderProgram* shader, TransformationComponent* transformation, Material* material);
 };
 
 
