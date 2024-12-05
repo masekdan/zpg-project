@@ -3,7 +3,9 @@
 OpenGL project for ZPG subject
 
 Required libraries:
-    - GLFW
-    - glm
-    - GLEW
+* GLFW
+* glm
+* GLEW
+* SOIL
+* assimp
 
