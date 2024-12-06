@@ -38,7 +38,18 @@ uniform Light lights[MAX];
 void main (void)
 {
     vec4 ambient = vec4( 0.1, 0.1, 0.1, 1.0) * vec4(material.ra,1.0);
-    vec4 objectColor = vec4 (material.rd ,1.0);
+
+    vec4 objectColor;
+
+    if (hasTexture==0)
+    {
+        objectColor = vec4 (material.rd ,1.0);
+    }
+    else
+    {
+        objectColor = texture(ourTexture, TexCoord);
+    }
+    
 
     vec3 norm = normalize( ex_worldNormal );
     vec3 viewDir = normalize(eye - vec3(ex_worldPosition));

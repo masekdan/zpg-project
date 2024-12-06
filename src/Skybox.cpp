@@ -42,6 +42,7 @@ void Skybox::draw(glm::mat4 projection, glm::mat4 view)
     glDrawArrays(GL_TRIANGLES,0,108);
     glBindVertexArray(0);
     glDepthMask(GL_TRUE);
-    this->shader->Deactivate();
+    glUseProgram(0);
+    //his->shader->Deactivate();
 
 }

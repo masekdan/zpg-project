@@ -40,7 +40,7 @@ void Camera::matrix(float FOV, float nearPlane, float farPlane)
     {
         aratio = this->width/this->height;
     }
-    //std::cout << this->eye.x << " " << this->eye.y << " " << this->eye.z << std::endl;
+    std::cout << this->eye.x << " " << this->eye.y << " " << this->eye.z << std::endl;
     this->projection = glm::perspective(glm::radians(FOV),aratio,nearPlane,farPlane);
 
     this->notifyObservers();
@@ -79,7 +79,7 @@ void Camera::inputs(GLFWwindow* window)
     glm::vec3 right = glm::normalize(glm::cross(forward,up));
     glm::vec3 vertical = glm::normalize(up);
 
-    float speed = 0.1f;
+    float speed = 0.3f;
     float sens = 0.1f;
 
     if (glfwGetKey(window,GLFW_KEY_W)==GLFW_PRESS)
@@ -154,7 +154,7 @@ void Camera::inputs(GLFWwindow* window)
         glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         firstClick = true;
     }
-
+   
     glfwSetFramebufferSizeCallback(window, [](GLFWwindow *window, int width, int height) {
     Camera::instance->resizeWindow(window,width,height);
 });
