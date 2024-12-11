@@ -28,7 +28,7 @@ void Scene::drawScene()
     {
         this->skybox->draw(this->camera->getProjection(),this->camera->getView());
     }
-    this->camera->matrix(90.0f,0.1f,200.0f);
+    this->camera->matrix(170.0f,0.1f,200.0f);
     for (auto o : this->objects)
     {
         o->draw();

@@ -113,6 +113,7 @@ void Application::createModels()
 	Model *extTree = new Model("../src/ext_models/tree.obj");
 	Model *wall = new Model("../src/ext_models/zed.obj");
 	Model *teren = new Model("../src/ext_models/teren.obj");
+	Model *mnt = new Model("../src/ext_models/mount.blend1.obj");
 
 	
 	// texture setting
@@ -124,6 +125,7 @@ void Application::createModels()
 	wall->setTexture("../src/textures/wall.png");
 	extTree->setTexture("../src/textures/tree.png");
 	teren->setTexture("../src/textures/grass.jpg");
+	mnt->setTexture("../src/textures/grass.jpg");
 
 	DrawableObjectFactory df;
 
@@ -132,6 +134,7 @@ void Application::createModels()
 	Material* treeMat = new Material(vec3(1.0,1.0,1.0),vec3(0.039 ,0.38 ,0.078),vec3(1.0,1.0,1.0));
 	Material* ground = new Material(vec3(1.0,1.0,1.0),vec3(0.231 ,0.141 ,0.075),vec3(0.1,0.1,0.1));
 	Material* bushMat = new Material(vec3(1.0,1.0,1.0),vec3(0.38 ,0.039 ,0.11),vec3(1.0,1.0,1.0));
+	Material* zoombiMaterial = new Material(vec3(1.0,1.0,1.0),vec3(0.38 ,0.039 ,0.11),vec3(0.0,0.0,0.0));
 
 	
 	// balls scene
@@ -161,6 +164,7 @@ void Application::createModels()
 			scenes[1]->addObject(df.create(extTree, shaders[4], tc2,treeMat));
 		}
 	}
+	scenes[1]->addObject(df.create(mnt,shaders[6],new TransformationComposite({new Translation(vec3(-60,0,-20)),new Scale(vec3(3.0f))}),zoombiMaterial));
 
 	// zombie bezier curve movement points
 	glm::mat4x3 zoombi = glm::mat4x3(glm::vec3(-40, 0, -35),
@@ -178,11 +182,11 @@ void Application::createModels()
 	scenes[2]->addObject(df.create(teren,shaders[4],new Scale(vec3(1.0f)),ground));
 
 	// zombies
-	scenes[2]->addObject(df.create(zombie,shaders[4],new TransformationComposite({new Translation(vec3(10,0,-10))}),treeMat));
-	scenes[2]->addObject(df.create(zombie,shaders[4],new TransformationComposite({new Translation(vec3(-15,0,-8))}),treeMat));
-	scenes[2]->addObject(df.create(zombie,shaders[4],new TransformationComposite({new Translation(vec3(-10,0,-9))}),treeMat));
-	scenes[2]->addObject(df.create(zombie,shaders[4],new TransformationComposite({new Translation(vec3(0,0.1f,-13))}),treeMat));
-	scenes[2]->addObject(df.create(zombie,shaders[4],new TransformationComposite({new Translation(vec3(5,0,-11))}),treeMat));
+	scenes[2]->addObject(df.create(zombie,shaders[4],new TransformationComposite({new Translation(vec3(10,0,-10))}),zoombiMaterial));
+	scenes[2]->addObject(df.create(zombie,shaders[4],new TransformationComposite({new Translation(vec3(-15,0,-8))}),zoombiMaterial));
+	scenes[2]->addObject(df.create(zombie,shaders[4],new TransformationComposite({new Translation(vec3(-10,0,-9))}),zoombiMaterial));
+	scenes[2]->addObject(df.create(zombie,shaders[4],new TransformationComposite({new Translation(vec3(0,0.1f,-13))}),zoombiMaterial));
+	scenes[2]->addObject(df.create(zombie,shaders[4],new TransformationComposite({new Translation(vec3(5,0,-11))}),zoombiMaterial));
 
 	//house
 	scenes[2]->addObject(df.create(house,shaders[5],new TransformationComposite({new Translation(vec3(5,0,18))}),treeMat));
